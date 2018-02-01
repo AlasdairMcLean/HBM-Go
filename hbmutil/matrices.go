@@ -1,4 +1,4 @@
-package matrixop
+package hbmutil
 
 //Matrix is a struct to streamline matrix operations
 type Matrix struct {
