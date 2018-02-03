@@ -7,23 +7,23 @@ type Matrix interface {
 
 //Matrixi is an 8bit unsigned integer struct to streamline matrix operations
 type Matrixi struct {
-	rows int
-	cols int
-	data [][]int
+	Rows int
+	Cols int
+	Data [][]int
 }
 
 //Matrixf is a 32bit floating point struct to streamline matrix operations
 type Matrixf struct {
-	rows int
-	cols int
-	data [][]float32
+	Rows int
+	Cols int
+	Data [][]float32
 }
 
 //Matrixff is a 64bit floating point struct to streamline matrix operations
 type Matrixff struct {
-	rows int
-	cols int
-	data [][]float64
+	Rows int
+	Cols int
+	Data [][]float64
 }
 
 //
@@ -164,9 +164,9 @@ func MatOnesff(rows, cols int) *Matrixff {
 
 //STimes performs simple scalar matrix multiplication for uint8 matrices
 func (m1 Matrixi) STimes(s int) Matrixi {
-	for i := 0; i < m1.rows; i++ {
-		for j := 0; j < m1.cols; j++ {
-			m1.data[i][j] *= s
+	for i := 0; i < m1.Rows; i++ {
+		for j := 0; j < m1.Cols; j++ {
+			m1.Data[i][j] *= s
 		}
 	}
 	return m1
@@ -174,9 +174,9 @@ func (m1 Matrixi) STimes(s int) Matrixi {
 
 //STimes performs simple scalar matrix multiplication for float32 matrices
 func (m1 Matrixf) STimes(s float32) Matrixf {
-	for i := 0; i < m1.rows; i++ {
-		for j := 0; j < m1.cols; j++ {
-			m1.data[i][j] *= s
+	for i := 0; i < m1.Rows; i++ {
+		for j := 0; j < m1.Cols; j++ {
+			m1.Data[i][j] *= s
 		}
 	}
 	return m1
@@ -184,9 +184,9 @@ func (m1 Matrixf) STimes(s float32) Matrixf {
 
 //STimes performs simple scalar matrix multiplication for float32 matrices
 func (m1 Matrixff) STimes(s float64) Matrixff {
-	for i := 0; i < m1.rows; i++ {
-		for j := 0; j < m1.cols; j++ {
-			m1.data[i][j] *= s
+	for i := 0; i < m1.Rows; i++ {
+		for j := 0; j < m1.Cols; j++ {
+			m1.Data[i][j] *= s
 		}
 	}
 	return m1
