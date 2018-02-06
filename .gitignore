@@ -1,5 +1,9 @@
 debug
-
+#If you need a test script for your Go code, 
+#name it tstmain.go and then vsc won't continually 
+#try to commit the file.
+########################
+tstmain.go
 
 # Compiled source #
 ###################
