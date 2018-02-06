@@ -1,8 +1,13 @@
 package hbmutil
 
+import (
+	"fmt"
+)
+
 //Matrix is an overarching interface for the specific matrices to be derived from allowing overloading non-type specific methods like scalar multiplication
 type Matrix interface {
-	STimes()
+	Scale()
+	Dot()
 }
 
 //Matrixi is an 8bit unsigned integer struct to streamline matrix operations
@@ -162,8 +167,8 @@ func MatOnesff(rows, cols int) *Matrixff {
 // Scalar multiplication implementation
 //
 
-//STimes performs simple scalar matrix multiplication for uint8 matrices
-func (m1 Matrixi) STimes(s int) Matrixi {
+//Scale performs simple scalar matrix multiplication for uint8 matrices
+func (m1 Matrixi) Scale(s int) Matrixi {
 	for i := 0; i < m1.Rows; i++ {
 		for j := 0; j < m1.Cols; j++ {
 			m1.Data[i][j] *= s
@@ -172,8 +177,8 @@ func (m1 Matrixi) STimes(s int) Matrixi {
 	return m1
 }
 
-//STimes performs simple scalar matrix multiplication for float32 matrices
-func (m1 Matrixf) STimes(s float32) Matrixf {
+//Scale performs simple scalar matrix multiplication for float32 matrices
+func (m1 Matrixf) Scale(s float32) Matrixf {
 	for i := 0; i < m1.Rows; i++ {
 		for j := 0; j < m1.Cols; j++ {
 			m1.Data[i][j] *= s
@@ -182,12 +187,60 @@ func (m1 Matrixf) STimes(s float32) Matrixf {
 	return m1
 }
 
-//STimes performs simple scalar matrix multiplication for float32 matrices
-func (m1 Matrixff) STimes(s float64) Matrixff {
+//Scale performs simple scalar matrix multiplication for float64 matrices
+func (m1 Matrixff) Scale(s float64) Matrixff {
 	for i := 0; i < m1.Rows; i++ {
 		for j := 0; j < m1.Cols; j++ {
 			m1.Data[i][j] *= s
 		}
 	}
 	return m1
+}
+
+//Dot performs simple dot product multiplication for two uint8 matrices
+func (m1 Matrixi) Dot(m2 Matrixi) int {
+	var sum int
+	if m1.Rows == m2.Rows && m1.Cols == m2.Cols {
+		for i := 0; i < m1.Rows; i++ {
+			for j := 0; j < m1.Cols; j++ {
+				sum += (m1.Data[i][j] * m2.Data[i][j])
+			}
+		}
+	} else {
+		pmsg := fmt.Sprintf("Matrices must be equal: Given matrix dimensions were: %v x %v, %v x %v.", m1.Rows, m1.Cols, m2.Rows, m2.Cols)
+		panic(pmsg)
+	}
+	return sum
+}
+
+//Dot performs simple dot product multiplication for two float32 matrices
+func (m1 Matrixf) Dot(m2 Matrixf) float32 {
+	var sum float32
+	if m1.Rows == m2.Rows && m1.Cols == m2.Cols {
+		for i := 0; i < m1.Rows; i++ {
+			for j := 0; j < m1.Cols; j++ {
+				sum += (m1.Data[i][j] * m2.Data[i][j])
+			}
+		}
+	} else {
+		pmsg := fmt.Sprintf("Matrices must be equal: Given matrix dimensions were: %v x %v, %v x %v.", m1.Rows, m1.Cols, m2.Rows, m2.Cols)
+		panic(pmsg)
+	}
+	return sum
+}
+
+//Dot performs simple dot product multiplication for two float64 matrices
+func (m1 Matrixff) Dot(m2 Matrixff) float64 {
+	var sum float64
+	if m1.Rows == m2.Rows && m1.Cols == m2.Cols {
+		for i := 0; i < m1.Rows; i++ {
+			for j := 0; j < m1.Cols; j++ {
+				sum += (m1.Data[i][j] * m2.Data[i][j])
+			}
+		}
+	} else {
+		pmsg := fmt.Sprintf("Matrices must be equal: Given matrix dimensions were: %v x %v, %v x %v.", m1.Rows, m1.Cols, m2.Rows, m2.Cols)
+		panic(pmsg)
+	}
+	return sum
 }
