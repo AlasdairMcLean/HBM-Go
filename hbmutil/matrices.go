@@ -2,12 +2,16 @@ package hbmutil
 
 import (
 	"fmt"
+	"math/rand"
+	"strings"
 )
 
 //Matrix is an overarching interface for the specific matrices to be derived from allowing overloading non-type specific methods like scalar multiplication
 type Matrix interface {
 	Scale()
 	Dot()
+	Transpose()
+	Pretty()
 }
 
 //Matrixi is an 8bit unsigned integer struct to streamline matrix operations
@@ -243,4 +247,75 @@ func (m1 Matrixff) Dot(m2 Matrixff) float64 {
 		panic(pmsg)
 	}
 	return sum
+}
+
+//Transpose returns the transpose of the input matrix
+func (m1 Matrixi) Transpose() *Matrixi {
+	tpose := NewMatrixi(m1.Cols, m1.Rows)
+	for i := 0; i < m1.Rows; i++ {
+		for j := 0; j < m1.Cols; j++ {
+			tpose.Data[j][i] = m1.Data[i][j]
+		}
+	}
+	return tpose
+}
+
+//Transpose returns the transpose of the input matrix
+func (m1 Matrixf) Transpose() *Matrixf {
+	tpose := NewMatrixf(m1.Cols, m1.Rows)
+	for i := 0; i < m1.Rows; i++ {
+		for j := 0; j < m1.Cols; j++ {
+			tpose.Data[j][i] = m1.Data[i][j]
+		}
+	}
+	return tpose
+}
+
+//Transpose returns the transpose of the input matrix
+func (m1 Matrixff) Transpose() *Matrixff {
+	tpose := NewMatrixff(m1.Cols, m1.Rows)
+	for i := 0; i < m1.Rows; i++ {
+		for j := 0; j < m1.Cols; j++ {
+			tpose.Data[j][i] = m1.Data[i][j]
+		}
+	}
+	return tpose
+}
+
+//Pretty prints out the values of the matrix in a visually readable way
+func (m1 Matrixi) Pretty() {
+	fmt.Println(strings.Repeat("-", m1.Cols*2+1))
+	for j := 0; j < m1.Rows; j++ {
+		fmt.Println(m1.Data[j][:])
+	}
+	fmt.Println(strings.Repeat("-", m1.Cols*2+1))
+}
+
+//Pretty prints out the values of the matrix in a visually readable way
+func (m1 Matrixf) Pretty() {
+	fmt.Println(strings.Repeat("-", m1.Cols*2+1))
+	for j := 0; j < m1.Rows; j++ {
+		fmt.Println(m1.Data[j][:])
+	}
+	fmt.Println(strings.Repeat("-", m1.Cols*2+1))
+}
+
+//Pretty prints out the values of the matrix in a visually readable way
+func (m1 Matrixff) Pretty() {
+	fmt.Println(strings.Repeat("-", m1.Cols*2+1))
+	for j := 0; j < m1.Rows; j++ {
+		fmt.Println(m1.Data[j][:])
+	}
+	fmt.Println(strings.Repeat("-", m1.Cols*2+1))
+}
+
+//Randmat returns a matrix of pseudo-random values
+func Randmat(row, col, maxn int) *Matrixi {
+	out := NewMatrixi(row, col)
+	for i := 0; i < col; i++ {
+		for j := 0; j < row; j++ {
+			out.Data[j][i] = rand.Intn(maxn)
+		}
+	}
+	return out
 }

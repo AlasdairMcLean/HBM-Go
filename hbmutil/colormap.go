@@ -8,6 +8,6 @@ func Gscmap(vals int) *Matrixf {
 	for i := 0; i < vals; i++ {           //iterate through each value of the colormap
 		resultantcmap.Data[vals-i-1] = []float32{level * float32(i), level * float32(i), level * float32(i)} // since this colormap is greyscale, all values will be the same per row.
 	}
-	resultantcmap = resultantcmap.STimes(float32(255)) //Finally, scalar multiply each element by 255 so that the resulting array fits the standard 32B dynamic range [0,255]
-	return &resultantcmap                              //return the pointer to the new matrix
+	resultantcmap = resultantcmap.Scale(float32(255)) //Finally, scalar multiply each element by 255 so that the resulting array fits the standard 32B dynamic range [0,255]
+	return &resultantcmap                             //return the pointer to the new matrix
 }
