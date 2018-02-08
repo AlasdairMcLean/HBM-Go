@@ -1,0 +1,21 @@
+Don't forget all of the MATLAB code is documented in the github wiki: https://github.com/AlasdairMcLean/MATLABprototyping/wiki
+
+Also, all of the current Go code is documented in the go github wiki: https://github.com/AlasdairMcLean/HBM-Go/wiki
+
+You can see all the current issues/tasks on the issues page of github: https://github.com/AlasdairMcLean/HBM-Go/issues
+
+for anyone who is using vscode
+I recommend installing:
+
+Bookmarks - Allows you to bookmark lines so you don't lose your place
+Code Runner - lets you run Go code without needing to use terminal
+GitLens - Shows you who wrote what lines of code, some other cool things like seeing revision history, ect
+Go - Adds syntax highlighting, snippets, auto-imports (if you reference a package and save, it should automatically import it at the top of the file)
+markdownlint - Helps when you document your code in Markdown
+Matlab - Syntax highlighting and error messages for matlab 
+Project Manager - Helps you jump back and forth between go and matlab
+vscode-icons - makes the icons more different so you can see file types easier
+
+when you open vscode, there is a square icon on the left (it's the fifth one down)
+if you click that, it will open extensions
+you can manually search for those extensions above, and just click install and it will take care of all the installation for you
