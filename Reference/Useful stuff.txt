@@ -2,6 +2,16 @@ Don't forget all of the MATLAB code is documented in the github wiki: https://gi
 
 Also, all of the current Go code is documented in the go github wiki: https://github.com/AlasdairMcLean/HBM-Go/wiki
 
+Some things that have already been coded in go:
+
+- Matrices, including dot product, transpose, matrix creation, scalar multiplication, display/output, random matrices for testing, ones(), and zeros()
+
+- Summation functions
+
+- Greyscale colormap that returns rgb values
+
+To import the above, add "./hbmutil" to your imports. You can find all the documentation on the HBM-Go wiki listed above.
+
 You can see all the current issues/tasks on the issues page of github: https://github.com/AlasdairMcLean/HBM-Go/issues
 
 for anyone who is using vscode
