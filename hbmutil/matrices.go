@@ -73,55 +73,6 @@ func NewMatrixff(rows, cols int) *Matrixff {
 }
 
 //
-// Implementation of Matlab's zeros() function
-//
-
-//MatZerosi replicates matlab's zeros() function. Returns a new integer matrix full of 0's
-func MatZerosi(rows, cols int) *Matrixi {
-	ndata := make([][]int, rows)
-	for i := 0; i < rows; i++ {
-		ndata[i] = make([]int, cols)
-	}
-	for j := 0; j < rows; j++ {
-		for i := 0; i < cols; i++ {
-			ndata[j][i] = 0
-		}
-	}
-	newmat := Matrixi{rows, cols, ndata}
-	return &newmat
-}
-
-//MatZerosf replicates matlab's zeros() function. Returns a new 32bit floating point matrix full of 0's
-func MatZerosf(rows, cols int) *Matrixf {
-	ndata := make([][]float32, rows)
-	for i := 0; i < rows; i++ {
-		ndata[i] = make([]float32, cols)
-	}
-	for j := 0; j < rows; j++ {
-		for i := 0; i < cols; i++ {
-			ndata[j][i] = 0
-		}
-	}
-	newmat := Matrixf{rows, cols, ndata}
-	return &newmat
-}
-
-//MatZerosff replicates matlab's zeros() function. Returns a new 64bit floating point matrix full of 0's
-func MatZerosff(rows, cols int) *Matrixff {
-	ndata := make([][]float64, rows)
-	for i := 0; i < rows; i++ {
-		ndata[i] = make([]float64, cols)
-	}
-	for j := 0; j < rows; j++ {
-		for i := 0; i < cols; i++ {
-			ndata[j][i] = 0
-		}
-	}
-	newmat := Matrixff{rows, cols, ndata}
-	return &newmat
-}
-
-//
 // Implementation of Matlab's ones() function:
 //
 
