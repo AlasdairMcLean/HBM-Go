@@ -13,6 +13,8 @@ type Matrix interface {
 	Transpose()
 	Pretty()
 	Det()
+	Times()
+	Unpackr()
 }
 
 //Matrixi is an 8bit unsigned integer struct to streamline matrix operations
@@ -388,6 +390,57 @@ func (m1 Matrixff) Det() float64 {
 	return sum
 }
 
+//Times returns the matrix multiplication of the input matrices
+func (m1 Matrixi) Times(m2 Matrixi) *Matrixi {
+	if m1.Cols != m2.Rows {
+		pmsg := fmt.Sprintf("The number of columns in m1 must equal the number of rows in m2. Instead, matrices were %v x %v and %v x %v respectively.", m1.Rows, m1.Cols, m2.Rows, m2.Cols)
+		panic(pmsg)
+	}
+	out := NewMatrixi(m1.Rows, m2.Cols)
+	for k := 0; k < m2.Cols; k++ {
+		for j := 0; j < m1.Rows; j++ {
+			for i := 0; i < m1.Cols; i++ {
+				out.Data[j][k] += m1.Data[j][i] * m2.Data[i][k] //remember that m1.Cols==m2.Rows so i is also the row index for m2.Data
+			}
+		}
+	}
+	return out
+}
+
+//Times returns the matrix multiplication of the input matrices
+func (m1 Matrixf) Times(m2 Matrixf) *Matrixf {
+	if m1.Cols != m2.Rows {
+		pmsg := fmt.Sprintf("The number of columns in m1 must equal the number of rows in m2. Instead, matrices were %v x %v and %v x %v respectively.", m1.Rows, m1.Cols, m2.Rows, m2.Cols)
+		panic(pmsg)
+	}
+	out := NewMatrixf(m1.Rows, m2.Cols)
+	for k := 0; k < m2.Cols; k++ {
+		for j := 0; j < m1.Rows; j++ {
+			for i := 0; i < m1.Cols; i++ {
+				out.Data[j][k] += m1.Data[j][i] * m2.Data[i][k] //remember that m1.Cols==m2.Rows so i is also the row index for m2.Data
+			}
+		}
+	}
+	return out
+}
+
+//Times returns the matrix multiplication of the input matrices
+func (m1 Matrixff) Times(m2 Matrixff) *Matrixff {
+	if m1.Cols != m2.Rows {
+		pmsg := fmt.Sprintf("The number of columns in m1 must equal the number of rows in m2. Instead, matrices were %v x %v and %v x %v respectively.", m1.Rows, m1.Cols, m2.Rows, m2.Cols)
+		panic(pmsg)
+	}
+	out := NewMatrixff(m1.Rows, m2.Cols)
+	for k := 0; k < m2.Cols; k++ {
+		for j := 0; j < m1.Rows; j++ {
+			for i := 0; i < m1.Cols; i++ {
+				out.Data[j][k] += m1.Data[j][i] * m2.Data[i][k] //remember that m1.Cols==m2.Rows so i is also the row index for m2.Data
+			}
+		}
+	}
+	return out
+}
+
 //Transpose returns the transpose of the input matrix
 func (m1 Matrixi) Transpose() *Matrixi {
 	tpose := NewMatrixi(m1.Cols, m1.Rows)
@@ -446,6 +499,51 @@ func (m1 Matrixff) Pretty() {
 		fmt.Println(m1.Data[j][:])
 	}
 	fmt.Println(strings.Repeat("-", m1.Cols*2+1))
+}
+
+//Unpackr unpacks all values into a given row
+func (m1 *Matrixi) Unpackr(row int, vals ...int) {
+	if row > m1.Rows-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add vals to row %v (index %v)", m1.Rows, row+1, row)
+		panic(pmsg)
+	}
+	if m1.Rows < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add %v vals", m1.Cols, len(vals))
+		panic(pmsg)
+	}
+	for i, val := range vals {
+		m1.Data[row][i] = val
+	}
+}
+
+//Unpackr unpacks all values into a given row
+func (m1 *Matrixf) Unpackr(row int, vals ...float32) {
+	if row > m1.Rows-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add vals to row %v (index %v)", m1.Rows, row+1, row)
+		panic(pmsg)
+	}
+	if m1.Cols < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add %v vals", m1.Cols, len(vals))
+		panic(pmsg)
+	}
+	for i, val := range vals {
+		m1.Data[row][i] = val
+	}
+}
+
+//Unpackr unpacks all values into a given row
+func (m1 *Matrixff) Unpackr(row int, vals ...float64) {
+	if row > m1.Rows-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add vals to row %v (index %v)", m1.Rows, row+1, row)
+		panic(pmsg)
+	}
+	if m1.Cols < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add %v vals", m1.Cols, len(vals))
+		panic(pmsg)
+	}
+	for i, val := range vals {
+		m1.Data[row][i] = val
+	}
 }
 
 //Randmat returns a matrix of pseudo-random values
