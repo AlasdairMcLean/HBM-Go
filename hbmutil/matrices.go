@@ -12,6 +12,7 @@ type Matrix interface {
 	Dot()
 	Transpose()
 	Pretty()
+	Det()
 }
 
 //Matrixi is an 8bit unsigned integer struct to streamline matrix operations
@@ -245,6 +246,144 @@ func (m1 Matrixff) Dot(m2 Matrixff) float64 {
 	} else {
 		pmsg := fmt.Sprintf("Matrices must be equal: Given matrix dimensions were: %v x %v, %v x %v.", m1.Rows, m1.Cols, m2.Rows, m2.Cols)
 		panic(pmsg)
+	}
+	return sum
+}
+
+//Det takes the determinant of the integer matrix
+func (m1 Matrixi) Det() int {
+	var sum int
+	if m1.Rows != m1.Cols {
+		pmsg := fmt.Sprintf("Matrix must be an N x N; Given matrix dimensions were: %v x %v.", m1.Rows, m1.Cols)
+		panic(pmsg)
+	}
+	for j := 0; j < m1.Rows; j++ {
+		line := m1.Data[j][0]
+		//fmt.Printf("New Line: %v\n", line)
+		for i, r, c := 1, j, 0; i < m1.Cols; i, r, c = i+1, r+1, c+1 {
+			currow := r + 1
+			curcol := c + 1
+			if currow > m1.Rows-1 {
+				currow -= m1.Rows
+			}
+			if curcol > m1.Cols-1 {
+				curcol -= m1.Cols
+			}
+			//fmt.Printf("Row:%v, Col:%v, times:%v, line:%v\n", currow, curcol, m1.Data[currow][curcol], (line * m1.Data[currow][curcol]))
+			line *= m1.Data[currow][curcol]
+		}
+		//fmt.Printf("Line done: %v\n", line)
+		sum += line
+	}
+	for j := 0; j < m1.Rows; j++ {
+		line := m1.Data[j][m1.Cols-1]
+		//fmt.Printf("New Line: %v\n", line)
+		for i, r, c := 1, j, m1.Cols-1; i < m1.Cols; i, r, c = i+1, r+1, c-1 {
+			currow := r + 1
+			curcol := c - 1
+			if currow > m1.Rows-1 {
+				currow -= m1.Rows
+			}
+			if curcol > m1.Cols-1 {
+				curcol -= m1.Cols
+			}
+			//fmt.Printf("Row:%v, Col:%v, times:%v, line:%v\n", currow, curcol, m1.Data[currow][curcol], (line * m1.Data[currow][curcol]))
+			line *= m1.Data[currow][curcol]
+		}
+		//fmt.Printf("Line done: %v\n", line)
+		sum -= line
+	}
+	return sum
+}
+
+//Det takes the determinant of the integer matrix
+func (m1 Matrixf) Det() float32 {
+	var sum float32
+	if m1.Rows != m1.Cols {
+		pmsg := fmt.Sprintf("Matrix must be an N x N; Given matrix dimensions were: %v x %v.", m1.Rows, m1.Cols)
+		panic(pmsg)
+	}
+	for j := 0; j < m1.Rows; j++ {
+		line := m1.Data[j][0]
+		//fmt.Printf("New Line: %v\n", line)
+		for i, r, c := 1, j, 0; i < m1.Cols; i, r, c = i+1, r+1, c+1 {
+			currow := r + 1
+			curcol := c + 1
+			if currow > m1.Rows-1 {
+				currow -= m1.Rows
+			}
+			if curcol > m1.Cols-1 {
+				curcol -= m1.Cols
+			}
+			//fmt.Printf("Row:%v, Col:%v, times:%v, line:%v\n", currow, curcol, m1.Data[currow][curcol], (line * m1.Data[currow][curcol]))
+			line *= m1.Data[currow][curcol]
+		}
+		//fmt.Printf("Line done: %v\n", line)
+		sum += line
+	}
+	for j := 0; j < m1.Rows; j++ {
+		line := m1.Data[j][m1.Cols-1]
+		//fmt.Printf("New Line: %v\n", line)
+		for i, r, c := 1, j, m1.Cols-1; i < m1.Cols; i, r, c = i+1, r+1, c-1 {
+			currow := r + 1
+			curcol := c - 1
+			if currow > m1.Rows-1 {
+				currow -= m1.Rows
+			}
+			if curcol > m1.Cols-1 {
+				curcol -= m1.Cols
+			}
+			//fmt.Printf("Row:%v, Col:%v, times:%v, line:%v\n", currow, curcol, m1.Data[currow][curcol], (line * m1.Data[currow][curcol]))
+			line *= m1.Data[currow][curcol]
+		}
+		//fmt.Printf("Line done: %v\n", line)
+		sum -= line
+	}
+	return sum
+}
+
+//Det takes the determinant of the integer matrix
+func (m1 Matrixff) Det() float64 {
+	var sum float64
+	if m1.Rows != m1.Cols {
+		pmsg := fmt.Sprintf("Matrix must be an N x N; Given matrix dimensions were: %v x %v.", m1.Rows, m1.Cols)
+		panic(pmsg)
+	}
+	for j := 0; j < m1.Rows; j++ {
+		line := m1.Data[j][0]
+		//fmt.Printf("New Line: %v\n", line)
+		for i, r, c := 1, j, 0; i < m1.Cols; i, r, c = i+1, r+1, c+1 {
+			currow := r + 1
+			curcol := c + 1
+			if currow > m1.Rows-1 {
+				currow -= m1.Rows
+			}
+			if curcol > m1.Cols-1 {
+				curcol -= m1.Cols
+			}
+			//fmt.Printf("Row:%v, Col:%v, times:%v, line:%v\n", currow, curcol, m1.Data[currow][curcol], (line * m1.Data[currow][curcol]))
+			line *= m1.Data[currow][curcol]
+		}
+		//fmt.Printf("Line done: %v\n", line)
+		sum += line
+	}
+	for j := 0; j < m1.Rows; j++ {
+		line := m1.Data[j][m1.Cols-1]
+		//fmt.Printf("New Line: %v\n", line)
+		for i, r, c := 1, j, m1.Cols-1; i < m1.Cols; i, r, c = i+1, r+1, c-1 {
+			currow := r + 1
+			curcol := c - 1
+			if currow > m1.Rows-1 {
+				currow -= m1.Rows
+			}
+			if curcol > m1.Cols-1 {
+				curcol -= m1.Cols
+			}
+			//fmt.Printf("Row:%v, Col:%v, times:%v, line:%v\n", currow, curcol, m1.Data[currow][curcol], (line * m1.Data[currow][curcol]))
+			line *= m1.Data[currow][curcol]
+		}
+		//fmt.Printf("Line done: %v\n", line)
+		sum -= line
 	}
 	return sum
 }
