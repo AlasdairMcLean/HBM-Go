@@ -1,3 +1,4 @@
+//Package hbmutil adds various functions relating to matrix operations.
 package hbmutil
 
 import (
@@ -8,13 +9,7 @@ import (
 
 //Matrix is an overarching interface for the specific matrices to be derived from allowing overloading non-type specific methods like scalar multiplication
 type Matrix interface {
-	Scale()
-	Dot()
-	Transpose()
 	Pretty()
-	Det()
-	Times()
-	Unpackr()
 }
 
 //Matrixi is an 8bit unsigned integer struct to streamline matrix operations
@@ -506,4 +501,307 @@ func Randmat(row, col, maxn int) *Matrixi {
 		}
 	}
 	return out
+}
+
+//ToMati will panic if you try to convert an integer matrix into an integer matrix
+func (m1 *Matrixi) ToMati() {
+	panic("Matrix is already an integer matrix")
+}
+
+//ToMati will reassign the values of a float32 matrix into an integer matrix
+func (m1 *Matrixf) ToMati() *Matrixi {
+	out := NewMatrixi(m1.Rows, m1.Cols)
+	for i := 0; i < m1.Cols; i++ {
+		for j := 0; j < m1.Rows; j++ {
+			out.Data[j][i] = int(m1.Data[j][i])
+		}
+	}
+	return out
+}
+
+//ToMati will reassign the values of a float64 matrix into an integer matrix
+func (m1 *Matrixff) ToMati() *Matrixi {
+	out := NewMatrixi(m1.Rows, m1.Cols)
+	for i := 0; i < m1.Cols; i++ {
+		for j := 0; j < m1.Rows; j++ {
+			out.Data[j][i] = int(m1.Data[j][i])
+		}
+	}
+	return out
+}
+
+//ToMatf will reassign the values of an integer matrix into a float32 matrix
+func (m1 *Matrixi) ToMatf() *Matrixf {
+	out := NewMatrixf(m1.Rows, m1.Cols)
+	for i := 0; i < m1.Cols; i++ {
+		for j := 0; j < m1.Rows; j++ {
+			out.Data[j][i] = float32(m1.Data[j][i])
+		}
+	}
+	return out
+}
+
+//ToMatf will panic if you try to convert a float32 matrix into a float32 matrix
+func (m1 *Matrixf) ToMatf() {
+	panic("Matrix is already a float32 matrix")
+}
+
+//ToMatf will reassign the values of a float64 matrix into a float32 matrix
+func (m1 *Matrixff) ToMatf() *Matrixf {
+	out := NewMatrixf(m1.Rows, m1.Cols)
+	for i := 0; i < m1.Cols; i++ {
+		for j := 0; j < m1.Rows; j++ {
+			out.Data[j][i] = float32(m1.Data[j][i])
+		}
+	}
+	return out
+}
+
+//ToMatff will reassign the values of a float64 matrix into a float32 matrix
+func (m1 *Matrixi) ToMatff() *Matrixff {
+	out := NewMatrixff(m1.Rows, m1.Cols)
+	for i := 0; i < m1.Cols; i++ {
+		for j := 0; j < m1.Rows; j++ {
+			out.Data[j][i] = float64(m1.Data[j][i])
+		}
+	}
+	return out
+}
+
+//ToMatff will reassign the values of a float64 matrix into a float32 matrix
+func (m1 *Matrixf) ToMatff() *Matrixff {
+	out := NewMatrixff(m1.Rows, m1.Cols)
+	for i := 0; i < m1.Cols; i++ {
+		for j := 0; j < m1.Rows; j++ {
+			out.Data[j][i] = float64(m1.Data[j][i])
+		}
+	}
+	return out
+}
+
+//ToMatff will panic if you try to convert a float64 matrix into a float64 matrix
+func (m1 *Matrixff) ToMatff() {
+	panic("Matrix is already a float64 matrix")
+}
+
+//Maxr will find the maximum in each row of a matrix
+func (m1 *Matrixi) Maxr() []int {
+	maxes := make([]int, m1.Rows)
+	for j := 0; j < m1.Rows; j++ {
+		rowmax := m1.Data[j][0]
+		for i := 1; i < m1.Cols; i++ {
+			if m1.Data[j][i] > rowmax {
+				rowmax = m1.Data[j][i]
+			}
+		}
+		maxes[j] = rowmax
+	}
+	return maxes
+}
+
+//Maxr will find the maximum in each row of a matrix
+func (m1 *Matrixf) Maxr() []float32 {
+	maxes := make([]float32, m1.Rows)
+	for j := 0; j < m1.Rows; j++ {
+		rowmax := m1.Data[j][0]
+		for i := 1; i < m1.Cols; i++ {
+			if m1.Data[j][i] > rowmax {
+				rowmax = m1.Data[j][i]
+			}
+		}
+		maxes[j] = rowmax
+	}
+	return maxes
+}
+
+//Maxr will find the maximum in each row of a matrix
+func (m1 *Matrixff) Maxr() []float64 {
+	maxes := make([]float64, m1.Rows)
+	for j := 0; j < m1.Rows; j++ {
+		rowmax := m1.Data[j][0]
+		for i := 1; i < m1.Cols; i++ {
+			if m1.Data[j][i] > rowmax {
+				rowmax = m1.Data[j][i]
+			}
+		}
+		maxes[j] = rowmax
+	}
+	return maxes
+}
+
+//Maxc will find the maximum in each column of a matrix
+func (m1 *Matrixi) Maxc() []int {
+	maxes := make([]int, m1.Cols)
+	for i := 0; i < m1.Cols; i++ {
+		colmax := m1.Data[0][i]
+		for j := 1; j < m1.Rows; j++ {
+			if m1.Data[j][i] > colmax {
+				colmax = m1.Data[j][i]
+			}
+		}
+		maxes[i] = colmax
+	}
+	return maxes
+}
+
+//Maxc will find the maximum in each column of a matrix
+func (m1 *Matrixf) Maxc() []float32 {
+	maxes := make([]float32, m1.Cols)
+	for i := 0; i < m1.Cols; i++ {
+		colmax := m1.Data[0][i]
+		for j := 1; j < m1.Rows; j++ {
+			if m1.Data[j][i] > colmax {
+				colmax = m1.Data[j][i]
+			}
+		}
+		maxes[i] = colmax
+	}
+	return maxes
+}
+
+//Maxc will find the maximum in each column of a matrix
+func (m1 *Matrixff) Maxc() []float64 {
+	maxes := make([]float64, m1.Cols)
+	for i := 0; i < m1.Cols; i++ {
+		colmax := m1.Data[0][i]
+		for j := 1; j < m1.Rows; j++ {
+			if m1.Data[j][i] > colmax {
+				colmax = m1.Data[j][i]
+			}
+		}
+		maxes[i] = colmax
+	}
+	return maxes
+}
+
+//Maxa will find the total maximum of a matrix
+func (m1 *Matrixi) Maxa() int {
+	max := m1.Data[0][0]
+	for i := 0; i < m1.Cols; i++ {
+		for j := 0; j < m1.Rows; j++ {
+			if m1.Data[j][i] > max {
+				max = m1.Data[j][i]
+			}
+		}
+	}
+	return max
+}
+
+//Maxa will find the total maximum of a matrix
+func (m1 *Matrixf) Maxa() float32 {
+	max := m1.Data[0][0]
+	for i := 0; i < m1.Cols; i++ {
+		for j := 0; j < m1.Rows; j++ {
+			if m1.Data[j][i] > max {
+				max = m1.Data[j][i]
+			}
+		}
+	}
+	return max
+}
+
+//Maxa will find the total maximum of a matrix
+func (m1 *Matrixff) Maxa() float64 {
+	max := m1.Data[0][0]
+	for i := 0; i < m1.Cols; i++ {
+		for j := 0; j < m1.Rows; j++ {
+			if m1.Data[j][i] > max {
+				max = m1.Data[j][i]
+			}
+		}
+	}
+	return max
+}
+
+//Getcol will retrieve all values from a given column and return them as a slice
+func (m1 *Matrixi) Getcol(n int) []int {
+	out := make([]int, m1.Rows)
+	for j := 0; j < m1.Rows; j++ {
+		out[j] = m1.Data[j][n-1]
+	}
+	return out
+}
+
+//Getcol will retrieve all values from a given column and return them as a slice
+func (m1 *Matrixf) Getcol(n int) []float32 {
+	out := make([]float32, m1.Rows)
+	for j := 0; j < m1.Rows; j++ {
+		out[j] = m1.Data[j][n-1]
+	}
+	return out
+}
+
+//Getcol will retrieve all values from a given column and return them as a slice
+func (m1 *Matrixff) Getcol(n int) []float64 {
+	out := make([]float64, m1.Rows)
+	for j := 0; j < m1.Rows; j++ {
+		out[j] = m1.Data[j][n-1]
+	}
+	return out
+}
+
+//MatEqual determines if multiple matrices are completely equivalent
+func (m1 Matrixi) MatEqual(m ...Matrixi) bool {
+	rows := m1.Rows
+	cols := m1.Cols
+	for i := range m {
+		if m[i].Rows != rows || m[i].Cols != cols {
+			panic("Error: mismatching indices")
+		}
+	}
+	for i := 0; i < rows; i++ {
+		for j := 0; j < cols; j++ {
+			val := m1.Data[j][i]
+			for k := 0; k < len(m); k++ {
+				if m[k].Data[j][i] != val {
+					return false
+				}
+			}
+		}
+	}
+	return true
+}
+
+//MatEqual determines if multiple matrices are completely equivalent
+func (m1 Matrixf) MatEqual(m ...Matrixf) bool {
+	rows := m1.Rows
+	cols := m1.Cols
+	for i := range m {
+		if m[i].Rows != rows || m[i].Cols != cols {
+			panic("Error: mismatching indices")
+		}
+	}
+	for i := 0; i < rows; i++ {
+		for j := 0; j < cols; j++ {
+			val := m1.Data[j][i]
+			for k := 0; k < len(m); k++ {
+				if m[k].Data[j][i] != val {
+					return false
+				}
+			}
+		}
+	}
+	return true
+}
+
+//MatEqual determines if multiple matrices are completely equivalent
+func (m1 Matrixff) MatEqual(m ...Matrixff) bool {
+	rows := m1.Rows
+	cols := m1.Cols
+	for i := range m {
+		if m[i].Rows != rows || m[i].Cols != cols {
+			panic("Error: mismatching indices")
+		}
+	}
+	for i := 0; i < rows; i++ {
+		for j := 0; j < cols; j++ {
+			val := m1.Data[j][i]
+			for k := 0; k < len(m); k++ {
+				if m[k].Data[j][i] != val {
+					return false
+				}
+			}
+		}
+	}
+	return true
 }
