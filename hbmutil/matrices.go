@@ -546,6 +546,51 @@ func (m1 *Matrixb) Unpackr(row int, vals ...bool) {
 	}
 }
 
+//Unpackc unpacks all values into a given column
+func (m1 *Matrixi) Unpackc(col int, vals ...int) {
+	if col > m1.Cols-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add vals to col %v (index %v)", m1.Cols, col+1, col)
+		panic(pmsg)
+	}
+	if m1.Rows < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add %v vals", m1.Rows, len(vals))
+		panic(pmsg)
+	}
+	for j, val := range vals {
+		m1.Data[j][col] = val
+	}
+}
+
+//Unpackc unpacks all values into a given column
+func (m1 *Matrixf) Unpackc(col int, vals ...float32) {
+	if col > m1.Cols-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add vals to column %v (index %v)", m1.Cols, col+1, col)
+		panic(pmsg)
+	}
+	if m1.Rows < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add %v vals", m1.Cols, len(vals))
+		panic(pmsg)
+	}
+	for j, val := range vals {
+		m1.Data[j][col] = val
+	}
+}
+
+//Unpackc unpacks all values into a given column
+func (m1 *Matrixff) Unpackc(col int, vals ...float64) {
+	if col > m1.Cols-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded cols dimension of input matrix. Matrix has %v cols, but attempted to add vals to col %v (index %v)", m1.Cols, col+1, col)
+		panic(pmsg)
+	}
+	if m1.Rows < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add %v vals", m1.Cols, len(vals))
+		panic(pmsg)
+	}
+	for j, val := range vals {
+		m1.Data[j][col] = val
+	}
+}
+
 //Randmat returns a matrix of pseudo-random values
 func Randmat(row, col, maxn int) *Matrixi {
 	out := NewMatrixi(row, col)
@@ -979,4 +1024,43 @@ func (m1 Matrixff) Combinelr(m ...Matrixff) *Matrixff {
 		curcol += m[mat].Cols
 	}
 	return out
+}
+
+//Linspacei returns an array of equally spaced numbers between start and end (inclusive!) just like matlab's linspace() function
+func Linspacei(start, end, vals int) []int {
+	if vals < 2 {
+		panic("You must have at least 2 values in your array")
+	}
+	out := make([]int, vals)            //create the n x 3 colormap rgb matrix to be returned and dereference it.
+	level := (end - start) / (vals - 1) //determine the increments necessary to create a clean transition between inclusive 0 and 1
+	for i := 0; i < vals; i++ {         //iterate through each value of the colormap
+		out[i] = level*(i) + start // since this colormap is greyscale, all values will be the same per row.
+	}
+	return out //return the pointer to the new matrix
+}
+
+//Linspacef returns an array of equally spaced numbers between start and end (inclusive!) just like matlab's linspace() function
+func Linspacef(start, end float32, vals int) []float32 {
+	if vals < 2 {
+		panic("You must have at least 2 values in your array")
+	}
+	out := make([]float32, vals)                 //create the n x 3 colormap rgb matrix to be returned and dereference it.
+	level := (end - start) / (float32(vals) - 1) //determine the increments necessary to create a clean transition between inclusive 0 and 1
+	for i := 0; i < vals; i++ {                  //iterate through each value of the colormap
+		out[i] = level*float32(i) + start // since this colormap is greyscale, all values will be the same per row.
+	}
+	return out //return the pointer to the new matrix
+}
+
+//Linspaceff returns an array of equally spaced numbers between start and end (inclusive!) just like matlab's linspace() function
+func Linspaceff(start, end float64, vals int) []float64 {
+	if vals < 2 {
+		panic("You must have at least 2 values in your array")
+	}
+	out := make([]float64, vals)                 //create the n x 3 colormap rgb matrix to be returned and dereference it.
+	level := (end - start) / (float64(vals) - 1) //determine the increments necessary to create a clean transition between inclusive 0 and 1
+	for i := 0; i < vals; i++ {                  //iterate through each value of the colormap
+		out[i] = level*float64(i) + start // since this colormap is greyscale, all values will be the same per row.
+	}
+	return out //return the pointer to the new matrix
 }
