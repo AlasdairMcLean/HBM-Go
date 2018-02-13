@@ -1,9 +1,8 @@
-debug
-#If you need a test script for your Go code, 
-#name it tstmain.go and then vsc won't continually 
-#try to commit the file.
-########################
-tstmain.go
+# ignore binary builds and files #
+##################################
+*
+!/**/
+!*.*
 
 # Compiled source #
 ###################
@@ -45,3 +44,15 @@ tstmain.go
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# extraneous delve file #
+#########################
+debug
+
+# If you need a test script for your Go code,       #
+# name it tstmain.go and then vsc won't continually #
+# try to commit the file.                           #
+####################################################
+tstmain.go
+*/tstmain.go
+Test/tstmain.go

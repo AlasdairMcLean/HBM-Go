@@ -21,62 +21,62 @@ func main() {
 
 	// gui boilerplate
 	win, box := setupWindow("HBM plot", 800, 600)
-	da, err := gtk.DrawingAreaNew()
+	da, err := gtk.DrawingAreaNew() // make a new gtk drawing area where the image will go
 	if err != nil {
 		panic(err)
 	}
 
-	box.PackStart(da, true, true, 0)
-	win.Add(box)
-	win.ShowAll()
-	file := "TSMEP1.csv"
-	pts, err := hbmutil.ReadMEP(file, 4)
+	box.PackStart(da, true, true, 0)     // 'pack' the drawing area from the top of the screen
+	win.Add(box)                         // add the box that holds the drawing area to the window
+	win.ShowAll()                        // reveal the window
+	file := "TSMEP1.csv"                 // as an example, read TSMEP1.csv
+	pts, err := hbmutil.ReadMEP(file, 4) //use the csv parse library in hbmutil to return an array of points and corresponding mep amplitudes
 	if err != nil {
 		panic(err)
 	}
-	ptsi := pts.ToMati()
-	a := hbmutil.PtstoImgi(ptsi, 256, 256)
-	img := a.ToMatff()
-	MEPs := img.Getcol(4)
-	img.Scale(float64(1.0 / hbmutil.Max(MEPs)))
-	hbmplot.Drawim(da, img)
+	ptsi := pts.ToMati()                        // round the float64 pts down to int
+	a := hbmutil.PtstoImgi(ptsi, 256, 256)      // use the integer-based points-to-image function in the hbmutil package to return a 256 by 256 px image
+	img := a.ToMatff()                          // return the image to float64 as Cairo needs
+	MEPs := img.Getcol(4)                       // get the 4th column
+	img.Scale(float64(1.0 / hbmutil.Max(MEPs))) // scale the MEPs down to the [0,1] range that gtk's drawing area requires
+	hbmplot.Drawim(da, img)                     // draws image on the drawing area using hbmutil package
 
-	gtk.Main()
+	gtk.Main() // start the main loop, waiting for user to close the window
 }
 
+//setupWindow will perform all the startup boilerplate for the main window of the application
 func setupWindow(title string, wid, hei int) (*gtk.Window, *gtk.Box) {
-	win, err := gtk.WindowNew(gtk.WINDOW_TOPLEVEL)
+	win, err := gtk.WindowNew(gtk.WINDOW_TOPLEVEL) //create a new toplevel window
 	if err != nil {
 		log.Fatal("Unable to create window:", err)
 	}
-	gtk.WindowSetDefaultIconFromFile("./brainimg.png")
-	win.SetTitle(title)
-	win.Connect("destroy", func() {
+	gtk.WindowSetDefaultIconFromFile("./brainimg.png") // use the brainimg.png file as an icon
+	win.SetTitle(title)                                // sets title to that specified as input to setupWindow function
+	win.Connect("destroy", func() {                    //destroy the window if the user clicks the x
 		gtk.MainQuit()
 	})
-	win.SetDefaultSize(wid, hei)
-	wid = hei + 1
-	win.SetPosition(gtk.WIN_POS_CENTER)
-	mainbox := makevGTKBox()
-	setupBoxToolBar(mainbox, "File", "Edit", "Help")
+	win.SetDefaultSize(wid, hei)                     // set the default size to that specified in setupWindow input
+	win.SetPosition(gtk.WIN_POS_CENTER)              // centers the window on the screen
+	mainbox := makevGTKBox()                         // make a new box for packing elements
+	setupBoxToolBar(mainbox, "File", "Edit", "Help") // make an example toolbar
 	return win, mainbox
 }
 
-func setupBoxToolBar(box *gtk.Box, label ...string) {
-	guitoolbar, err := gtk.ToolbarNew()
+func setupBoxToolBar(box *gtk.Box, label ...string) { //sets up the example toolbar. will have callback functions later.
+	guitoolbar, err := gtk.ToolbarNew() // create a new empty gtk toolbar object
 	if err != nil {
 		panic(err)
 	}
 
-	for i, v := range label {
-		newbutton, _ := gtk.ToolButtonNew(nil, v)
-		guitoolbar.Insert(newbutton, i)
+	for i, v := range label { //for each label specified in setupBoxToolBar input
+		newbutton, _ := gtk.ToolButtonNew(nil, v) //create the new button with label equal to string
+		guitoolbar.Insert(newbutton, i)           // insert that button into the toolbar
 	}
-	box.PackStart(guitoolbar, false, false, 0)
+	box.PackStart(guitoolbar, false, false, 0) //pack all the buttons in at the left side of the bar
 }
 
-func makevGTKBox() *gtk.Box {
-	newbox, err := gtk.BoxNew(gtk.ORIENTATION_VERTICAL, 1)
+func makevGTKBox() *gtk.Box { //boilerplate code for a new box to hold all the objects
+	newbox, err := gtk.BoxNew(gtk.ORIENTATION_VERTICAL, 1) //make a vertical box (means that startpack will pack from the top)
 	if err != nil {
 		panic(err)
 	}
