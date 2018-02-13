@@ -33,6 +33,11 @@ type Matrixff struct {
 	Data [][]float64
 }
 
+//Matrixb defines a 2-dimensional binary bit map for increased efficiency and performance in matrix operations
+type Matrixb struct {
+	Data [][]bool
+}
+
 //
 // Matrix preallocation implementations
 //
@@ -64,6 +69,16 @@ func NewMatrixff(rows, cols int) *Matrixff {
 		ndata[i] = make([]float64, cols)
 	}
 	newmat := Matrixff{rows, cols, ndata}
+	return &newmat
+}
+
+//NewMatrixb constructs a binary Matrix with specified rows and columns, returning the pointer to the new binary matrix
+func NewMatrixb(rows, cols int) *Matrixb {
+	ndata := make([][]bool, rows)
+	for i := 0; i < rows; i++ {
+		ndata[i] = make([]bool, cols)
+	}
+	newmat := Matrixb{ndata}
 	return &newmat
 }
 
@@ -113,6 +128,21 @@ func MatOnesff(rows, cols int) *Matrixff {
 		}
 	}
 	newmat := Matrixff{rows, cols, ndata}
+	return &newmat
+}
+
+//MatOnesb returns a binary matrix full of 'true' values instead of the default 'false' map
+func MatOnesb(rows, cols int) *Matrixb {
+	ndata := make([][]bool, rows)
+	for i := 0; i < rows; i++ {
+		ndata[i] = make([]bool, cols)
+	}
+	for j := 0; j < rows; j++ {
+		for i := 0; i < cols; j++ {
+			ndata[j][i] = true
+		}
+	}
+	newmat := Matrixb{ndata}
 	return &newmat
 }
 
@@ -447,6 +477,15 @@ func (m1 Matrixff) Pretty() {
 	fmt.Println(strings.Repeat("-", m1.Cols*2+1))
 }
 
+//Pretty prints out the values of the matrix in a visually readable way
+func (m1 Matrixb) Pretty() {
+	fmt.Println(strings.Repeat("-", (len(m1.Data[0])*4 + 1)))
+	for j := 0; j < len(m1.Data); j++ {
+		fmt.Println(m1.Data[j][:])
+	}
+	fmt.Println(strings.Repeat("-", len(m1.Data)*2+1))
+}
+
 //Unpackr unpacks all values into a given row
 func (m1 *Matrixi) Unpackr(row int, vals ...int) {
 	if row > m1.Rows-1 {
@@ -485,6 +524,21 @@ func (m1 *Matrixff) Unpackr(row int, vals ...float64) {
 	}
 	if m1.Cols < len(vals) {
 		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add %v vals", m1.Cols, len(vals))
+		panic(pmsg)
+	}
+	for i, val := range vals {
+		m1.Data[row][i] = val
+	}
+}
+
+//Unpackr unpacks all values into a given row
+func (m1 *Matrixb) Unpackr(row int, vals ...bool) {
+	if row > len(m1.Data)-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add vals to row %v (index %v)", len(m1.Data), row+1, row)
+		panic(pmsg)
+	}
+	if len(m1.Data) < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add %v vals", len(m1.Data[0]), len(vals))
 		panic(pmsg)
 	}
 	for i, val := range vals {
@@ -740,6 +794,15 @@ func (m1 *Matrixff) Getcol(n int) []float64 {
 	return out
 }
 
+//Getcol will retrieve all values from a given column and return them as a slice
+func (m1 *Matrixb) Getcol(n int) []bool {
+	out := make([]bool, len(m1.Data))
+	for j := 0; j < len(m1.Data); j++ {
+		out[j] = m1.Data[j][n-1]
+	}
+	return out
+}
+
 //MatEqual determines if multiple matrices are completely equivalent
 func (m1 Matrixi) MatEqual(m ...Matrixi) bool {
 	rows := m1.Rows
@@ -790,6 +853,28 @@ func (m1 Matrixff) MatEqual(m ...Matrixff) bool {
 	cols := m1.Cols
 	for i := range m {
 		if m[i].Rows != rows || m[i].Cols != cols {
+			panic("Error: mismatching indices")
+		}
+	}
+	for i := 0; i < rows; i++ {
+		for j := 0; j < cols; j++ {
+			val := m1.Data[j][i]
+			for k := 0; k < len(m); k++ {
+				if m[k].Data[j][i] != val {
+					return false
+				}
+			}
+		}
+	}
+	return true
+}
+
+//MatEqual determines if multiple matrices are completely equivalent
+func (m1 Matrixb) MatEqual(m ...Matrixb) bool {
+	rows := len(m1.Data)
+	cols := len(m1.Data[0])
+	for i := range m {
+		if len(m[i].Data) != rows || len(m[i].Data[0]) != cols {
 			panic("Error: mismatching indices")
 		}
 	}
