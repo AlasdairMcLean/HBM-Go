@@ -134,11 +134,11 @@ func MatOnesff(rows, cols int) *Matrixff {
 //MatOnesb returns a binary matrix full of 'true' values instead of the default 'false' map
 func MatOnesb(rows, cols int) *Matrixb {
 	ndata := make([][]bool, rows)
-	for i := 0; i < rows; i++ {
+	for i := 0; i < cols; i++ {
 		ndata[i] = make([]bool, cols)
 	}
 	for j := 0; j < rows; j++ {
-		for i := 0; i < cols; j++ {
+		for i := 0; i < cols; i++ {
 			ndata[j][i] = true
 		}
 	}
@@ -479,11 +479,11 @@ func (m1 Matrixff) Pretty() {
 
 //Pretty prints out the values of the matrix in a visually readable way
 func (m1 Matrixb) Pretty() {
-	fmt.Println(strings.Repeat("-", (len(m1.Data[0])*4 + 1)))
+	fmt.Println(strings.Repeat("-", (len(m1.Data[0])*6 + 1)))
 	for j := 0; j < len(m1.Data); j++ {
 		fmt.Println(m1.Data[j][:])
 	}
-	fmt.Println(strings.Repeat("-", len(m1.Data)*2+1))
+	fmt.Println(strings.Repeat("-", len(m1.Data)*6+1))
 }
 
 //Unpackr unpacks all values into a given row
@@ -889,4 +889,94 @@ func (m1 Matrixb) MatEqual(m ...Matrixb) bool {
 		}
 	}
 	return true
+}
+
+//Combinelr combines multiple matrices into one larger matrix, appending to the m1 matrix from left to right. If one matrix has more rows than another, the extraneous rows will be zero-valued. Example: if [1,2;3,4] and [5] are appended, the output will be [1,2,5;3,4,0].
+func (m1 Matrixi) Combinelr(m ...Matrixi) *Matrixi {
+	cols := m1.Cols
+	for ind := 0; ind < len(m); ind++ {
+		cols += m[ind].Cols
+	}
+	rowsl := make([]int, len(m)+1)
+	rowsl[0] = m1.Rows
+	for i := 0; i < len(m); i++ {
+		rowsl[i+1] = m[i].Rows
+	}
+	rows := Maxil(rowsl) // find the maximum number of columns in all matrices
+	out := NewMatrixi(rows, cols)
+	for i := 0; i < m1.Cols; i++ {
+		for j := 0; j < m1.Rows; j++ {
+			out.Data[j][i] = m1.Data[j][i]
+		}
+	}
+	curcol := m1.Cols
+	for mat := 0; mat < len(m); mat++ {
+		for i := curcol; i < curcol+m[mat].Cols; i++ {
+			for j := 0; j < m[mat].Rows; j++ {
+				out.Data[j][i] = m[mat].Data[j][i-curcol]
+			}
+		}
+		curcol += m[mat].Cols
+	}
+	return out
+}
+
+//Combinelr combines multiple matrices into one larger matrix, appending to the m1 matrix from left to right. If one matrix has more rows than another, the extraneous rows will be zero-valued. Example: if [1,2;3,4] and [5] are appended, the output will be [1,2,5;3,4,0].
+func (m1 Matrixf) Combinelr(m ...Matrixf) *Matrixf {
+	cols := m1.Cols
+	for ind := 0; ind < len(m); ind++ {
+		cols += m[ind].Cols
+	}
+	rowsl := make([]int, len(m)+1)
+	rowsl[0] = m1.Rows
+	for i := 0; i < len(m); i++ {
+		rowsl[i+1] = m[i].Rows
+	}
+	rows := Maxil(rowsl) // find the maximum number of columns in all matrices
+	out := NewMatrixf(rows, cols)
+	for i := 0; i < m1.Cols; i++ {
+		for j := 0; j < m1.Rows; j++ {
+			out.Data[j][i] = m1.Data[j][i]
+		}
+	}
+	curcol := m1.Cols
+	for mat := 0; mat < len(m); mat++ {
+		for i := curcol; i < curcol+m[mat].Cols; i++ {
+			for j := 0; j < m[mat].Rows; j++ {
+				out.Data[j][i] = m[mat].Data[j][i-curcol]
+			}
+		}
+		curcol += m[mat].Cols
+	}
+	return out
+}
+
+//Combinelr combines multiple matrices into one larger matrix, appending to the m1 matrix from left to right. If one matrix has more rows than another, the extraneous rows will be zero-valued. Example: if [1,2;3,4] and [5] are appended, the output will be [1,2,5;3,4,0].
+func (m1 Matrixff) Combinelr(m ...Matrixff) *Matrixff {
+	cols := m1.Cols
+	for ind := 0; ind < len(m); ind++ {
+		cols += m[ind].Cols
+	}
+	rowsl := make([]int, len(m)+1)
+	rowsl[0] = m1.Rows
+	for i := 0; i < len(m); i++ {
+		rowsl[i+1] = m[i].Rows
+	}
+	rows := Maxil(rowsl) // find the maximum number of columns in all matrices
+	out := NewMatrixff(rows, cols)
+	for i := 0; i < m1.Cols; i++ {
+		for j := 0; j < m1.Rows; j++ {
+			out.Data[j][i] = m1.Data[j][i]
+		}
+	}
+	curcol := m1.Cols
+	for mat := 0; mat < len(m); mat++ {
+		for i := curcol; i < curcol+m[mat].Cols; i++ {
+			for j := 0; j < m[mat].Rows; j++ {
+				out.Data[j][i] = m[mat].Data[j][i-curcol]
+			}
+		}
+		curcol += m[mat].Cols
+	}
+	return out
 }

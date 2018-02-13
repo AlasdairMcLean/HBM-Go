@@ -31,8 +31,63 @@ func Sumff(a ...float64) float64 {
 	return sum
 }
 
-//Max finds the max
-func Max(a []float64) float64 {
+//Maxi finds the max of all values passed in
+func Maxi(a ...int) int {
+	cmax := a[0]
+	for _, b := range a {
+		if b > cmax {
+			cmax = b
+		}
+	}
+	return cmax
+}
+
+//Maxil finds the max of a list
+func Maxil(a []int) int {
+	cmax := a[0]
+	for _, b := range a {
+		if b > cmax {
+			cmax = b
+		}
+	}
+	return cmax
+}
+
+//Maxf finds the max of all values passed in
+func Maxf(a ...float32) float32 {
+	cmax := a[0]
+	for _, b := range a {
+		if b > cmax {
+			cmax = b
+		}
+	}
+	return cmax
+}
+
+//Maxfl finds the max of a list
+func Maxfl(a []float32) float32 {
+	cmax := a[0]
+	for _, b := range a {
+		if b > cmax {
+			cmax = b
+		}
+	}
+	return cmax
+}
+
+//Maxff finds the max of all values passed in
+func Maxff(a ...float64) float64 {
+	cmax := a[0]
+	for _, b := range a {
+		if b > cmax {
+			cmax = b
+		}
+	}
+	return cmax
+}
+
+//Maxffl finds the max of a list
+func Maxffl(a []float64) float64 {
 	cmax := a[0]
 	for _, b := range a {
 		if b > cmax {
