@@ -46,3 +46,24 @@ nodefound=true; pointsproc = pointsproc+1
 }
 nodenum=nodenum+1;{
 }
+
+// This is lines 218 onwards
+[p,t,~]:= elipfit(nodepts(:,1:2)){ // not sure if elipfit is a thing in go 
+xq:=linspace((min(p)),max(p),256); yq:=linspace(min(t),max(t),256)// is linspace a thing in go ask ally
+[Xq,Yq]=meshgrid(xq,yx); // Creates a meshgrid 
+Vq=griddata(p,t,nodepts)(:,5),Xq,Yq,'cubic') // idk how to make that a string do i just say string right afterwards like above? 
+allpts:= zeros(6,103*104); // topographical idea of how this looks like 
+allptct:=0
+cmall:= jet(round(max(max(Vq(:,1)))))
+}
+for i:= 1:length(Vq(:,1)) {
+for j:= 1:length(Vq(1,:))
+if  isnan(Vq(i,j))
+Vq(i,j):= 0;
+}
+if Vq(i,j) < 50{
+	Vq(i,j):=0;
+}
+allptct:=allptct+1;{
+           allpts(:,allptct)=[i,j,Vq(i,j),cmall(round(Vq(i,j))+1,:)];
+}
