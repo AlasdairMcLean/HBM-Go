@@ -228,8 +228,8 @@ func (m1 Matrixff) Dot(m2 Matrixff) float64 {
 	return sum
 }
 
-//Det takes the determinant of the integer matrix
-func (m1 Matrixi) Det() int {
+//det3 takes the determinant of a 3x3 integer matrix
+func (m1 Matrixi) det3() int {
 	var sum int
 	if m1.Rows != m1.Cols {
 		pmsg := fmt.Sprintf("Matrix must be an N x N; Given matrix dimensions were: %v x %v.", m1.Rows, m1.Cols)
@@ -274,8 +274,8 @@ func (m1 Matrixi) Det() int {
 	return sum
 }
 
-//Det takes the determinant of the integer matrix
-func (m1 Matrixf) Det() float32 {
+//det3 takes the determinant of a 3x3 float32 matrix
+func (m1 Matrixf) det3() float32 {
 	var sum float32
 	if m1.Rows != m1.Cols {
 		pmsg := fmt.Sprintf("Matrix must be an N x N; Given matrix dimensions were: %v x %v.", m1.Rows, m1.Cols)
@@ -320,13 +320,9 @@ func (m1 Matrixf) Det() float32 {
 	return sum
 }
 
-//Det takes the determinant of the integer matrix
-func (m1 Matrixff) Det() float64 {
+//det3 takes the determinant of a 3x3 float64 matrix
+func (m1 Matrixff) det3() float64 {
 	var sum float64
-	if m1.Rows != m1.Cols {
-		pmsg := fmt.Sprintf("Matrix must be an N x N; Given matrix dimensions were: %v x %v.", m1.Rows, m1.Cols)
-		panic(pmsg)
-	}
 	for j := 0; j < m1.Rows; j++ {
 		line := m1.Data[j][0]
 		//fmt.Printf("New Line: %v\n", line)
@@ -362,6 +358,165 @@ func (m1 Matrixff) Det() float64 {
 		}
 		//fmt.Printf("Line done: %v\n", line)
 		sum -= line
+	}
+	return sum
+}
+
+//Det uses laplace expansion to find the determinant of 2x2, 3x3, and 4x4 matrices
+func (m1 Matrixi) Det() int {
+	if m1.Rows == 0 || m1.Cols == 0 {
+		panic("Matrix must have non-zero length in all dimensions.")
+	}
+	if m1.Rows != m1.Cols {
+		pmsg := fmt.Sprintf("Matrix must be an N x N; Given matrix dimensions were: %v x %v.", m1.Rows, m1.Cols)
+		panic(pmsg)
+	}
+	switch m1.Rows {
+	case 1:
+		return m1.Data[0][0]
+	case 2:
+		return m1.Data[0][0]*m1.Data[1][1] - m1.Data[0][1]*m1.Data[1][0]
+	case 3:
+		return m1.det3()
+	default:
+		if m1.Rows > 4 {
+			panic("Determinants have not yet been implemented for >4x4 matrices.")
+		}
+	}
+	var sum int
+	minor := make([][]int, m1.Rows-1)
+	for i := 0; i < m1.Cols-1; i++ {
+		minor[i] = make([]int, m1.Cols-1)
+	}
+	minormat := NewMatrixi(m1.Rows-1, m1.Cols-1)
+	for x := 0; x < m1.Cols; x++ {
+		passedx := false
+		for i := 0; i < m1.Cols; i++ {
+			for j := 1; j < m1.Rows; j++ {
+				if i != x {
+					if !passedx {
+						minor[j-1][i] = m1.Data[j][i]
+					} else {
+						minor[j-1][i-1] = m1.Data[j][i]
+					}
+				}
+			}
+			if i == x {
+				passedx = true
+			}
+		}
+		minormat.Data = minor
+		if x%2 == 0 {
+			sum += int(m1.Data[0][x] * minormat.det3())
+		} else {
+			sum += int(-m1.Data[0][x] * minormat.det3())
+		}
+	}
+	return sum
+}
+
+//Det uses laplace expansion to find the determinant of 2x2, 3x3, and 4x4 matrices
+func (m1 Matrixf) Det() float32 {
+	if m1.Rows == 0 || m1.Cols == 0 {
+		panic("Matrix must have non-zero length in all dimensions.")
+	}
+	if m1.Rows != m1.Cols {
+		pmsg := fmt.Sprintf("Matrix must be an N x N; Given matrix dimensions were: %v x %v.", m1.Rows, m1.Cols)
+		panic(pmsg)
+	}
+	switch m1.Rows {
+	case 1:
+		return m1.Data[0][0]
+	case 2:
+		return m1.Data[0][0]*m1.Data[1][1] - m1.Data[0][1]*m1.Data[1][0]
+	case 3:
+		return m1.det3()
+	default:
+		if m1.Rows > 4 {
+			panic("Determinants have not yet been implemented for >4x4 matrices.")
+		}
+	}
+	var sum float32
+	minor := make([][]float32, m1.Rows-1)
+	for i := 0; i < m1.Cols-1; i++ {
+		minor[i] = make([]float32, m1.Cols-1)
+	}
+	minormat := NewMatrixf(m1.Rows-1, m1.Cols-1)
+	for x := 0; x < m1.Cols; x++ {
+		passedx := false
+		for i := 0; i < m1.Cols; i++ {
+			for j := 1; j < m1.Rows; j++ {
+				if i != x {
+					if !passedx {
+						minor[j-1][i] = m1.Data[j][i]
+					} else {
+						minor[j-1][i-1] = m1.Data[j][i]
+					}
+				}
+			}
+			if i == x {
+				passedx = true
+			}
+		}
+		minormat.Data = minor
+		if x%2 == 0 {
+			sum += float32(m1.Data[0][x] * minormat.det3())
+		} else {
+			sum += float32(-m1.Data[0][x] * minormat.det3())
+		}
+	}
+	return sum
+}
+
+//Det uses laplace expansion to find the determinant of 2x2, 3x3, and 4x4 matrices
+func (m1 Matrixff) Det() float64 {
+	if m1.Rows == 0 || m1.Cols == 0 {
+		panic("Matrix must have non-zero length in all dimensions.")
+	}
+	if m1.Rows != m1.Cols {
+		pmsg := fmt.Sprintf("Matrix must be an N x N; Given matrix dimensions were: %v x %v.", m1.Rows, m1.Cols)
+		panic(pmsg)
+	}
+	switch m1.Rows {
+	case 1:
+		return m1.Data[0][0]
+	case 2:
+		return m1.Data[0][0]*m1.Data[1][1] - m1.Data[0][1]*m1.Data[1][0]
+	case 3:
+		return m1.det3()
+	default:
+		if m1.Rows > 4 {
+			panic("Determinants have not yet been implemented for >4x4 matrices.")
+		}
+	}
+	var sum float64
+	minor := make([][]float64, m1.Rows-1)
+	for i := 0; i < m1.Cols-1; i++ {
+		minor[i] = make([]float64, m1.Cols-1)
+	}
+	minormat := NewMatrixff(m1.Rows-1, m1.Cols-1)
+	for x := 0; x < m1.Cols; x++ {
+		passedx := false
+		for i := 0; i < m1.Cols; i++ {
+			for j := 1; j < m1.Rows; j++ {
+				if i != x {
+					if !passedx {
+						minor[j-1][i] = m1.Data[j][i]
+					} else {
+						minor[j-1][i-1] = m1.Data[j][i]
+					}
+				}
+			}
+			if i == x {
+				passedx = true
+			}
+		}
+		minormat.Data = minor
+		if x%2 == 0 {
+			sum += float64(m1.Data[0][x] * minormat.det3())
+		} else {
+			sum += float64(-m1.Data[0][x] * minormat.det3())
+		}
 	}
 	return sum
 }
@@ -546,6 +701,66 @@ func (m1 *Matrixb) Unpackr(row int, vals ...bool) {
 	}
 }
 
+//Unpackrl unpacks all values into a given row
+func (m1 *Matrixi) Unpackrl(row int, vals []int) {
+	if row > m1.Rows-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add vals to row %v (index %v)", m1.Rows, row+1, row)
+		panic(pmsg)
+	}
+	if m1.Rows < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add %v vals", m1.Cols, len(vals))
+		panic(pmsg)
+	}
+	for i, val := range vals {
+		m1.Data[row][i] = val
+	}
+}
+
+//Unpackrl unpacks all values into a given row
+func (m1 *Matrixf) Unpackrl(row int, vals []float32) {
+	if row > m1.Rows-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add vals to row %v (index %v)", m1.Rows, row+1, row)
+		panic(pmsg)
+	}
+	if m1.Cols < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add %v vals", m1.Cols, len(vals))
+		panic(pmsg)
+	}
+	for i, val := range vals {
+		m1.Data[row][i] = val
+	}
+}
+
+//Unpackrl unpacks all values into a given row
+func (m1 *Matrixff) Unpackrl(row int, vals []float64) {
+	if row > m1.Rows-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add vals to row %v (index %v)", m1.Rows, row+1, row)
+		panic(pmsg)
+	}
+	if m1.Cols < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add %v vals", m1.Cols, len(vals))
+		panic(pmsg)
+	}
+	for i, val := range vals {
+		m1.Data[row][i] = val
+	}
+}
+
+//Unpackrl unpacks all values into a given row
+func (m1 *Matrixb) Unpackrl(row int, vals []bool) {
+	if row > len(m1.Data)-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add vals to row %v (index %v)", len(m1.Data), row+1, row)
+		panic(pmsg)
+	}
+	if len(m1.Data) < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add %v vals", len(m1.Data[0]), len(vals))
+		panic(pmsg)
+	}
+	for i, val := range vals {
+		m1.Data[row][i] = val
+	}
+}
+
 //Unpackc unpacks all values into a given column
 func (m1 *Matrixi) Unpackc(col int, vals ...int) {
 	if col > m1.Cols-1 {
@@ -584,6 +799,81 @@ func (m1 *Matrixff) Unpackc(col int, vals ...float64) {
 	}
 	if m1.Rows < len(vals) {
 		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add %v vals", m1.Cols, len(vals))
+		panic(pmsg)
+	}
+	for j, val := range vals {
+		m1.Data[j][col] = val
+	}
+}
+
+//Unpackc unpacks all values into a given col
+func (m1 *Matrixb) Unpackc(col int, vals ...bool) {
+	if col > len(m1.Data)-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add vals to col %v (index %v)", len(m1.Data), col+1, col)
+		panic(pmsg)
+	}
+	if len(m1.Data) < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add %v vals", len(m1.Data[0]), len(vals))
+		panic(pmsg)
+	}
+	for j, val := range vals {
+		m1.Data[j][col] = val
+	}
+}
+
+//Unpackcl unpacks all values from a list into a given column
+func (m1 *Matrixi) Unpackcl(col int, vals []int) {
+	if col > m1.Cols-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add vals to col %v (index %v)", m1.Cols, col+1, col)
+		panic(pmsg)
+	}
+	if m1.Rows < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add %v vals", m1.Rows, len(vals))
+		panic(pmsg)
+	}
+	for j, val := range vals {
+		m1.Data[j][col] = val
+	}
+}
+
+//Unpackcl unpacks all values from a list into a given column
+func (m1 *Matrixf) Unpackcl(col int, vals []float32) {
+	if col > m1.Cols-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add vals to col %v (index %v)", m1.Cols, col+1, col)
+		panic(pmsg)
+	}
+	if m1.Rows < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add %v vals", m1.Rows, len(vals))
+		panic(pmsg)
+	}
+	for j, val := range vals {
+		m1.Data[j][col] = val
+	}
+}
+
+//Unpackcl unpacks all values from a list into a given column
+func (m1 *Matrixff) Unpackcl(col int, vals []float64) {
+	if col > m1.Cols-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add vals to col %v (index %v)", m1.Cols, col+1, col)
+		panic(pmsg)
+	}
+	if m1.Rows < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add %v vals", m1.Rows, len(vals))
+		panic(pmsg)
+	}
+	for j, val := range vals {
+		m1.Data[j][col] = val
+	}
+}
+
+//Unpackcl unpacks all values into a given col
+func (m1 *Matrixb) Unpackcl(col int, vals []bool) {
+	if col > len(m1.Data)-1 {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded rows dimension of input matrix. Matrix has %v rows, but attempted to add vals to col %v (index %v)", len(m1.Data), col+1, col)
+		panic(pmsg)
+	}
+	if len(m1.Data) < len(vals) {
+		pmsg := fmt.Sprintf("Attempt to unpack exceeded columns dimension of input matrix. Matrix has %v columns, but attempted to add %v vals", len(m1.Data[0]), len(vals))
 		panic(pmsg)
 	}
 	for j, val := range vals {
@@ -1063,4 +1353,64 @@ func Linspaceff(start, end float64, vals int) []float64 {
 		out[i] = level*float64(i) + start // since this colormap is greyscale, all values will be the same per row.
 	}
 	return out //return the pointer to the new matrix
+}
+
+//Cramer solves a system of equations using Cramer's rule. Note that a more efficient systems solver should be implemented in the future.
+func (m1 Matrixi) Cramer(vargin ...int) []int {
+	if len(vargin) != m1.Rows {
+		pmsg := fmt.Sprintf("Insufficient number of values for answer column. Matrix has %v rows, but only %v values were entered.", m1.Rows, len(vargin))
+		panic(pmsg)
+	}
+	numMat := m1
+	detm1 := m1.Det()
+	coeffs := make([]int, len(vargin))
+	for j := 0; j < m1.Cols; j++ {
+		numMat.Unpackcl(j, vargin)
+		coeffs[j] = numMat.Det()
+		numMat.Unpackcl(j, m1.Getcol(j+1))
+	}
+	for i, v := range coeffs {
+		coeffs[i] = v / detm1
+	}
+	return coeffs
+}
+
+//Cramer solves a system of equations using Cramer's rule. Note that a more efficient systems solver should be implemented in the future.
+func (m1 Matrixf) Cramer(vargin ...float32) []float32 {
+	if len(vargin) != m1.Rows {
+		pmsg := fmt.Sprintf("Insufficient number of values for answer column. Matrix has %v rows, but only %v values were entered.", m1.Rows, len(vargin))
+		panic(pmsg)
+	}
+	numMat := m1
+	detm1 := m1.Det()
+	coeffs := make([]float32, len(vargin))
+	for j := 0; j < m1.Cols; j++ {
+		numMat.Unpackcl(j, vargin)
+		coeffs[j] = numMat.Det()
+		numMat.Unpackcl(j, m1.Getcol(j+1))
+	}
+	for i, v := range coeffs {
+		coeffs[i] = v / detm1
+	}
+	return coeffs
+}
+
+//Cramer solves a system of equations using Cramer's rule. Note that a more efficient systems solver should be implemented in the future.
+func (m1 Matrixff) Cramer(vargin ...float64) []float64 {
+	if len(vargin) != m1.Rows {
+		pmsg := fmt.Sprintf("Insufficient number of values for answer column. Matrix has %v rows, but only %v values were entered.", m1.Rows, len(vargin))
+		panic(pmsg)
+	}
+	detm1 := m1.Det()
+	coeffs := make([]float64, len(vargin))
+	for j := 0; j < m1.Cols; j++ {
+		skipped := m1.Getcol(j + 1)
+		m1.Unpackcl(j, vargin)
+		coeffs[j] = m1.Det()
+		m1.Unpackcl(j, skipped)
+	}
+	for i, v := range coeffs {
+		coeffs[i] = v / detm1
+	}
+	return coeffs
 }
