@@ -22,3 +22,29 @@ func Drawim(da *gtk.DrawingArea, img *hbmutil.Matrixff) {
 	})
 
 }
+
+func ExpandCanvas(da *gtk.DrawingArea, img *hbmutil.Matrixff, scale int) {
+	da.Connect("draw", func(da *gtk.DrawingArea, cr *cairo.Context) {
+		for j := 0; j < img.Rows*scale; j += scale {
+			for i := 0; i < img.Cols*scale; i += scale {
+				cr.Rectangle(float64(i), float64(j), float64(scale), float64(scale))
+				cr.SetSourceRGB(float64(img.Data[j/scale][i/scale]), float64(img.Data[j/scale][i/scale]), float64(img.Data[j/scale][i/scale]))
+				cr.Fill()
+			}
+		}
+	})
+}
+
+/*
+func Zoomin(da *gtkDrawingArea, img *hbmutil.Matrixff, scale int) {
+	nativeWid:=img.Cols
+	nativeHei:=img.Rows
+
+	da.Connect("draw", func(da *gtk.DrawingArea, cr *cairo.Context) {
+		for i := 0; i < img.Cols; i += scale {
+			for j := 0; j < img.Rows; j += scale {
+				cr.Rectangle(float64)
+			}
+		}
+	})
+}*/

@@ -106,3 +106,21 @@ func Roundf(f float32) float32 {
 func Roundff(f float64) float64 {
 	return math.Floor(f + .5)
 }
+
+//Avgi returns the average of the values given
+func Avgi(vals ...int) int {
+	sum := Sumi(vals...)
+	return sum / len(vals)
+}
+
+//Avgf returns the average of the values given
+func Avgf(vals ...float32) float32 {
+	sum := Sumf(vals...)
+	return sum / float32(len(vals))
+}
+
+//Avgff returns the average of the values given
+func Avgff(vals ...float64) float64 {
+	sum := Sumff(vals...)
+	return sum / float64(len(vals))
+}

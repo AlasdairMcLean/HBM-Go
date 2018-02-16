@@ -3,6 +3,8 @@ package main
 import (
 	"log"
 
+	"github.com/gotk3/gotk3/gdk"
+
 	"github.com/gotk3/gotk3/gtk"
 
 	"../hbmplot"
@@ -25,21 +27,67 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	box.PackStart(da, true, true, 0) // 'pack' the drawing area from the top of the screen
+	win.Add(box)                     // add the box that holds the drawing area to the window
+	win.ShowAll()                    // reveal the window
 
-	box.PackStart(da, true, true, 0)     // 'pack' the drawing area from the top of the screen
-	win.Add(box)                         // add the box that holds the drawing area to the window
-	win.ShowAll()                        // reveal the window
-	file := "TSMEP1.csv"                 // as an example, read TSMEP1.csv
-	pts, err := hbmutil.ReadMEP(file, 4) //use the csv parse library in hbmutil to return an array of points and corresponding mep amplitudes
+	file := getfile()
+	// as an example, read TSMEP1.csv
+	pts, err := hbmutil.ReadMEP(file, 0, 1, 2, 3) //use the csv parse library in hbmutil to return an array of points and corresponding mep amplitudes
 	if err != nil {
 		panic(err)
 	}
-	ptsi := pts.ToMati()                        // round the float64 pts down to int
-	a := hbmutil.PtstoImgi(ptsi, 256, 256)      // use the integer-based points-to-image function in the hbmutil package to return a 256 by 256 px image
-	img := a.ToMatff()                          // return the image to float64 as Cairo needs
-	MEPs := img.Getcol(4)                       // get the 4th column
-	img.Scale(float64(1.0 / hbmutil.Max(MEPs))) // scale the MEPs down to the [0,1] range that gtk's drawing area requires
-	hbmplot.Drawim(da, img)                     // draws image on the drawing area using hbmutil package
+	ptsi := pts.ToMati() // round the float64 pts down to int
+	xcol := 0
+	ycol := 1
+	a := hbmutil.MattoImgi(ptsi, xcol, ycol, 256, 256) // use the integer-based points-to-image function in the hbmutil package to return a 256 by 256 px image
+	img := a.ToMatff()                                 // return the image to float64 as Cairo needs
+	MEPs := img.Getcol(4)                              // get the 4th column
+	img.Scale(float64(1.0 / hbmutil.Maxffl(MEPs)))     // scale the MEPs down to the [0,1] range that gtk's drawing area requires
+	hbmplot.Drawim(da, img)                            // draws image on the drawing area using hbmutil package
+	canvsc := 1
+	keyMap := map[uint]func(){
+		gdk.KEY_equal: func() {
+			canvsc++
+			hbmplot.ExpandCanvas(da, img, canvsc)
+		},
+		gdk.KEY_minus: func() {
+			canvsc--
+			hbmplot.ExpandCanvas(da, img, canvsc)
+		},
+		gdk.KEY_Insert: func() {
+			if xcol < 2 {
+				xcol++
+			} else {
+				xcol = 0
+			}
+			a = hbmutil.MattoImgi(ptsi, xcol, ycol, 256, 256)
+			img = a.ToMatff()
+			MEPs = img.Getcol(4)
+			img.Scale(float64(1.0 / hbmutil.Maxffl(MEPs)))
+			hbmplot.Drawim(da, img)
+		},
+		gdk.KEY_Delete: func() {
+			if ycol < 2 {
+				ycol++
+			} else {
+				ycol = 0
+			}
+			a = hbmutil.MattoImgi(ptsi, xcol, ycol, 256, 256)
+			img = a.ToMatff()
+			MEPs = img.Getcol(4)
+			img.Scale(float64(1.0 / hbmutil.Maxffl(MEPs)))
+			hbmplot.Drawim(da, img)
+		},
+	}
+
+	win.Connect("key-press-event", func(win *gtk.Window, ev *gdk.Event) {
+		keyEvent := &gdk.EventKey{ev}
+		if zoom, found := keyMap[keyEvent.KeyVal()]; found {
+			zoom()
+			win.QueueDraw()
+		}
+	})
 
 	gtk.Main() // start the main loop, waiting for user to close the window
 }
@@ -82,6 +130,42 @@ func makevGTKBox() *gtk.Box { //boilerplate code for a new box to hold all the o
 	}
 
 	return newbox
+}
+
+func getfile() string {
+	dlgwin, err := gtk.WindowNew(gtk.WINDOW_POPUP) //create a new toplevel window
+	if err != nil {
+		panic("Unable to create window:", err)
+	}
+	dlgwin.SetTitle("Pick a csv file") // sets title to that specified as input to setupWindow function
+	dlgwin.Connect("destroy", func() { //destroy the window if the user clicks the x
+		gtk.MainQuit()
+	})
+	dlgwin.SetDefaultSize(WINWID/2, WINHEI/2) // set the default size to that specified in setupWindow input
+	dlgwin.SetPosition(gtk.WIN_POS_CENTER)
+	filechooser, _ := gtk.FileChooserDialogNewWith2Buttons(
+		"Open...",
+		dlgwin,
+		gtk.FILE_CHOOSER_ACTION_OPEN,
+		"Cancel",
+		gtk.RESPONSE_DELETE_EVENT,
+		"Open",
+		gtk.RESPONSE_ACCEPT)
+	filter, _ := gtk.FileFilterNew()
+	filter.AddPattern("*.csv")
+	filter.SetName(".csv")
+	filechooser.AddFilter(filter)
+
+	switcher := filechooser.Run()
+	filename := filechooser.GetFilename()
+	filechooser.Destroy()
+	if switcher != -3 {
+
+		//Nothing more to do here
+		filename = ""
+		return ""
+	}
+	return filename
 }
 
 /*import (
