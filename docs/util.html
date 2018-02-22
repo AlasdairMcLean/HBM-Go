@@ -1,0 +1,2036 @@
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+<!--
+	<script type='text/javascript'>
+	document.ANALYSIS_DATA = ;
+	document.CALLGRAPH = ;
+	</script>
+-->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	
+
+<div class="w3-bar w3-border w3-light-grey">
+	<a href="index.html" class="w3-bar-item w3-button">Home</a>
+	<a href="util.html" class="w3-bar-item w3-button w3-text-indigo">util</a>
+	<a href="plot.html" class="w3-bar-item w3-button">plot</a>
+	<a href="cluster.html" class="w3-bar-item w3-button">cluster</a>
+  </div>
+<link rel="stylesheet" href="style.css">
+		<div id="short-nav">
+			<dl>
+                <h1>Documentation for CCNY Human Brain Mapping Golang library</h1>
+			<dd><code>import "hbm/cluster"</code></dd>
+			</dl>
+			<dl>
+            </dl>
+            <p>
+                The index below has links to each function in the current library. Click on one of the links to jump to the documentation for that function/struct/interface.
+            </p>
+            <dl>
+            </dl>
+        </div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview</h2>
+				<p>
+Package hbmutil adds various functions relating to matrix operations.
+</p>
+
+			</div>
+		</div>
+		
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+				
+				<dd><a href="#Avgf">func Avgf(vals ...float32) float32</a></dd>
+			
+				
+				<dd><a href="#Avgff">func Avgff(vals ...float64) float64</a></dd>
+			
+				
+				<dd><a href="#Avgffl">func Avgffl(vals []float64) float64</a></dd>
+			
+				
+				<dd><a href="#Avgfl">func Avgfl(vals []float32) float32</a></dd>
+			
+				
+				<dd><a href="#Avgi">func Avgi(vals ...int) int</a></dd>
+			
+				
+				<dd><a href="#Avgil">func Avgil(vals []int) int</a></dd>
+			
+				
+				<dd><a href="#Linspacef">func Linspacef(start, end float32, vals int) []float32</a></dd>
+			
+				
+				<dd><a href="#Linspaceff">func Linspaceff(start, end float64, vals int) []float64</a></dd>
+			
+				
+				<dd><a href="#Linspacei">func Linspacei(start, end, vals int) []int</a></dd>
+			
+				
+				<dd><a href="#Maxf">func Maxf(a ...float32) float32</a></dd>
+			
+				
+				<dd><a href="#Maxff">func Maxff(a ...float64) float64</a></dd>
+			
+				
+				<dd><a href="#Maxffl">func Maxffl(a []float64) float64</a></dd>
+			
+				
+				<dd><a href="#Maxfl">func Maxfl(a []float32) float32</a></dd>
+			
+				
+				<dd><a href="#Maxi">func Maxi(a ...int) int</a></dd>
+			
+				
+				<dd><a href="#Maxil">func Maxil(a []int) int</a></dd>
+			
+				
+				<dd><a href="#Roundf">func Roundf(f float32) float32</a></dd>
+			
+				
+				<dd><a href="#Roundff">func Roundff(f float64) float64</a></dd>
+			
+				
+				<dd><a href="#Sumf">func Sumf(a ...float32) float32</a></dd>
+			
+				
+				<dd><a href="#Sumff">func Sumff(a ...float64) float64</a></dd>
+			
+				
+				<dd><a href="#Sumffl">func Sumffl(a []float64) float64</a></dd>
+			
+				
+				<dd><a href="#Sumfl">func Sumfl(a []float32) float32</a></dd>
+			
+				
+				<dd><a href="#Sumi">func Sumi(a ...int) int</a></dd>
+			
+				
+				<dd><a href="#Sumil">func Sumil(a []int) int</a></dd>
+			
+			
+				
+				<dd><a href="#Matrix">type Matrix</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Matrixb">type Matrixb</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#MatOnesb">func MatOnesb(rows, cols int) *Matrixb</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewMatrixb">func NewMatrixb(rows, cols int) *Matrixb</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixb.Getcol">func (m1 *Matrixb) Getcol(n int) []bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixb.MatEqual">func (m1 Matrixb) MatEqual(m ...Matrixb) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixb.Pretty">func (m1 Matrixb) Pretty()</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixb.Unpackc">func (m1 *Matrixb) Unpackc(col int, vals ...bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixb.Unpackcl">func (m1 *Matrixb) Unpackcl(col int, vals []bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixb.Unpackr">func (m1 *Matrixb) Unpackr(row int, vals ...bool)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixb.Unpackrl">func (m1 *Matrixb) Unpackrl(row int, vals []bool)</a></dd>
+				
+			
+				
+				<dd><a href="#Matrixf">type Matrixf</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Gscmap">func Gscmap(vals, max int) *Matrixf</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#MatOnesf">func MatOnesf(rows, cols int) *Matrixf</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#MattoImgf">func MattoImgf(pts *Matrixf, xcol, ycol, wid, hei int) *Matrixf</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewMatrixf">func NewMatrixf(rows, cols int) *Matrixf</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#ReadMEP">func ReadMEP(file string, xcol, ycol, zcol, MEPcol int) (*Matrixf, error)</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Combinelr">func (m1 Matrixf) Combinelr(m ...Matrixf) *Matrixf</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Cramer">func (m1 Matrixf) Cramer(vargin ...float32) []float32</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Det">func (m1 Matrixf) Det() float32</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Dot">func (m1 Matrixf) Dot(m2 Matrixf) float32</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Getcol">func (m1 *Matrixf) Getcol(n int) []float32</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.MatEqual">func (m1 Matrixf) MatEqual(m ...Matrixf) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Maxa">func (m1 *Matrixf) Maxa() float32</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Maxc">func (m1 *Matrixf) Maxc() []float32</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Maxr">func (m1 *Matrixf) Maxr() []float32</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Pretty">func (m1 Matrixf) Pretty()</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Scale">func (m1 Matrixf) Scale(s float32) Matrixf</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Times">func (m1 Matrixf) Times(m2 Matrixf) *Matrixf</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.ToMatf">func (m1 *Matrixf) ToMatf()</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.ToMatff">func (m1 *Matrixf) ToMatff() *Matrixff</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.ToMati">func (m1 *Matrixf) ToMati() *Matrixi</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Transpose">func (m1 Matrixf) Transpose() *Matrixf</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Unpackc">func (m1 *Matrixf) Unpackc(col int, vals ...float32)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Unpackcl">func (m1 *Matrixf) Unpackcl(col int, vals []float32)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Unpackr">func (m1 *Matrixf) Unpackr(row int, vals ...float32)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixf.Unpackrl">func (m1 *Matrixf) Unpackrl(row int, vals []float32)</a></dd>
+				
+			
+				
+				<dd><a href="#Matrixff">type Matrixff</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#MatOnesff">func MatOnesff(rows, cols int) *Matrixff</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#MattoImgff">func MattoImgff(pts *Matrixff, xcol, ycol, wid, hei int) *Matrixff</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewMatrixff">func NewMatrixff(rows, cols int) *Matrixff</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Combinelr">func (m1 Matrixff) Combinelr(m ...Matrixff) *Matrixff</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Cramer">func (m1 Matrixff) Cramer(vargin ...float64) []float64</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Det">func (m1 Matrixff) Det() float64</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Dot">func (m1 Matrixff) Dot(m2 Matrixff) float64</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Getcol">func (m1 *Matrixff) Getcol(n int) []float64</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.MatEqual">func (m1 Matrixff) MatEqual(m ...Matrixff) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Maxa">func (m1 *Matrixff) Maxa() float64</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Maxc">func (m1 *Matrixff) Maxc() []float64</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Maxr">func (m1 *Matrixff) Maxr() []float64</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Pretty">func (m1 Matrixff) Pretty()</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Scale">func (m1 Matrixff) Scale(s float64) Matrixff</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Times">func (m1 Matrixff) Times(m2 Matrixff) *Matrixff</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.ToMatf">func (m1 *Matrixff) ToMatf() *Matrixf</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.ToMatff">func (m1 *Matrixff) ToMatff()</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.ToMati">func (m1 *Matrixff) ToMati() *Matrixi</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Transpose">func (m1 Matrixff) Transpose() *Matrixff</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Unpackc">func (m1 *Matrixff) Unpackc(col int, vals ...float64)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Unpackcl">func (m1 *Matrixff) Unpackcl(col int, vals []float64)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Unpackr">func (m1 *Matrixff) Unpackr(row int, vals ...float64)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixff.Unpackrl">func (m1 *Matrixff) Unpackrl(row int, vals []float64)</a></dd>
+				
+			
+				
+				<dd><a href="#Matrixi">type Matrixi</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#MatOnesi">func MatOnesi(rows, cols int) *Matrixi</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#MattoImgi">func MattoImgi(pts *Matrixi, xcol, ycol, wid, hei int) *Matrixi</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewMatrixi">func NewMatrixi(rows, cols int) *Matrixi</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Randmat">func Randmat(row, col, maxn int) *Matrixi</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Combinelr">func (m1 Matrixi) Combinelr(m ...Matrixi) *Matrixi</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Cramer">func (m1 Matrixi) Cramer(vargin ...int) []int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Det">func (m1 Matrixi) Det() int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Dot">func (m1 Matrixi) Dot(m2 Matrixi) int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Getcol">func (m1 *Matrixi) Getcol(n int) []int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.MatEqual">func (m1 Matrixi) MatEqual(m ...Matrixi) bool</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Maxa">func (m1 *Matrixi) Maxa() int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Maxc">func (m1 *Matrixi) Maxc() []int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Maxr">func (m1 *Matrixi) Maxr() []int</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Pretty">func (m1 Matrixi) Pretty()</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Scale">func (m1 Matrixi) Scale(s int) Matrixi</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Times">func (m1 Matrixi) Times(m2 Matrixi) *Matrixi</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.ToMatf">func (m1 *Matrixi) ToMatf() *Matrixf</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.ToMatff">func (m1 *Matrixi) ToMatff() *Matrixff</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.ToMati">func (m1 *Matrixi) ToMati()</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Transpose">func (m1 Matrixi) Transpose() *Matrixi</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Unpackc">func (m1 *Matrixi) Unpackc(col int, vals ...int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Unpackcl">func (m1 *Matrixi) Unpackcl(col int, vals []int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Unpackr">func (m1 *Matrixi) Unpackr(row int, vals ...int)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#Matrixi.Unpackrl">func (m1 *Matrixi) Unpackrl(row int, vals []int)</a></dd>
+				
+			
+				
+				<dd><a href="#Point2f">type Point2f</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Point2ff">type Point2ff</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Point2i">type Point2i</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Point3f">type Point3f</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Point3ff">type Point3ff</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Point3i">type Point3i</a></dd>
+				
+				
+			
+				
+				<dd><a href="#PointCloud2f">type PointCloud2f</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Pointf">type Pointf</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Pointff">type Pointff</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Pointi">type Pointi</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h4>Package files</h4>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="/src/target/colormap.go">colormap.go</a>
+			
+				<a href="/src/target/csvdataread.go">csvdataread.go</a>
+			
+				<a href="/src/target/graph.go">graph.go</a>
+			
+				<a href="/src/target/math.go">math.go</a>
+			
+				<a href="/src/target/matrices.go">matrices.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		<div id="pkg-callgraph" class="toggle" style="display: none">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Internal Call Graph section">Internal call graph ▹</h2>
+		</div> <!-- .expanded -->
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Internal Call Graph section">Internal call graph ▾</h2>
+			<p>
+			  In the call graph viewer below, each node
+			  is a function belonging to this package
+			  and its children are the functions it
+			  calls&mdash;perhaps dynamically.
+			</p>
+			<p>
+			  The root nodes are the entry points of the
+			  package: functions that may be called from
+			  outside the package.
+			  There may be non-exported or anonymous
+			  functions among them if they are called
+			  dynamically from another package.
+			</p>
+			<p>
+			  Click a node to visit that function's source code.
+			  From there you can visit its callers by
+			  clicking its declaring <code>func</code>
+			  token.
+			</p>
+			<p>
+			  Functions may be omitted if they were
+			  determined to be unreachable in the
+			  particular programs or tests that were
+			  analyzed.
+			</p>
+			<!-- Zero means show all package entry points. -->
+			<ul style="margin-left: 0.5in" id="callgraph-0" class="treeview"></ul>
+		</div>
+		</div> <!-- #pkg-callgraph -->
+
+		
+		
+		
+			
+			
+			<h2 id="Avgf">func <a href="/src/target/math.go?s=2405:2439#L134">Avgf</a></h2>
+			<pre>func Avgf(vals ...<a href="/pkg/builtin/#float32">float32</a>) <a href="/pkg/builtin/#float32">float32</a></pre>
+			<p>
+Avgf returns the average of the values given
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Avgff">func <a href="/src/target/math.go?s=2548:2583#L140">Avgff</a></h2>
+			<pre>func Avgff(vals ...<a href="/pkg/builtin/#float64">float64</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+			<p>
+Avgff returns the average of the values given
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Avgffl">func <a href="/src/target/math.go?s=2959:2994#L158">Avgffl</a></h2>
+			<pre>func Avgffl(vals []<a href="/pkg/builtin/#float64">float64</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+			<p>
+Avgffl returns the average of the values given
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Avgfl">func <a href="/src/target/math.go?s=2817:2851#L152">Avgfl</a></h2>
+			<pre>func Avgfl(vals []<a href="/pkg/builtin/#float32">float32</a>) <a href="/pkg/builtin/#float32">float32</a></pre>
+			<p>
+Avgfl returns the average of the values given
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Avgi">func <a href="/src/target/math.go?s=2280:2306#L128">Avgi</a></h2>
+			<pre>func Avgi(vals ...<a href="/pkg/builtin/#int">int</a>) <a href="/pkg/builtin/#int">int</a></pre>
+			<p>
+Avgi returns the average of the values given
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Avgil">func <a href="/src/target/math.go?s=2693:2719#L146">Avgil</a></h2>
+			<pre>func Avgil(vals []<a href="/pkg/builtin/#int">int</a>) <a href="/pkg/builtin/#int">int</a></pre>
+			<p>
+Avgil returns the average of the values given
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Linspacef">func <a href="/src/target/matrices.go?s=38378:38432#L1323">Linspacef</a></h2>
+			<pre>func Linspacef(start, end <a href="/pkg/builtin/#float32">float32</a>, vals <a href="/pkg/builtin/#int">int</a>) []<a href="/pkg/builtin/#float32">float32</a></pre>
+			<p>
+Linspacef returns an array of equally spaced numbers between start and end (inclusive!) just like matlab&#39;s linspace() function
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Linspaceff">func <a href="/src/target/matrices.go?s=39156:39211#L1336">Linspaceff</a></h2>
+			<pre>func Linspaceff(start, end <a href="/pkg/builtin/#float64">float64</a>, vals <a href="/pkg/builtin/#int">int</a>) []<a href="/pkg/builtin/#float64">float64</a></pre>
+			<p>
+Linspaceff returns an array of equally spaced numbers between start and end (inclusive!) just like matlab&#39;s linspace() function
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Linspacei">func <a href="/src/target/matrices.go?s=37647:37689#L1310">Linspacei</a></h2>
+			<pre>func Linspacei(start, end, vals <a href="/pkg/builtin/#int">int</a>) []<a href="/pkg/builtin/#int">int</a></pre>
+			<p>
+Linspacei returns an array of equally spaced numbers between start and end (inclusive!) just like matlab&#39;s linspace() function
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Maxf">func <a href="/src/target/math.go?s=1398:1429#L74">Maxf</a></h2>
+			<pre>func Maxf(a ...<a href="/pkg/builtin/#float32">float32</a>) <a href="/pkg/builtin/#float32">float32</a></pre>
+			<p>
+Maxf finds the max of all values passed in
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Maxff">func <a href="/src/target/math.go?s=1720:1752#L96">Maxff</a></h2>
+			<pre>func Maxff(a ...<a href="/pkg/builtin/#float64">float64</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+			<p>
+Maxff finds the max of all values passed in
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Maxffl">func <a href="/src/target/math.go?s=1876:1908#L107">Maxffl</a></h2>
+			<pre>func Maxffl(a []<a href="/pkg/builtin/#float64">float64</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+			<p>
+Maxffl finds the max of a list
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Maxfl">func <a href="/src/target/math.go?s=1552:1583#L85">Maxfl</a></h2>
+			<pre>func Maxfl(a []<a href="/pkg/builtin/#float32">float32</a>) <a href="/pkg/builtin/#float32">float32</a></pre>
+			<p>
+Maxfl finds the max of a list
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Maxi">func <a href="/src/target/math.go?s=1093:1116#L52">Maxi</a></h2>
+			<pre>func Maxi(a ...<a href="/pkg/builtin/#int">int</a>) <a href="/pkg/builtin/#int">int</a></pre>
+			<p>
+Maxi finds the max of all values passed in
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Maxil">func <a href="/src/target/math.go?s=1239:1262#L63">Maxil</a></h2>
+			<pre>func Maxil(a []<a href="/pkg/builtin/#int">int</a>) <a href="/pkg/builtin/#int">int</a></pre>
+			<p>
+Maxil finds the max of a list
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Roundf">func <a href="/src/target/math.go?s=2043:2073#L118">Roundf</a></h2>
+			<pre>func Roundf(f <a href="/pkg/builtin/#float32">float32</a>) <a href="/pkg/builtin/#float32">float32</a></pre>
+			<p>
+Roundf returns the rounded value of input
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Roundff">func <a href="/src/target/math.go?s=2169:2200#L123">Roundff</a></h2>
+			<pre>func Roundff(f <a href="/pkg/builtin/#float64">float64</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+			<p>
+Roundff returns the rounded value of input
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Sumf">func <a href="/src/target/math.go?s=308:339#L7">Sumf</a></h2>
+			<pre>func Sumf(a ...<a href="/pkg/builtin/#float32">float32</a>) <a href="/pkg/builtin/#float32">float32</a></pre>
+			<p>
+Sumf returns the sum of all float32 variables passed in
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Sumff">func <a href="/src/target/math.go?s=470:502#L16">Sumff</a></h2>
+			<pre>func Sumff(a ...<a href="/pkg/builtin/#float64">float64</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+			<p>
+Sumff returns the sum of all float64 variables passed in
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Sumffl">func <a href="/src/target/math.go?s=944:976#L43">Sumffl</a></h2>
+			<pre>func Sumffl(a []<a href="/pkg/builtin/#float64">float64</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+			<p>
+Sumffl returns the sum of all float64 variables passed in
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Sumfl">func <a href="/src/target/math.go?s=781:812#L34">Sumfl</a></h2>
+			<pre>func Sumfl(a []<a href="/pkg/builtin/#float32">float32</a>) <a href="/pkg/builtin/#float32">float32</a></pre>
+			<p>
+Sumfl returns the sum of all float32 variables passed in
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Sumi">func <a href="/src/target/math.go?s=159:182#L1">Sumi</a></h2>
+			<pre>func Sumi(a ...<a href="/pkg/builtin/#int">int</a>) <a href="/pkg/builtin/#int">int</a></pre>
+			<p>
+Sumi returns the sum of all uint8 variables passed in
+</p>
+
+			
+			
+
+		
+			
+			
+			<h2 id="Sumil">func <a href="/src/target/math.go?s=631:654#L25">Sumil</a></h2>
+			<pre>func Sumil(a []<a href="/pkg/builtin/#int">int</a>) <a href="/pkg/builtin/#int">int</a></pre>
+			<p>
+Sumil returns the sum of all uint8 variables passed in
+</p>
+
+			
+			
+
+		
+		
+			
+			
+			<h2 id="Matrix">type <a href="/src/target/matrices.go?s=288:323#L1">Matrix</a></h2>
+			<pre>type Matrix interface {
+    Pretty()
+}</pre>
+			<p>
+Matrix is an overarching interface for the specific matrices to be derived from allowing overloading non-type specific methods like scalar multiplication
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Matrixb">type <a href="/src/target/matrices.go?s=850:888#L27">Matrixb</a></h2>
+			<pre>type Matrixb struct {
+    Data [][]<a href="/pkg/builtin/#bool">bool</a>
+}</pre>
+			<p>
+Matrixb defines a 2-dimensional binary bit map for increased efficiency and performance in matrix operations
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="MatOnesb">func <a href="/src/target/matrices.go?s=3535:3573#L125">MatOnesb</a></h3>
+				<pre>func MatOnesb(rows, cols <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrixb">Matrixb</a></pre>
+				<p>
+MatOnesb returns a binary matrix full of &#39;true&#39; values instead of the default &#39;false&#39; map
+</p>
+
+				
+				
+			
+				
+				<h3 id="NewMatrixb">func <a href="/src/target/matrices.go?s=2065:2105#L66">NewMatrixb</a></h3>
+				<pre>func NewMatrixb(rows, cols <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrixb">Matrixb</a></pre>
+				<p>
+NewMatrixb constructs a binary Matrix with specified rows and columns, returning the pointer to the new binary matrix
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Matrixb.Getcol">func (*Matrixb) <a href="/src/target/matrices.go?s=32574:32613#L1123">Getcol</a></h3>
+				<pre>func (m1 *<a href="#Matrixb">Matrixb</a>) Getcol(n <a href="/pkg/builtin/#int">int</a>) []<a href="/pkg/builtin/#bool">bool</a></pre>
+				<p>
+Getcol will retrieve all values from a given column and return them as a slice
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixb.MatEqual">func (Matrixb) <a href="/src/target/matrices.go?s=34193:34238#L1198">MatEqual</a></h3>
+				<pre>func (m1 <a href="#Matrixb">Matrixb</a>) MatEqual(m ...<a href="#Matrixb">Matrixb</a>) <a href="/pkg/builtin/#bool">bool</a></pre>
+				<p>
+MatEqual determines if multiple matrices are completely equivalent
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixb.Pretty">func (Matrixb) <a href="/src/target/matrices.go?s=17193:17219#L626">Pretty</a></h3>
+				<pre>func (m1 <a href="#Matrixb">Matrixb</a>) Pretty()</pre>
+				<p>
+Pretty prints out the values of the matrix in a visually readable way
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixb.Unpackc">func (*Matrixb) <a href="/src/target/matrices.go?s=23790:23839#L800">Unpackc</a></h3>
+				<pre>func (m1 *<a href="#Matrixb">Matrixb</a>) Unpackc(col <a href="/pkg/builtin/#int">int</a>, vals ...<a href="/pkg/builtin/#bool">bool</a>)</pre>
+				<p>
+Unpackc unpacks all values into a given col
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixb.Unpackcl">func (*Matrixb) <a href="/src/target/matrices.go?s=26144:26193#L860">Unpackcl</a></h3>
+				<pre>func (m1 *<a href="#Matrixb">Matrixb</a>) Unpackcl(col <a href="/pkg/builtin/#int">int</a>, vals []<a href="/pkg/builtin/#bool">bool</a>)</pre>
+				<p>
+Unpackcl unpacks all values into a given col
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixb.Unpackr">func (*Matrixb) <a href="/src/target/matrices.go?s=19164:19213#L680">Unpackr</a></h3>
+				<pre>func (m1 *<a href="#Matrixb">Matrixb</a>) Unpackr(row <a href="/pkg/builtin/#int">int</a>, vals ...<a href="/pkg/builtin/#bool">bool</a>)</pre>
+				<p>
+Unpackr unpacks all values into a given row
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixb.Unpackrl">func (*Matrixb) <a href="/src/target/matrices.go?s=21473:21522#L740">Unpackrl</a></h3>
+				<pre>func (m1 *<a href="#Matrixb">Matrixb</a>) Unpackrl(row <a href="/pkg/builtin/#int">int</a>, vals []<a href="/pkg/builtin/#bool">bool</a>)</pre>
+				<p>
+Unpackrl unpacks all values into a given row
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Matrixf">type <a href="/src/target/matrices.go?s=536:597#L13">Matrixf</a></h2>
+			<pre>type Matrixf struct {
+    Rows <a href="/pkg/builtin/#int">int</a>
+    Cols <a href="/pkg/builtin/#int">int</a>
+    Data [][]<a href="/pkg/builtin/#float32">float32</a>
+}</pre>
+			<p>
+Matrixf is a 32bit floating point struct to streamline matrix operations
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="Gscmap">func <a href="/src/target/colormap.go?s=201:236#L1">Gscmap</a></h3>
+				<pre>func Gscmap(vals, max <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrixf">Matrixf</a></pre>
+				<p>
+Gscmap returns a float32 N by 3 matrix with resultant r,g,b values for (vals) discrete levels. Similar to Matlab&#39;s &#39;gray()&#39; command.
+Thus, Gscmap will return a (12*n) byte matrix.
+</p>
+
+				
+				
+			
+				
+				<h3 id="MatOnesf">func <a href="/src/target/matrices.go?s=2769:2807#L95">MatOnesf</a></h3>
+				<pre>func MatOnesf(rows, cols <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrixf">Matrixf</a></pre>
+				<p>
+MatOnesf replicates matlab&#39;s ones() function. Returns a new 32bit floating point matrix full of 1&#39;s
+</p>
+
+				
+				
+			
+				
+				<h3 id="MattoImgf">func <a href="/src/target/csvdataread.go?s=3701:3764#L75">MattoImgf</a></h3>
+				<pre>func MattoImgf(pts *<a href="#Matrixf">Matrixf</a>, xcol, ycol, wid, hei <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrixf">Matrixf</a></pre>
+				<p>
+MattoImgf converts a list of points with intensity values to an image array
+</p>
+
+				
+				
+			
+				
+				<h3 id="NewMatrixf">func <a href="/src/target/matrices.go?s=1402:1442#L46">NewMatrixf</a></h3>
+				<pre>func NewMatrixf(rows, cols <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrixf">Matrixf</a></pre>
+				<p>
+NewMatrixf constructs a Matrix structure with specified rows and columns, returning the pointer to the new 32bit floating point matrix
+</p>
+
+				
+				
+			
+				
+				<h3 id="ReadMEP">func <a href="/src/target/csvdataread.go?s=151:224#L1">ReadMEP</a></h3>
+				<pre>func ReadMEP(file <a href="/pkg/builtin/#string">string</a>, xcol, ycol, zcol, MEPcol <a href="/pkg/builtin/#int">int</a>) (*<a href="#Matrixf">Matrixf</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>
+ReadMEP takes MEP values from a csvfile and returns an array of hotspot points.
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Matrixf.Combinelr">func (Matrixf) <a href="/src/target/matrices.go?s=35851:35901#L1250">Combinelr</a></h3>
+				<pre>func (m1 <a href="#Matrixf">Matrixf</a>) Combinelr(m ...<a href="#Matrixf">Matrixf</a>) *<a href="#Matrixf">Matrixf</a></pre>
+				<p>
+Combinelr combines multiple matrices into one larger matrix, appending to the m1 matrix from left to right. If one matrix has more rows than another, the extraneous rows will be zero-valued. Example: if [1,2;3,4] and [5] are appended, the output will be [1,2,5;3,4,0].
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Cramer">func (Matrixf) <a href="/src/target/matrices.go?s=40594:40647#L1369">Cramer</a></h3>
+				<pre>func (m1 <a href="#Matrixf">Matrixf</a>) Cramer(vargin ...<a href="/pkg/builtin/#float32">float32</a>) []<a href="/pkg/builtin/#float32">float32</a></pre>
+				<p>
+Cramer solves a system of equations using Cramer&#39;s rule. Note that a more efficient systems solver should be implemented in the future.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Det">func (Matrixf) <a href="/src/target/matrices.go?s=11186:11217#L409">Det</a></h3>
+				<pre>func (m1 <a href="#Matrixf">Matrixf</a>) Det() <a href="/pkg/builtin/#float32">float32</a></pre>
+				<p>
+Det uses laplace expansion to find the determinant of 2x2, 3x3, and 4x4 matrices
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Dot">func (Matrixf) <a href="/src/target/matrices.go?s=5068:5109#L190">Dot</a></h3>
+				<pre>func (m1 <a href="#Matrixf">Matrixf</a>) Dot(m2 <a href="#Matrixf">Matrixf</a>) <a href="/pkg/builtin/#float32">float32</a></pre>
+				<p>
+Dot performs simple dot product multiplication for two float32 matrices
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Getcol">func (*Matrixf) <a href="/src/target/matrices.go?s=32101:32143#L1105">Getcol</a></h3>
+				<pre>func (m1 *<a href="#Matrixf">Matrixf</a>) Getcol(n <a href="/pkg/builtin/#int">int</a>) []<a href="/pkg/builtin/#float32">float32</a></pre>
+				<p>
+Getcol will retrieve all values from a given column and return them as a slice
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.MatEqual">func (Matrixf) <a href="/src/target/matrices.go?s=33265:33310#L1154">MatEqual</a></h3>
+				<pre>func (m1 <a href="#Matrixf">Matrixf</a>) MatEqual(m ...<a href="#Matrixf">Matrixf</a>) <a href="/pkg/builtin/#bool">bool</a></pre>
+				<p>
+MatEqual determines if multiple matrices are completely equivalent
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Maxa">func (*Matrixf) <a href="/src/target/matrices.go?s=31340:31373#L1070">Maxa</a></h3>
+				<pre>func (m1 *<a href="#Matrixf">Matrixf</a>) Maxa() <a href="/pkg/builtin/#float32">float32</a></pre>
+				<p>
+Maxa will find the total maximum of a matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Maxc">func (*Matrixf) <a href="/src/target/matrices.go?s=30449:30484#L1027">Maxc</a></h3>
+				<pre>func (m1 *<a href="#Matrixf">Matrixf</a>) Maxc() []<a href="/pkg/builtin/#float32">float32</a></pre>
+				<p>
+Maxc will find the maximum in each column of a matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Maxr">func (*Matrixf) <a href="/src/target/matrices.go?s=29478:29513#L982">Maxr</a></h3>
+				<pre>func (m1 *<a href="#Matrixf">Matrixf</a>) Maxr() []<a href="/pkg/builtin/#float32">float32</a></pre>
+				<p>
+Maxr will find the maximum in each row of a matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Pretty">func (Matrixf) <a href="/src/target/matrices.go?s=16668:16694#L608">Pretty</a></h3>
+				<pre>func (m1 <a href="#Matrixf">Matrixf</a>) Pretty()</pre>
+				<p>
+Pretty prints out the values of the matrix in a visually readable way
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Scale">func (Matrixf) <a href="/src/target/matrices.go?s=4146:4188#L154">Scale</a></h3>
+				<pre>func (m1 <a href="#Matrixf">Matrixf</a>) Scale(s <a href="/pkg/builtin/#float32">float32</a>) <a href="#Matrixf">Matrixf</a></pre>
+				<p>
+Scale performs simple scalar matrix multiplication for float32 matrices
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Times">func (Matrixf) <a href="/src/target/matrices.go?s=14368:14412#L532">Times</a></h3>
+				<pre>func (m1 <a href="#Matrixf">Matrixf</a>) Times(m2 <a href="#Matrixf">Matrixf</a>) *<a href="#Matrixf">Matrixf</a></pre>
+				<p>
+Times returns the matrix multiplication of the input matrices
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.ToMatf">func (*Matrixf) <a href="/src/target/matrices.go?s=28014:28041#L924">ToMatf</a></h3>
+				<pre>func (m1 *<a href="#Matrixf">Matrixf</a>) ToMatf()</pre>
+				<p>
+ToMatf will panic if you try to convert a float32 matrix into a float32 matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.ToMatff">func (*Matrixf) <a href="/src/target/matrices.go?s=28738:28776#L951">ToMatff</a></h3>
+				<pre>func (m1 *<a href="#Matrixf">Matrixf</a>) ToMatff() *<a href="#Matrixff">Matrixff</a></pre>
+				<p>
+ToMatff will reassign the values of a float64 matrix into a float32 matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.ToMati">func (*Matrixf) <a href="/src/target/matrices.go?s=27168:27204#L891">ToMati</a></h3>
+				<pre>func (m1 *<a href="#Matrixf">Matrixf</a>) ToMati() *<a href="#Matrixi">Matrixi</a></pre>
+				<p>
+ToMati will reassign the values of a float32 matrix into an integer matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Transpose">func (Matrixf) <a href="/src/target/matrices.go?s=15867:15905#L577">Transpose</a></h3>
+				<pre>func (m1 <a href="#Matrixf">Matrixf</a>) Transpose() *<a href="#Matrixf">Matrixf</a></pre>
+				<p>
+Transpose returns the transpose of the input matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Unpackc">func (*Matrixf) <a href="/src/target/matrices.go?s=22639:22691#L770">Unpackc</a></h3>
+				<pre>func (m1 *<a href="#Matrixf">Matrixf</a>) Unpackc(col <a href="/pkg/builtin/#int">int</a>, vals ...<a href="/pkg/builtin/#float32">float32</a>)</pre>
+				<p>
+Unpackc unpacks all values into a given column
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Unpackcl">func (*Matrixf) <a href="/src/target/matrices.go?s=24982:25034#L830">Unpackcl</a></h3>
+				<pre>func (m1 *<a href="#Matrixf">Matrixf</a>) Unpackcl(col <a href="/pkg/builtin/#int">int</a>, vals []<a href="/pkg/builtin/#float32">float32</a>)</pre>
+				<p>
+Unpackcl unpacks all values from a list into a given column
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Unpackr">func (*Matrixf) <a href="/src/target/matrices.go?s=18019:18071#L650">Unpackr</a></h3>
+				<pre>func (m1 *<a href="#Matrixf">Matrixf</a>) Unpackr(row <a href="/pkg/builtin/#int">int</a>, vals ...<a href="/pkg/builtin/#float32">float32</a>)</pre>
+				<p>
+Unpackr unpacks all values into a given row
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixf.Unpackrl">func (*Matrixf) <a href="/src/target/matrices.go?s=20326:20378#L710">Unpackrl</a></h3>
+				<pre>func (m1 *<a href="#Matrixf">Matrixf</a>) Unpackrl(row <a href="/pkg/builtin/#int">int</a>, vals []<a href="/pkg/builtin/#float32">float32</a>)</pre>
+				<p>
+Unpackrl unpacks all values into a given row
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Matrixff">type <a href="/src/target/matrices.go?s=675:737#L20">Matrixff</a></h2>
+			<pre>type Matrixff struct {
+    Rows <a href="/pkg/builtin/#int">int</a>
+    Cols <a href="/pkg/builtin/#int">int</a>
+    Data [][]<a href="/pkg/builtin/#float64">float64</a>
+}</pre>
+			<p>
+Matrixff is a 64bit floating point struct to streamline matrix operations
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="MatOnesff">func <a href="/src/target/matrices.go?s=3156:3196#L110">MatOnesff</a></h3>
+				<pre>func MatOnesff(rows, cols <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrixff">Matrixff</a></pre>
+				<p>
+MatOnesff replicates matlab&#39;s ones() function. Returns a new 64bit floating point matrix full of 1&#39;s
+</p>
+
+				
+				
+			
+				
+				<h3 id="MattoImgff">func <a href="/src/target/csvdataread.go?s=4256:4322#L86">MattoImgff</a></h3>
+				<pre>func MattoImgff(pts *<a href="#Matrixff">Matrixff</a>, xcol, ycol, wid, hei <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrixff">Matrixff</a></pre>
+				<p>
+MattoImgff converts a list of points with intensity values to an image array
+</p>
+
+				
+				
+			
+				
+				<h3 id="NewMatrixff">func <a href="/src/target/matrices.go?s=1741:1783#L56">NewMatrixff</a></h3>
+				<pre>func NewMatrixff(rows, cols <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrixff">Matrixff</a></pre>
+				<p>
+NewMatrixff constructs a Matrix structure with specified rows and columns, returning the pointer to the new 64bit floating point matrix
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Matrixff.Combinelr">func (Matrixff) <a href="/src/target/matrices.go?s=36818:36871#L1280">Combinelr</a></h3>
+				<pre>func (m1 <a href="#Matrixff">Matrixff</a>) Combinelr(m ...<a href="#Matrixff">Matrixff</a>) *<a href="#Matrixff">Matrixff</a></pre>
+				<p>
+Combinelr combines multiple matrices into one larger matrix, appending to the m1 matrix from left to right. If one matrix has more rows than another, the extraneous rows will be zero-valued. Example: if [1,2;3,4] and [5] are appended, the output will be [1,2,5;3,4,0].
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Cramer">func (Matrixff) <a href="/src/target/matrices.go?s=41257:41311#L1389">Cramer</a></h3>
+				<pre>func (m1 <a href="#Matrixff">Matrixff</a>) Cramer(vargin ...<a href="/pkg/builtin/#float64">float64</a>) []<a href="/pkg/builtin/#float64">float64</a></pre>
+				<p>
+Cramer solves a system of equations using Cramer&#39;s rule. Note that a more efficient systems solver should be implemented in the future.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Det">func (Matrixff) <a href="/src/target/matrices.go?s=12474:12506#L462">Det</a></h3>
+				<pre>func (m1 <a href="#Matrixff">Matrixff</a>) Det() <a href="/pkg/builtin/#float64">float64</a></pre>
+				<p>
+Det uses laplace expansion to find the determinant of 2x2, 3x3, and 4x4 matrices
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Dot">func (Matrixff) <a href="/src/target/matrices.go?s=5544:5587#L206">Dot</a></h3>
+				<pre>func (m1 <a href="#Matrixff">Matrixff</a>) Dot(m2 <a href="#Matrixff">Matrixff</a>) <a href="/pkg/builtin/#float64">float64</a></pre>
+				<p>
+Dot performs simple dot product multiplication for two float64 matrices
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Getcol">func (*Matrixff) <a href="/src/target/matrices.go?s=32337:32380#L1114">Getcol</a></h3>
+				<pre>func (m1 *<a href="#Matrixff">Matrixff</a>) Getcol(n <a href="/pkg/builtin/#int">int</a>) []<a href="/pkg/builtin/#float64">float64</a></pre>
+				<p>
+Getcol will retrieve all values from a given column and return them as a slice
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.MatEqual">func (Matrixff) <a href="/src/target/matrices.go?s=33728:33775#L1176">MatEqual</a></h3>
+				<pre>func (m1 <a href="#Matrixff">Matrixff</a>) MatEqual(m ...<a href="#Matrixff">Matrixff</a>) <a href="/pkg/builtin/#bool">bool</a></pre>
+				<p>
+MatEqual determines if multiple matrices are completely equivalent
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Maxa">func (*Matrixff) <a href="/src/target/matrices.go?s=31589:31623#L1083">Maxa</a></h3>
+				<pre>func (m1 *<a href="#Matrixff">Matrixff</a>) Maxa() <a href="/pkg/builtin/#float64">float64</a></pre>
+				<p>
+Maxa will find the total maximum of a matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Maxc">func (*Matrixff) <a href="/src/target/matrices.go?s=30776:30812#L1042">Maxc</a></h3>
+				<pre>func (m1 *<a href="#Matrixff">Matrixff</a>) Maxc() []<a href="/pkg/builtin/#float64">float64</a></pre>
+				<p>
+Maxc will find the maximum in each column of a matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Maxr">func (*Matrixff) <a href="/src/target/matrices.go?s=29802:29838#L997">Maxr</a></h3>
+				<pre>func (m1 *<a href="#Matrixff">Matrixff</a>) Maxr() []<a href="/pkg/builtin/#float64">float64</a></pre>
+				<p>
+Maxr will find the maximum in each row of a matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Pretty">func (Matrixff) <a href="/src/target/matrices.go?s=16930:16957#L617">Pretty</a></h3>
+				<pre>func (m1 <a href="#Matrixff">Matrixff</a>) Pretty()</pre>
+				<p>
+Pretty prints out the values of the matrix in a visually readable way
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Scale">func (Matrixff) <a href="/src/target/matrices.go?s=4373:4417#L164">Scale</a></h3>
+				<pre>func (m1 <a href="#Matrixff">Matrixff</a>) Scale(s <a href="/pkg/builtin/#float64">float64</a>) <a href="#Matrixff">Matrixff</a></pre>
+				<p>
+Scale performs simple scalar matrix multiplication for float64 matrices
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Times">func (Matrixff) <a href="/src/target/matrices.go?s=14991:15038#L549">Times</a></h3>
+				<pre>func (m1 <a href="#Matrixff">Matrixff</a>) Times(m2 <a href="#Matrixff">Matrixff</a>) *<a href="#Matrixff">Matrixff</a></pre>
+				<p>
+Times returns the matrix multiplication of the input matrices
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.ToMatf">func (*Matrixff) <a href="/src/target/matrices.go?s=28168:28205#L929">ToMatf</a></h3>
+				<pre>func (m1 *<a href="#Matrixff">Matrixff</a>) ToMatf() *<a href="#Matrixf">Matrixf</a></pre>
+				<p>
+ToMatf will reassign the values of a float64 matrix into a float32 matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.ToMatff">func (*Matrixff) <a href="/src/target/matrices.go?s=29029:29058#L962">ToMatff</a></h3>
+				<pre>func (m1 *<a href="#Matrixff">Matrixff</a>) ToMatff()</pre>
+				<p>
+ToMatff will panic if you try to convert a float64 matrix into a float64 matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.ToMati">func (*Matrixff) <a href="/src/target/matrices.go?s=27447:27484#L902">ToMati</a></h3>
+				<pre>func (m1 *<a href="#Matrixff">Matrixff</a>) ToMati() *<a href="#Matrixi">Matrixi</a></pre>
+				<p>
+ToMati will reassign the values of a float64 matrix into an integer matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Transpose">func (Matrixff) <a href="/src/target/matrices.go?s=16126:16166#L588">Transpose</a></h3>
+				<pre>func (m1 <a href="#Matrixff">Matrixff</a>) Transpose() *<a href="#Matrixff">Matrixff</a></pre>
+				<p>
+Transpose returns the transpose of the input matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Unpackc">func (*Matrixff) <a href="/src/target/matrices.go?s=23217:23270#L785">Unpackc</a></h3>
+				<pre>func (m1 *<a href="#Matrixff">Matrixff</a>) Unpackc(col <a href="/pkg/builtin/#int">int</a>, vals ...<a href="/pkg/builtin/#float64">float64</a>)</pre>
+				<p>
+Unpackc unpacks all values into a given column
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Unpackcl">func (*Matrixff) <a href="/src/target/matrices.go?s=25570:25623#L845">Unpackcl</a></h3>
+				<pre>func (m1 *<a href="#Matrixff">Matrixff</a>) Unpackcl(col <a href="/pkg/builtin/#int">int</a>, vals []<a href="/pkg/builtin/#float64">float64</a>)</pre>
+				<p>
+Unpackcl unpacks all values from a list into a given column
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Unpackr">func (*Matrixff) <a href="/src/target/matrices.go?s=18591:18644#L665">Unpackr</a></h3>
+				<pre>func (m1 *<a href="#Matrixff">Matrixff</a>) Unpackr(row <a href="/pkg/builtin/#int">int</a>, vals ...<a href="/pkg/builtin/#float64">float64</a>)</pre>
+				<p>
+Unpackr unpacks all values into a given row
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixff.Unpackrl">func (*Matrixff) <a href="/src/target/matrices.go?s=20899:20952#L725">Unpackrl</a></h3>
+				<pre>func (m1 *<a href="#Matrixff">Matrixff</a>) Unpackrl(row <a href="/pkg/builtin/#int">int</a>, vals []<a href="/pkg/builtin/#float64">float64</a>)</pre>
+				<p>
+Unpackrl unpacks all values into a given row
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Matrixi">type <a href="/src/target/matrices.go?s=402:459#L6">Matrixi</a></h2>
+			<pre>type Matrixi struct {
+    Rows <a href="/pkg/builtin/#int">int</a>
+    Cols <a href="/pkg/builtin/#int">int</a>
+    Data [][]<a href="/pkg/builtin/#int">int</a>
+}</pre>
+			<p>
+Matrixi is an 8bit unsigned integer struct to streamline matrix operations
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="MatOnesi">func <a href="/src/target/matrices.go?s=2391:2429#L80">MatOnesi</a></h3>
+				<pre>func MatOnesi(rows, cols <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrixi">Matrixi</a></pre>
+				<p>
+MatOnesi replicates matlab&#39;s ones() function. Returns a new integer matrix full of 1&#39;s
+</p>
+
+				
+				
+			
+				
+				<h3 id="MattoImgi">func <a href="/src/target/csvdataread.go?s=3150:3213#L64">MattoImgi</a></h3>
+				<pre>func MattoImgi(pts *<a href="#Matrixi">Matrixi</a>, xcol, ycol, wid, hei <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrixi">Matrixi</a></pre>
+				<p>
+MattoImgi converts a list of points with intensity values to an image array
+</p>
+
+				
+				
+			
+				
+				<h3 id="NewMatrixi">func <a href="/src/target/matrices.go?s=1072:1112#L36">NewMatrixi</a></h3>
+				<pre>func NewMatrixi(rows, cols <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrixi">Matrixi</a></pre>
+				<p>
+NewMatrixi constructs a integer containing Matrix structure with specified rows and columns, returning the pointer to the new matrix
+</p>
+
+				
+				
+			
+				
+				<h3 id="Randmat">func <a href="/src/target/matrices.go?s=26741:26782#L875">Randmat</a></h3>
+				<pre>func Randmat(row, col, maxn <a href="/pkg/builtin/#int">int</a>) *<a href="#Matrixi">Matrixi</a></pre>
+				<p>
+Randmat returns a matrix of pseudo-random values
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="Matrixi.Combinelr">func (Matrixi) <a href="/src/target/matrices.go?s=34884:34934#L1220">Combinelr</a></h3>
+				<pre>func (m1 <a href="#Matrixi">Matrixi</a>) Combinelr(m ...<a href="#Matrixi">Matrixi</a>) *<a href="#Matrixi">Matrixi</a></pre>
+				<p>
+Combinelr combines multiple matrices into one larger matrix, appending to the m1 matrix from left to right. If one matrix has more rows than another, the extraneous rows will be zero-valued. Example: if [1,2;3,4] and [5] are appended, the output will be [1,2,5;3,4,0].
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Cramer">func (Matrixi) <a href="/src/target/matrices.go?s=39943:39988#L1349">Cramer</a></h3>
+				<pre>func (m1 <a href="#Matrixi">Matrixi</a>) Cramer(vargin ...<a href="/pkg/builtin/#int">int</a>) []<a href="/pkg/builtin/#int">int</a></pre>
+				<p>
+Cramer solves a system of equations using Cramer&#39;s rule. Note that a more efficient systems solver should be implemented in the future.
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Det">func (Matrixi) <a href="/src/target/matrices.go?s=9922:9949#L356">Det</a></h3>
+				<pre>func (m1 <a href="#Matrixi">Matrixi</a>) Det() <a href="/pkg/builtin/#int">int</a></pre>
+				<p>
+Det uses laplace expansion to find the determinant of 2x2, 3x3, and 4x4 matrices
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Dot">func (Matrixi) <a href="/src/target/matrices.go?s=4600:4637#L174">Dot</a></h3>
+				<pre>func (m1 <a href="#Matrixi">Matrixi</a>) Dot(m2 <a href="#Matrixi">Matrixi</a>) <a href="/pkg/builtin/#int">int</a></pre>
+				<p>
+Dot performs simple dot product multiplication for two uint8 matrices
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Getcol">func (*Matrixi) <a href="/src/target/matrices.go?s=31873:31911#L1096">Getcol</a></h3>
+				<pre>func (m1 *<a href="#Matrixi">Matrixi</a>) Getcol(n <a href="/pkg/builtin/#int">int</a>) []<a href="/pkg/builtin/#int">int</a></pre>
+				<p>
+Getcol will retrieve all values from a given column and return them as a slice
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.MatEqual">func (Matrixi) <a href="/src/target/matrices.go?s=32802:32847#L1132">MatEqual</a></h3>
+				<pre>func (m1 <a href="#Matrixi">Matrixi</a>) MatEqual(m ...<a href="#Matrixi">Matrixi</a>) <a href="/pkg/builtin/#bool">bool</a></pre>
+				<p>
+MatEqual determines if multiple matrices are completely equivalent
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Maxa">func (*Matrixi) <a href="/src/target/matrices.go?s=31095:31124#L1057">Maxa</a></h3>
+				<pre>func (m1 *<a href="#Matrixi">Matrixi</a>) Maxa() <a href="/pkg/builtin/#int">int</a></pre>
+				<p>
+Maxa will find the total maximum of a matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Maxc">func (*Matrixi) <a href="/src/target/matrices.go?s=30130:30161#L1012">Maxc</a></h3>
+				<pre>func (m1 *<a href="#Matrixi">Matrixi</a>) Maxc() []<a href="/pkg/builtin/#int">int</a></pre>
+				<p>
+Maxc will find the maximum in each column of a matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Maxr">func (*Matrixi) <a href="/src/target/matrices.go?s=29162:29193#L967">Maxr</a></h3>
+				<pre>func (m1 *<a href="#Matrixi">Matrixi</a>) Maxr() []<a href="/pkg/builtin/#int">int</a></pre>
+				<p>
+Maxr will find the maximum in each row of a matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Pretty">func (Matrixi) <a href="/src/target/matrices.go?s=16406:16432#L599">Pretty</a></h3>
+				<pre>func (m1 <a href="#Matrixi">Matrixi</a>) Pretty()</pre>
+				<p>
+Pretty prints out the values of the matrix in a visually readable way
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Scale">func (Matrixi) <a href="/src/target/matrices.go?s=3923:3961#L144">Scale</a></h3>
+				<pre>func (m1 <a href="#Matrixi">Matrixi</a>) Scale(s <a href="/pkg/builtin/#int">int</a>) <a href="#Matrixi">Matrixi</a></pre>
+				<p>
+Scale performs simple scalar matrix multiplication for uint8 matrices
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Times">func (Matrixi) <a href="/src/target/matrices.go?s=13745:13789#L515">Times</a></h3>
+				<pre>func (m1 <a href="#Matrixi">Matrixi</a>) Times(m2 <a href="#Matrixi">Matrixi</a>) *<a href="#Matrixi">Matrixi</a></pre>
+				<p>
+Times returns the matrix multiplication of the input matrices
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.ToMatf">func (*Matrixi) <a href="/src/target/matrices.go?s=27727:27763#L913">ToMatf</a></h3>
+				<pre>func (m1 *<a href="#Matrixi">Matrixi</a>) ToMatf() *<a href="#Matrixf">Matrixf</a></pre>
+				<p>
+ToMatf will reassign the values of an integer matrix into a float32 matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.ToMatff">func (*Matrixi) <a href="/src/target/matrices.go?s=28452:28490#L940">ToMatff</a></h3>
+				<pre>func (m1 *<a href="#Matrixi">Matrixi</a>) ToMatff() *<a href="#Matrixff">Matrixff</a></pre>
+				<p>
+ToMatff will reassign the values of a float64 matrix into a float32 matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.ToMati">func (*Matrixi) <a href="/src/target/matrices.go?s=27012:27039#L886">ToMati</a></h3>
+				<pre>func (m1 *<a href="#Matrixi">Matrixi</a>) ToMati()</pre>
+				<p>
+ToMati will panic if you try to convert an integer matrix into an integer matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Transpose">func (Matrixi) <a href="/src/target/matrices.go?s=15608:15646#L566">Transpose</a></h3>
+				<pre>func (m1 <a href="#Matrixi">Matrixi</a>) Transpose() *<a href="#Matrixi">Matrixi</a></pre>
+				<p>
+Transpose returns the transpose of the input matrix
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Unpackc">func (*Matrixi) <a href="/src/target/matrices.go?s=22068:22116#L755">Unpackc</a></h3>
+				<pre>func (m1 *<a href="#Matrixi">Matrixi</a>) Unpackc(col <a href="/pkg/builtin/#int">int</a>, vals ...<a href="/pkg/builtin/#int">int</a>)</pre>
+				<p>
+Unpackc unpacks all values into a given column
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Unpackcl">func (*Matrixi) <a href="/src/target/matrices.go?s=24398:24446#L815">Unpackcl</a></h3>
+				<pre>func (m1 *<a href="#Matrixi">Matrixi</a>) Unpackcl(col <a href="/pkg/builtin/#int">int</a>, vals []<a href="/pkg/builtin/#int">int</a>)</pre>
+				<p>
+Unpackcl unpacks all values from a list into a given column
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Unpackr">func (*Matrixi) <a href="/src/target/matrices.go?s=17451:17499#L635">Unpackr</a></h3>
+				<pre>func (m1 *<a href="#Matrixi">Matrixi</a>) Unpackr(row <a href="/pkg/builtin/#int">int</a>, vals ...<a href="/pkg/builtin/#int">int</a>)</pre>
+				<p>
+Unpackr unpacks all values into a given row
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="Matrixi.Unpackrl">func (*Matrixi) <a href="/src/target/matrices.go?s=19757:19805#L695">Unpackrl</a></h3>
+				<pre>func (m1 *<a href="#Matrixi">Matrixi</a>) Unpackrl(row <a href="/pkg/builtin/#int">int</a>, vals []<a href="/pkg/builtin/#int">int</a>)</pre>
+				<p>
+Unpackrl unpacks all values into a given row
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Point2f">type <a href="/src/target/graph.go?s=629:669#L26">Point2f</a></h2>
+			<pre>type Point2f struct {
+    X, Y, V <a href="/pkg/builtin/#float32">float32</a>
+}</pre>
+			<p>
+Point2f defines a 2d float32 point
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Point2ff">type <a href="/src/target/graph.go?s=709:750#L31">Point2ff</a></h2>
+			<pre>type Point2ff struct {
+    X, Y, V <a href="/pkg/builtin/#float64">float64</a>
+}</pre>
+			<p>
+Point2ff defines a 2d float64 point
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Point2i">type <a href="/src/target/graph.go?s=554:590#L21">Point2i</a></h2>
+			<pre>type Point2i struct {
+    X, Y, V <a href="/pkg/builtin/#int">int</a>
+}</pre>
+			<p>
+Point2i defines a 2d integer point
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Point3f">type <a href="/src/target/graph.go?s=388:431#L11">Point3f</a></h2>
+			<pre>type Point3f struct {
+    X, Y, Z, V <a href="/pkg/builtin/#float32">float32</a>
+}</pre>
+			<p>
+Point3f defines a 3d float32 point
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Point3ff">type <a href="/src/target/graph.go?s=471:515#L16">Point3ff</a></h2>
+			<pre>type Point3ff struct {
+    X, Y, Z, V <a href="/pkg/builtin/#float64">float64</a>
+}</pre>
+			<p>
+Point3ff defines a 3d float64 point
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Point3i">type <a href="/src/target/graph.go?s=310:349#L6">Point3i</a></h2>
+			<pre>type Point3i struct {
+    X, Y, Z, V <a href="/pkg/builtin/#int">int</a>
+}</pre>
+			<p>
+Point3i defines a 3d integer point
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="PointCloud2f">type <a href="/src/target/graph.go?s=813:875#L36">PointCloud2f</a></h2>
+			<pre>type PointCloud2f struct {
+    Pts []<a href="#Point2f">Point2f</a>
+    <span class="comment">// contains filtered or unexported fields</span>
+}</pre>
+			<p>
+PointCloud2f is a method of storing point clouds of points
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Pointf">type <a href="/src/target/graph.go?s=158:183#L1">Pointf</a></h2>
+			<pre>type Pointf interface {
+}</pre>
+			<p>
+Pointf defines an interface for 2d and 3d float32 points
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Pointff">type <a href="/src/target/graph.go?s=245:271#L2">Pointff</a></h2>
+			<pre>type Pointff interface {
+}</pre>
+			<p>
+Pointff defines an interface for 2d and 3d float64 points
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Pointi">type <a href="/src/target/graph.go?s=72:97#L1">Pointi</a></h2>
+			<pre>type Pointi interface {
+}</pre>
+			<p>
+Pointi defines an interface for 2d and 3d int points
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+

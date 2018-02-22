@@ -1,0 +1,33 @@
+body {
+    background: url("kathleen.jpg");
+    background-repeat: no-repeat;
+    background-size: 70% 100%;
+    background-color: #FFFFFF
+}
+nav {
+    padding: 20% 0%;
+    min-width: 500px; 
+}
+nav ul {
+    background: linear-gradient(90deg, 
+     rgba(0, 0, 0, .8) 0%, 
+     rgba(0, 0, 0, 0.6) 25%, 
+     rgba(0, 0, 0, 0.4) 75%, 
+     rgba(0, 0, 0, .2) 100%);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.1),
+     inset 0 0 1px rgba(0, 0, 0, 0.6);
+}
+nav ul li {
+    display: inline-flex;
+    text-align: center;
+}
+nav ul li a {
+    padding: 20px; 
+    color: #FFFFFF;
+    font-size: 18px;
+    font-family: Arial;
+    text-decoration: none;
+    display: inline;
+    align-items: center;
+    position: relative;
+ }

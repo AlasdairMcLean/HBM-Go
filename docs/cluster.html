@@ -1,0 +1,244 @@
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	
+
+<div class="w3-bar w3-border w3-light-grey">
+	<a href="index.html" class="w3-bar-item w3-button">Home</a>
+	<a href="util.html" class="w3-bar-item w3-button">util</a>
+	<a href="plot.html" class="w3-bar-item w3-button">plot</a>
+	<a href="cluster.html" class="w3-bar-item w3-button w3-text-indigo">cluster</a>
+  </div>
+<link rel="stylesheet" href="style.css">
+		<div id="short-nav">
+			<dl>
+                <h1>Documentation for CCNY Human Brain Mapping Golang library</h1>
+			<dd><code>import "hbm/cluster"</code></dd>
+			</dl>
+			<dl>
+            </dl>
+            <p>
+                The index below has links to each function in the current library. Click on one of the links to jump to the documentation for that function/struct/interface.
+            </p>
+            <dl>
+            </dl>
+        </div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview</h2>
+				
+			</div>
+		</div>
+		
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+				
+				<dd><a href="#ClusterFromFile">func ClusterFromFile(fulldatafilepat string, MEPcol, NumNodes, numrep int, NodeThresh float32) []*ClusterNode</a></dd>
+			
+			
+				
+				<dd><a href="#ClusterNode">type ClusterNode</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#MakeNode">func MakeNode(cap int) *ClusterNode</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#NewNodePts">func NewNodePts(x, y, z, v float32, cap int) *ClusterNode</a></dd>
+				
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#ClusterNode.Add">func (cn *ClusterNode) Add(x, y, z, amp float32)</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#ClusterNode.ToOrigin">func (cn *ClusterNode) ToOrigin() float32</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#ClusterNode.ToPoint">func (cn *ClusterNode) ToPoint(x, y, z float32) float32</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h4>Package files</h4>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="/src/target/ClusterNode.go">ClusterNode.go</a>
+			
+				<a href="/src/target/cluster.go">cluster.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		<div id="pkg-callgraph" class="toggle" style="display: none">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Internal Call Graph section">Internal call graph ▹</h2>
+		</div> <!-- .expanded -->
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Internal Call Graph section">Internal call graph ▾</h2>
+			<p>
+			  In the call graph viewer below, each node
+			  is a function belonging to this package
+			  and its children are the functions it
+			  calls&mdash;perhaps dynamically.
+			</p>
+			<p>
+			  The root nodes are the entry points of the
+			  package: functions that may be called from
+			  outside the package.
+			  There may be non-exported or anonymous
+			  functions among them if they are called
+			  dynamically from another package.
+			</p>
+			<p>
+			  Click a node to visit that function's source code.
+			  From there you can visit its callers by
+			  clicking its declaring <code>func</code>
+			  token.
+			</p>
+			<p>
+			  Functions may be omitted if they were
+			  determined to be unreachable in the
+			  particular programs or tests that were
+			  analyzed.
+			</p>
+			<!-- Zero means show all package entry points. -->
+			<ul style="margin-left: 0.5in" id="callgraph-0" class="treeview"></ul>
+		</div>
+		</div> <!-- #pkg-callgraph -->
+
+		
+		
+		
+			
+			
+			<h2 id="ClusterFromFile">func <a href="/src/target/cluster.go?s=199:308#L1">ClusterFromFile</a></h2>
+			<pre>func ClusterFromFile(fulldatafilepat <a href="/pkg/builtin/#string">string</a>, MEPcol, NumNodes, numrep <a href="/pkg/builtin/#int">int</a>, NodeThresh <a href="/pkg/builtin/#float32">float32</a>) []*<a href="#ClusterNode">ClusterNode</a></pre>
+			<p>
+ClusterFromFile returns an array of nodes based off of a csv file which have been clustered based on either default or inputted values
+</p>
+
+			
+			
+
+		
+		
+			
+			
+			<h2 id="ClusterNode">type <a href="/src/target/ClusterNode.go?s=167:262#L1">ClusterNode</a></h2>
+			<pre>type ClusterNode struct {
+    X, Y, Z <a href="/pkg/builtin/#float32">float32</a>
+    Pts     <a href="/pkg/../hbmutil/">hbmutil</a>.<a href="/pkg/../hbmutil/#Matrixf">Matrixf</a>
+    Curpts  <a href="/pkg/builtin/#int">int</a>
+    Maxpts  <a href="/pkg/builtin/#int">int</a>
+}</pre>
+			<p>
+ClusterNode is a self-updating struct that keeps track of the points belonging to it as well as the centroid.
+</p>
+
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="MakeNode">func <a href="/src/target/ClusterNode.go?s=338:373#L8">MakeNode</a></h3>
+				<pre>func MakeNode(cap <a href="/pkg/builtin/#int">int</a>) *<a href="#ClusterNode">ClusterNode</a></pre>
+				<p>
+MakeNode is the constructor function for making a new empty clusternode
+</p>
+
+				
+				
+			
+				
+				<h3 id="NewNodePts">func <a href="/src/target/ClusterNode.go?s=546:603#L14">NewNodePts</a></h3>
+				<pre>func NewNodePts(x, y, z, v <a href="/pkg/builtin/#float32">float32</a>, cap <a href="/pkg/builtin/#int">int</a>) *<a href="#ClusterNode">ClusterNode</a></pre>
+				<p>
+NewNodePts is a constructor function where the first point is initialized
+</p>
+
+				
+				
+			
+
+			
+				
+				<h3 id="ClusterNode.Add">func (*ClusterNode) <a href="/src/target/ClusterNode.go?s=1375:1423#L31">Add</a></h3>
+				<pre>func (cn *<a href="#ClusterNode">ClusterNode</a>) Add(x, y, z, amp <a href="/pkg/builtin/#float32">float32</a>)</pre>
+				<p>
+Add is a constructor function for adding a point to the node, which triggers the recalculation of the centroid
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterNode.ToOrigin">func (*ClusterNode) <a href="/src/target/ClusterNode.go?s=834:875#L21">ToOrigin</a></h3>
+				<pre>func (cn *<a href="#ClusterNode">ClusterNode</a>) ToOrigin() <a href="/pkg/builtin/#float32">float32</a></pre>
+				<p>
+ToOrigin will quickly calculate the distance between the centroid of the node to the origin (0,0,0)
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="ClusterNode.ToPoint">func (*ClusterNode) <a href="/src/target/ClusterNode.go?s=1082:1137#L26">ToPoint</a></h3>
+				<pre>func (cn *<a href="#ClusterNode">ClusterNode</a>) ToPoint(x, y, z <a href="/pkg/builtin/#float32">float32</a>) <a href="/pkg/builtin/#float32">float32</a></pre>
+				<p>
+ToPoint will return the distance between the given point and the centroid of the node
+</p>
+
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
