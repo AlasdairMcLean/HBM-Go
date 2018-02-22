@@ -8,6 +8,12 @@ nav {
     padding: 20% 0%;
     min-width: 500px; 
 }
+nav p {
+    color: #FFFFFF;
+    display: inline;
+    font-size: 18px;
+    font-family: Arial;
+}
 nav ul {
     background: linear-gradient(90deg, 
      rgba(0, 0, 0, .8) 0%, 
