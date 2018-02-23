@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/gotk3/gotk3/gdk"
 
@@ -96,7 +96,8 @@ func main() {
 func setupWindow(title string, wid, hei int) (*gtk.Window, *gtk.Box) {
 	win, err := gtk.WindowNew(gtk.WINDOW_TOPLEVEL) //create a new toplevel window
 	if err != nil {
-		log.Fatal("Unable to create window:", err)
+		pmsg := fmt.Sprintf("Unable to create window: %v", err)
+		panic(pmsg)
 	}
 	gtk.WindowSetDefaultIconFromFile("./brainimg.png") // use the brainimg.png file as an icon
 	win.SetTitle(title)                                // sets title to that specified as input to setupWindow function
