@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<title>External Reference and tutorials</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<body>
+
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large"
+  onclick="w3_close()">Close &times;</button>
+  <a href="go.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Go Tutorial</a>
+  <a href="git.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Git Tutorial</a>
+  <a href="gotk3.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Gotk3 Tutorial</a>
+  <a href="extlink.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">External Links</a>
+</div>
+
+<div id="main">
+
+<div class="w3-light-grey">
+  <button id="openNav" class="w3-button w3-light-grey w3-xlarge" onclick="w3_open()">&#9776;</button>
+  <div class="w3-container">
+    <h1 style="color:#375EAB">Reference/Tutorials</h1>
+  </div>
+</div>
+
+<div class="w3-container">
+<p>Click the top left to open the side bar, and pick a tutorial to navigate to. </p>
+</div>
+
+
+<script>
+function w3_open() {
+  document.getElementById("main").style.marginLeft = "25%";
+  document.getElementById("mySidebar").style.width = "25%";
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("openNav").style.display = 'none';
+}
+function w3_close() {
+  document.getElementById("main").style.marginLeft = "0%";
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("openNav").style.display = "inline-block";
+}
+</script>
+<link rel="stylesheet" href="style.css">
+
+<h2>Coding Resources:</h2>
+<h4>Learning</h4>
+<ul>
+<li> <a href="https://www.youtube.com/watch?v=G3PvTWRIhZA&list=PLQVvvaa0QuDeF3hP0wQoSxpkqgRcgxMqX">Sentdex Golang Basics tutorial</a> - Good moderately paced tutorial to introduce syntax of Go while also looking at practical applications.  </li>
+
+<li><a href="https://tour.golang.org/welcome/1">Google's tutorial of Go</a> - doesn't explain basic coding concepts, but is a good tutorial for learning the grammar and nuances of Go </li>
+
+<li><a href="https://www.youtube.com/watch?v=CF9S4QZuV30">Go in one hour</a> - Goes fast but covers the main features of Go in under 1hr </li>
+
+<li><a href="https://gobyexample.com/">Go by example</a> - offers good examples that illustrate different features of the language- better as a reference than as a direct learning source </li>
+
+<li><a href="https://www.golang-book.com/books/intro">Golang PDF</a> - free pdf of an introduction to Go textbook </li>
+
+<li><a href="https://www.golang-book.com/guides/bootcamp">Golang 4wk bootcamp</a> - longer, but a full 4wk series of videos for a Go bootcamp </li>
+
+<li><a href="http://openmymind.net/assets/go/go.pdf">Open my mind golang PDF</a> - another free pdf (84pg) on learning Go </li>
+
+<li><a href="https://learnxinyminutes.com/docs/go/">Learn X in Y minutes</a> - a great site that explains all of Go in one webpage</li>
+</ul>
+
+<h4>Practice</h4>
+
+<ul>
+<li><a href="https://www.codewars.com"> Code Wars</a> - Similar to codefights. Seems to maybe run slowly for golang though</li>
+</ul>
+<h4>Reference</h4>
+<ul>
+<li><a href="https://www.mathworks.com/help/matlab/">Matlab documentation </a>
+- Matlab documentation which explains how functions work and other topics about coding in matlab
+</li>
+<li><a href="https://stackoverflow.com/">Stack Overflow</a>
+    - If you're getting an error and don't understand what it means, someone else has had it before and probably posted about it here
+</li>
+<li><a href="https://git-scm.com/doc">Git documentation</a>
+    - Git documentation explaining different version control commands. If you don't understand what something does, ask before you do it
+</li>
+<li><a href="https://help.github.com/">Github documentation/help</a>
+    - slightly more beginner friendly help with git
+</li>
+<li><a href="https://services.github.com/on-demand/downloads/github-git-cheat-sheet/">Github cheat sheet</a>
+    - cheat sheet with common git commands
+</li>
+<li><a href="https://golang.org/doc/">Golang documentation</a>
+    - Full Go programming language documentation
+</li>
+</ul>
+
+<h2>Dicoms</h2>
+<h4>.dcm file format</h4>
+<ul>
+<li><a href="https://www.leadtools.com/sdk/medical/dicom-spec1">Dicom Specs</a> - The dicom file specification which in theory details how the files must be created</li>
+</ul>
+<h4>Dicom repositories</h4>
+<ul>
+<li><a href="http://brain-development.org/ixi-dataset/">IXI dataset</a>
+    - Has structural brain MRIs
+</li>
+<li><a href="https://www.dicomlibrary.com/dicom/modality/">Dicom Library</a>
+    - Has dicoms of all modalities
+</li>
+</ul>
+<h2>Regression Methods</h2>
+<h4>Quality Threshold Clustering</h4>
+<ul>
+
+<li><a href="http://genome.cshlp.org/content/9/11/1106.full">QTC paper</a>
+    - Paper that Usman found detailing 3 potential QTC approaches
+</li>
+<li><a href="https://www.mathworks.com/matlabcentral/fileexchange/26432-qt-clustering-using-euclidean-distance--jackknife-correlation">Matlab QTC code</a>
+    - Matlab code that somebody made modeling both the paper above's Jacknife correlation and other more simplistic euclidean methods
+</li>
+</ul>
+</body>
+</html>

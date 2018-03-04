@@ -11,6 +11,31 @@ code {
 	font-family: Menlo, monospace;
 	font-size: 14px;
 }
+
+
+div.cmd {
+    border:1px solid black;
+    position:relative;
+    left:30px;
+    margin-top:10px;
+    margin-bottom:10px;
+    background-color:#E0F5E1; 
+    height: auto;
+    width:70%;
+    overflow-y:hidden;
+    overflow-x:scroll;
+    font-family: "Courier New", Courier, monospace;
+	font-size: 14px;
+    
+}
+
+path {
+	padding:2px;
+    background-color:#C1CAD3; 
+    font-family: "Courier New", Courier, monospace;
+	font-size: 14px;
+}
+
 pre {
 	line-height: 1.4em;
 	overflow-x: auto;

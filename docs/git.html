@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<title>HBM Git tutorial</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<body style="width:100%">
+
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large"
+  onclick="w3_close()">Close &times;</button>
+  <a href="go.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Go Tutorial</a>
+  <a href="git.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Git Tutorial</a>
+  <a href="gotk3.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Gotk3 Tutorial</a>
+  <a href="extlink.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">External Links</a>
+</div>
+
+<div id="main">
+
+<div class="w3-light-grey">
+  <button id="openNav" class="w3-button w3-light-grey w3-xlarge" onclick="w3_open()">&#9776;</button>
+  <div class="w3-container">
+    <h1 style="color:#375EAB">Git tutorial</h1>
+  </div>
+</div>
+
+<div class="w3-container">
+<h2>Basic usage of Git for development</h2>
+</div>
+
+
+<script>
+function w3_open() {
+  document.getElementById("main").style.marginLeft = "25%";
+  document.getElementById("mySidebar").style.width = "25%";
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("openNav").style.display = 'none';
+}
+function w3_close() {
+  document.getElementById("main").style.marginLeft = "0%";
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("openNav").style.display = "inline-block";
+}
+</script>
+
+
+
+    
+    <script>
+        function myFunction(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else { 
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+        </script>
+
+<link rel="stylesheet" href="style.css">
+
+<style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px Arial, sans-serif}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px Arial, sans-serif; min-height: 14.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Arial, sans-serif}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Arial, sans-serif; min-height: 23.0px}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px Arial, sans-serif}
+    p.p6 {margin: 0.0px 0.0px 14.2px 0.0px; font: 15.0px Arial, sans-serif}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px Arial, sans-serif}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Arial, sans-serif}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Arial, sans-serif; min-height: 19.0px}
+    p.p10 {margin: 0.0px 0.0px 14.2px 0.0px; font: 15.0px Arial, sans-serif; min-height: 14.0px}
+    p.p11 {margin: 0.0px 0.0px 14.2px 0.0px; font: 16.0px Arial, sans-serif}
+    p.p12 {margin: 0.0px 0.0px 14.2px 0.0px; font: 16.0px Arial, sans-serif; min-height: 19.0px}
+  </style>
+
+<h2> Git syntax and usage tutorial: </h2>
+
+<p>(I've highlighted all the commands you need to enter like <path>this</path> so that you don't accidentally miss a step. There's a full command list at the bottom)</p>
+
+<h2>Setup:</h2>
+
+<p>Download git from <a href="https://git-scm.com/downloads"> here</a> and install it.</p>
+<p> MAC: Open terminal (If you don't know where it is, hit command-enter, type in <path>terminal</path>, and hit enter. </p>
+<p> WINDOWS: Open command line. (if you don't know where it is, hit Windows+R, type in <path>cmd</path> and hit enter) </p>
+<p> MAC: Enter <path>ls</path>. This will show you the files in your current folder. </p>
+<p> WINDOWS: Enter <path>dir</path>. This will show you the files in your current folder. </p>
+
+<p> Both: </p>
+<p>
+You can switch folders using 'cd'. So if your documents folder is in your current folder, enter <path>cd Documents</path> and you will move to that folder. In your Documents folder, you should make a new folder called 'SRC'. Once you are in your documents folder, enter <path>mkdir SRC</path> and the new folder will be created. <path>cd SRC</path> to enter the folder. <br>
+When you are in the correct place where you want to keep your new code folder, enter <path>mkdir SeniorDesignGithub</path> and then enter <path>cd SeniorDesignGithub</path>. You can change <path>SeniorDesignGithub</path> to anything you want to name the folder.
+</p>
+<p>
+        Enter <path>git init</path>, and git will set-up your folder for use.
+        <br>Enter <path>git clone https://github.com/AlasdairMcLean/MATLABprototyping.git</path>.
+        <br>Git will ask you for your username and password.
+        <br>When you enter your password, the characters won't appear- this is normal. It's a security thing so that nobody sees your password, and your password isn't stored in a log where somebody can find it.
+        <br>When done, you will have all the files that are currently uploaded on github, and you can see all the code.
+</p>
+<p>
+        Before you start coding, you should make a new 'branch' which is an offshoot of the main 'master' branch, allowing you to make changes and merge back into the main branch later. This way, if multiple people are working on the code at the same time, you don't have to worry about accidentally changing something that breaks somebody else's code. In your new branch you can alter the files, change them, and experiment without altering the main branch that everyone else is working out of. To make a new branch:
+        <br>Enter <path>git checkout -b mynewbranchname</path>, or whatever you want to call your branch. If you want to publish your branch so that other members of the group can access it, then enter
+        <br><path>git push origin mynewbranchname</path>.
+        To see ALL branches, type in <path>git branch -a</path>, which will show you all the current branches in the repository.      
+</p>        
+<img src="gitbranchall.png"></img>
+<p>
+                Here's how the branches work: <br>
+                the 'master' branch is the top-level branch where all of the features will eventually be added. The idea is that master should always work no matter what, and it should be tested to make sure there aren't any conflicts. Master is basically the most stable version of the entire repository that we have. 
+                
+</p>
+<p>
+                The branch marked with a * (also green in my terminal) is the branch that you are currently working in. Any changes you make will go to that branch, and no others.
+</p>
+<p>
+                The red-text branches that start with remotes/origin are the branches that are online on github.com. There's a remote/online version of all branches that have been updated. You can see in the picture that even though I am in the HotspotQuantification branch, there's also a remotes/origin/HotspotQuantification branch. 
+</p>
+<p>
+                If you want to checkout somebody else's branch (for example the 'GUIproto1' branch) then the command is <path>git checkout -b GUIproto1 origin/GUIproto1</path>. Make sure that you don't forget the last 'origin/GUIproto1' or else github won't actually pull the changes from the online branch.
+</p>
+<p>
+                Once you've checked out branches for the first time, they are stored locally on your computer. If you type in <path>git branch</path> without the '-a', then you can see all the branches that are stored locally on your computer. You can switch between any of those branches freely by typing in <path>git checkout master</path> or any other branch name.
+</p>
+<h2> Making changes: </h2>
+<p>
+                If you make changes or a new file:
+                <br>First, enter <path>git status</path>
+                
+</p>
+<img src="gitstatus.png"></img>
+<p>
+        Once you make changes, you have to manually tell github which changes you want to upload. You can see above I have three files that are modified and are not 'staged for commit'. Everytime you upload your code and changes to the github repository, you upload using a 'commit'. You add your changes to the commit, and then finally push them to the internet. Before you actually commit, you 'stage' your changes by entering <path>git add filename</path>. 
+</p>
+<img src="gitadd.png"></img>
+<p>
+        You can see above that once I added the file and rechecked the status, git updates that file to green, indicating that when you commit your changes, Quantification/HotspotQuantification.m will be updated too. If you add something that you don't actually want to update, enter <path>git reset HEAD Quantification/HotspotQuantification.m</path> to 'unstage' that change.
+</p>
+<p>
+        When you are finally ready to commit, the command is <path>git commit -m "Commit message here"</path> (make sure you put the commit message in double quotes). The commit message that you write will be seen by everyone- it's a description of the changes you made. So if you fixed a bug or added a new file, then you should write that so that everyone knows what you did. Once your commit is done, finally enter <path>git push origin HotspotQuantification</path> or whatever branch you are on and want to update. Everyone will be able to see your code now.
+</p>
+<h2>Updating with changes others made</h2>
+<p>
+        If somebody else writes some changes that you want to add, use <path>git pull</path> to pull those changes from github.com. Make sure that you ONLY do this when you don't have local changes, or else git won't let you pull the changes (you could accidentally overwrite your work this way). Alternatively, use 'git stash' for an alternative:
+</p>
+<h2>Git stash</h2>
+<p>
+        Git stash is a useful command when you realize that you need to update or change your local branch but you have unsaved changes that you don't want to delete. For example: <br> </p>
+        <ul>
+                <li>If you cloned the repository and immediately began coding but realized that you never checked out to a separate branch, and are now unable to push your changes</li>
+        
+                <li>If somebody else made changes that you want to use/integrate but your code isn't working/running yet and you don't want to commit the broken code</li>
+
+                <li>If you are in the middle of working on someone but you want to check out somebody else's code (for example for a code review or for testing before a release)</li>
+        </ul>
+        <p>
+        In these cases, you want to use git stash. Git stash can be used for a large set of nuanced scenarios, but only the simple use will be described here. Look online for more information.
+</p> <p>
+        In order to 'stash' all of your local changes, the command is simply <path>git stash</path>. Now, you can proceed to do what you originally wanted to do. Your changes are temporarily erased from the folder, but are saved and can be put back when you are done. If you were working in the incorrect branch, feel free to now checkout the different branch. If you want to integrate someone else's changes, feel free to git pull now. If you wanted to check something else out for testing/review, checkout their branch, test, and then checkout back to your original development branch. <br>
+        Finally, when you are ready to put your changes back, enter <path> git stash pop </path>. All your changes should now be back in your local folder. Feel free to continue working and commit and push when you are ready. </p> <p>
+        Of course, should you need to, you can always use git stash again and continue to git stash pop whenever you need to. However, it's important to note that if you need to stash multiple times without restoring the stash, those stashes become back logged. Git stash pop will always reapply the last changes that were stashed. So if you stash twice, you'll have to git stash pop twice in order to get to that first stash. In this scenario, you may be better off using a message. When you use git stash, you can optionally add a message just like when you are committing. <path>git stash -m"Changes for feature before testing release"</path> will add that message so that you can see which stash has what changes when you use <path>git stash list</path>, and then you can pass a specific stash-name when you go to git stash pop. Ideally though, you should only have one stash at a time.
+        
+</p>
+<h2>Cheat Sheet:</h2>
+<style>
+        table, th, td {
+        border:1px solid black;
+        border-collapse: collapse;
+        margin:20px;
+        }
+</style>
+<table style="width:60%;">
+        <tr>
+                <th>Command</th>
+                <th>Action</th>
+
+        </tr>
+        <tr>
+                <td>git init</td>
+                <td>Sets up a folder on your computer to support git commands</td>
+        </tr>
+        <tr>
+                <td>git clone [url]</td>
+                <td>Clones a repository from github.com so that you have access on your computer</td>
+        </tr>
+        <tr>
+                <td>git branch</td>
+                <td>Lists all of the local branches. Does not show online branches.</td>
+        </tr>
+        <tr>
+                <td>git branch -a</td>
+                <td>Lists all local and online branches</td>
+        </tr>
+        <tr>
+                <td>git checkout [branchname]</td>
+                <td>Switches your current working branch to branch 'branchname'.</td>
+        </tr>
+        <tr>
+                <td>git branch -b [branchname] origin/[branchname]</td>
+                <td>Creates a new branch that is identical to the branch online called 'branchname'</td>
+        </tr>
+        <tr>
+                <td>git branch -b [branchname]</td>
+                <td>Creates a new local branch but does not pull anything from online. Only use this command if you are making a completely new branch- one that is not found online.</td>
+        </tr>
+        <tr>
+                <td>git pull</td>
+                <td>Checks github for updates to the repository and downloads them to your system.</td>
+        </tr>
+        <tr>
+                <td>git add [filename]</td>
+                <td>Stages the file 'filename' to your next commit, so when you commit that file is uploaded to the github.com repository.</td>
+        </tr>
+        <tr>
+                <td>git reset HEAD [filename] </td>
+                <td>Un-stages the file 'filename' from your next commit so that it won't be uploaded when you commit</td>
+        </tr>
+        <tr>
+                <td>git commit -m "commit message here"</td>
+                <td>Commits your changes with the message 'commit message here', which everyone will see online</td>
+        </tr>
+        <tr>
+                <td>git push</td>
+                <td>Pushes your commits to the internet so everyone has access to your code and changes</td>
+        </tr>
+        <tr>
+                <td>git status</td>
+                <td>Checks the status of your next commit and shows you all tracked and untracked files</td>
+        </tr>
+        <tr>
+                <td>git stash</td>
+                <td>'Stashes' your local changes so you can freely checkout a new branch or pull changes down</td>
+        </tr>
+        <tr>
+                <td>git stash pop</td>
+                <td>Reapplies the most recent local changes that you temporarily removed using 'git stash'</td>
+        </tr>
+</table>

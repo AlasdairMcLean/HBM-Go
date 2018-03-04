@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<title>HBM Golang tutorial</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<body style="width:100%">
+
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large"
+  onclick="w3_close()">Close &times;</button>
+  <a href="go.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Go Tutorial</a>
+  <a href="git.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Git Tutorial</a>
+  <a href="gotk3.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Gotk3 Tutorial</a>
+  <a href="extlink.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">External Links</a>
+</div>
+
+<div id="main">
+
+<div class="w3-light-grey">
+  <button id="openNav" class="w3-button w3-light-grey w3-xlarge" onclick="w3_open()">&#9776;</button>
+  <div class="w3-container">
+    <h1 style="color:#375EAB">Go tutorial</h1>
+  </div>
+</div>
+
+<div class="w3-container">
+<p>Basic syntax of Golang for development</p>
+</div>
+
+
+<script>
+function w3_open() {
+  document.getElementById("main").style.marginLeft = "25%";
+  document.getElementById("mySidebar").style.width = "25%";
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("openNav").style.display = 'none';
+}
+function w3_close() {
+  document.getElementById("main").style.marginLeft = "0%";
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("openNav").style.display = "inline-block";
+}
+</script>
+
+
+
+    
+    <script>
+        function myFunction(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else { 
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+        </script>
+
+<link rel="stylesheet" href="style.css">
+
+<style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px Arial, sans-serif}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px Arial, sans-serif; min-height: 14.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Arial, sans-serif}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Arial, sans-serif; min-height: 23.0px}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px Arial, sans-serif}
+    p.p6 {margin: 0.0px 0.0px 14.2px 0.0px; font: 15.0px Arial, sans-serif}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px Arial, sans-serif}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Arial, sans-serif}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Arial, sans-serif; min-height: 19.0px}
+    p.p10 {margin: 0.0px 0.0px 14.2px 0.0px; font: 15.0px Arial, sans-serif; min-height: 14.0px}
+    p.p11 {margin: 0.0px 0.0px 14.2px 0.0px; font: 16.0px Arial, sans-serif}
+    p.p12 {margin: 0.0px 0.0px 14.2px 0.0px; font: 16.0px Arial, sans-serif; min-height: 19.0px}
+  </style>
+
+
+<h2>Go Basics:</h2>
+<h4>Installing/Prereqs:</h4>
+
+<button onclick="myFunction('Macos')" class="w3-button w3-block w3-left-align" style="padding:0px">
+    <h2 style="margin-top:0px;margin-bottom:0px">MAC OSX</h2>
+</button>
+
+
+<div id="Macos" class="w3-container w3-hide" style="width:100%;display:block;">
+<p>If you don't already have Go, go here: https://golang.org/dl/ and install the correct version under Featured Downloads for your operating system. Don't install the source file- you'll have to compile it all yourself. If you're on mac, use the .pkg file, or .msi if you're on windows.</p>
+
+<p>
+<a href="https://golang.org/dl">Download the package file</a>, open it, and follow the prompts to install the Go tools. The package installs the Go distribution to <path>/usr/local/go</path>.
+The package should put the <path>/usr/local/go/bin</path> directory in your <path>PATH</path> environment variable. You may need to restart any open Terminal sessions for the change to take effect. 
+</p>
+</div>
+
+<button onclick="myFunction('Windows')" class="w3-button w3-block w3-left-align" style="padding:0px">
+        <h2 style="margin-top:0px;margin-bottom:0px">WINDOWS</h2>
+    </button>
+
+<div id="Windows" class="w3-container w3-hide" style="width:100%;display:block;">
+    <p>The Go project provides two installation options for Windows users (besides <a href="https://golang.org/doc/install/source">installing from source</a>): a zip archive that requires you to set some environment variables and an MSI installer that configures your installation automatically. (Use the MSI installer) </p>
+    <p>
+        Open the MSI file and follow the prompts to install the Go tools. By default, the installer puts the Go distribution in <path>c:\Go. </path>
+    </p> <p>
+        The installer should put the <path>c:\Go\bin</path> directory in your <path>PATH</path> environment variable. You may need to restart any open command prompts for the change to take effect. 
+    </p>
+</div>
+<div>
+        <p class="p1">Open up a text editor (any one- can be notepad for right now), save it as main.go and paste the following inside:</p>
+        <p class="p2"><br></p>
+        <div class="cmd">
+            package main
+            <br> <br>
+            import "fmt"
+            <br> <br>
+            func main() {
+            <br>
+            <span class="Apple-converted-space">    </span>fmt.Printf("hello, world\n")
+            <br>
+            }
+
+        </div>
+        <p class="p1">Open up the command prompt (or terminal for mac) and ‘cd’ your way into where you saved the main.go file and enter <path>go run main.go</path> at the prompt. The window should write ‘hello, world’ back.</p>
+        <p class="p2"><br></p>
+        <p class="p7">Additional ways to run go programs:</p>
+        <p class="p1">You can also compile your go programs to a binary file, which is what we will want to do later for distributing our program and also when the programs get more complicated.<span class="Apple-converted-space"> </span></p>
+        <p class="p2"><br></p>
+        <p class="p1">In order to do that, firstly, main.go should be in its’ own folder. Make a new folder using ‘mkdir’ and put main.go inside that folder. Type in <path>go build</path> inside the folder where main.go is, and when that finishes, there will be a new binary (executable) file in your folder.<span class="Apple-converted-space"> </span></p>
+        <p class="p2"><br></p>
+        <p class="p1">You can either double click on it (from finder on mac or file explorer on windows) which will open a terminal window and run it, or you can enter ‘./hello’, replacing ‘hello’ with whatever the name of the folder is.</p>
+        <p class="p2"><br></p>
+        <h3>Basic Go syntax</h3>
+        <p class="p9"><br></p>
+        <p class="p1">Go uses pretty standard characters to do mathematical operations. Add two numbers with +, subtract with -, multiply with *, and divide with / . Additionally, the Modulo function (remainder after division) is performed using % . For example, 9 % 4 will yield 1.</p>
+        <p class="p2"><br></p>
+        <p class="p1">Just like matlab, = is used to assign, and == is used to test if two things are equal. 1==1 will yield true,<span class="Apple-converted-space">  </span>2==1 will yield false.</p>
+        <p class="p9"><br></p>
+        <p class="p1">There are several ways to define a variable in Go. Because Go is a strongly-typed language, most of the time you have to declare exactly the type that the variable is. Both of the following will <i>do the same thing:</i></p>
+        <p class="p9"><br></p>
+        <p class="p1"><path><i>var a int = 1</i></path>
+        <p class="p1"><path><i>a:=1</i></path></p>
+        <p class="p9"><br></p>
+        <p class="p1"><i>Both of the above will create a new variable called ‘a’ which stores the integer 1. However, there several caveats with the second approach.<span class="Apple-converted-space"> </span></i></p>
+        <p class="p9"><br></p>
+        <p class="p1">Firstly, you can only assign a variable this way inside of a function. Outside of a function, you <b><i>must use the ‘var’ syntax.</i></b></p>
+        <p class="p9"><br></p>
+        <p class="p1">Secondly, Go will assign that variable a type based on what you give it. Because we gave it ‘1’, Go will automatically assume your variable to be an integer if you don’t specify. ‘int’ is actually the same as ‘uint’, which is an unsigned integer. That means that our variable a will never be able to be negative. Thus, if you assign it using := and later realize you need a to become -1, Go will have to completely redefine a, which is slow.<span class="Apple-converted-space"> </span></p>
+        <p class="p9"><br></p>
+        <p class="p1">Additionally, if you later want to represent decimals of any kind, Go will again have to reassign the variable. Further, if you divide an integer, you’ll get the floored division. Thus, 9/4 == 2, not 2.25.<span class="Apple-converted-space"> </span></p>
+        <p class="p9"><br></p>
+        <p class="p1">If you want to capture decimals, you can declare a using a:=9.0, and then a/4 ==2.25 but it will assume a is a 64-Bit floating point number, when you could easily use a 32-Bit floating point number which will take up half of the space.</p>
+        <p class="p9"><br></p>
+        <p class="p1">In general, only use := when you know <i>exactly</i> what the type assigned will be.</p>
+        <p class="p9"><br></p>
+        <p class="p1">The numeric types in Go are as follows:</p>
+        <style>
+            table, th, td {
+                border:1px solid black;
+                border-collapse: collapse;
+            }
+        </style>
+        <table style="width:60%;">
+            <tr>
+                <th>Type</th>
+                <th>Go syntax</th>
+                <th>range</th>
+            </tr>
+            <tr>
+                <td>Unsigned 8bit int</td>
+                <td>uint8</td>
+                <td>[0,255]</td>
+            </tr>
+                <td>Unsigned 16bit int</td>
+                <td>uint16</td>
+                <td>[0,65535]</td>
+            </tr>
+            <tr>
+                <td>Unsigned 32bit int</td>
+                <td>uint32</td>
+                <td>[0,4294967295]</td>
+            </tr>
+            <tr>
+                <td>Unsigned 64bit int</td>
+                <td>int64</td>
+                <td>[0 to ~1.845x10<sup>19</sup>]</td>
+            </tr>
+            <tr>
+                <td>Signed 8bit int</td>
+                <td>int8</td>
+                <td>[-128,127]</td>
+            </tr>
+            <tr>
+                <td>Signed 16bit int</td>
+                <td>int16</td>
+                <td>[-32768, 32767]</td>
+            </tr>
+            <tr>
+                <td>Signed 32bit int</td>
+                <td>int32</td>
+                <td>[-2.147x10<sup>9</sup>, 2.147x10<sup>9</sup>]</td>
+            </tr>
+            <tr>
+                <td>Signed 64bit int</td>
+                <td>int64</td>
+                <td>[-9.223x10<sup>18</sup>,9.223x10<sup>18</sup>]</td>
+            </tr>
+            <tr>
+                <td>Floating 32bit number</td>
+                <td>float32</td>
+                <td>complicated</td>
+            </tr>
+            <tr>
+            <td>Floating 64bit number</td>
+            <td>float64</td>
+            <td>complicated</td>
+        </tr>
+            <tr>
+            <td>Complex 64bit number</td>
+            <td>complex64</td>
+            <td>Same as float32 with imaginary</td>
+            </tr>>
+            <tr>
+            <td>Complex128bit number</td>
+            <td>complex128</td>
+            <td>Same as float64 with imaginary</p>
+        </tr>
+    </table>
+            <p class="p1">Also note that byte() is the same as uint8 and rune() is the same as int32</p>
+            <p class="p9"><br></p>
+            <p class="p1">Additionally, there’s a few other datatypes in go like strings, booleans (true/false), and Array/Slices (like lists in python or like a row-vector in matlab)</p>
+        <p class="p9"><br></p>
+        <h3>Structuring Go code</h3>
+        <p class="p1">Any code that you run has to be in ‘package main’, and must have a function called main().</p>
+        <p class="p1">Looking back at the hello world example:</p>
+        <p class="p2"><br></p>
+        <div class="cmd">
+            package main
+            <br> <br>
+            import "fmt"
+            <br> <br>
+            func main() { <br>
+            <span class="Apple-converted-space">    </span>fmt.Printf("hello, world\n") <br>
+            }
+        </div>
+        <p class="p6">‘package main’ tells the compiler that this is code that we want to be able to run (libraries that you import will have different packages)</p>
+        <p class="p6">import is optional. Here we import another package that is built-in to Go called ‘fmt’, which stands for ‘format’. Fmt has several functions for printing lines of text out to the command line.<span class="Apple-converted-space"> </span></p>
+        <p class="p6">Func is the keyword you use when you want to define a function.</p>
+        <p class="p6">A function is a block of code that will run every time you enter its’ name. If I write a function called add, all of the code inside of ‘add’ will run every time I enter ‘add()’. Thus, use the open-close parentheses when you want to call a function.</p>
+        <p class="p6">Every code that you want to run using ‘<path>go run ...</path>’ MUST have a main() function. In addition, the main function cannot take any inputs and cannot output anything. Everything happens inside main. When main finishes, the program quits.</p>
+        <p class="p6">When using packages, you can ‘call’ a function from a package using ‘<path>packagename.function()</path>’. When we wrote <path>(“Hello, world\n”)</path>, we called the ‘Printf’ function from the ‘fmt’ package.</p>
+        <p class="p6">Fmt.Printf takes a string as an input. The “Hello, world\n” is the string that we are giving it, and that’s why it prints out “Hello, world”. You can try taking out the \n inside the string- \n is an ‘escape character’ that tells Printf to put a new line after it finishes writing “Hello, world”. If you omit it, the command line’s cursor will be on the same line as “Hello world”.</p>
+        <p class="p6">Additionally, notice the curly braces after main () and at the end. The braces tell the compiler where the function starts and ends. Thus, when you enter ‘go run main.go’, it will automatically run main(), performing every line between the curly braces.</p>
+        <p class="p10"><br></p>
+        <h3>Defining other functions</h3>
+        <p class="p6">You can define other functions using<span class="Apple-converted-space"> </span> </p>
+        <div class="cmd">
+            func name(input inputtype) returntype {<br>
+                <span class="Apple-converted-space">    </span>…..code to run….<br>
+            }<br>
+        </div>
+
+        <p class="p6">,where ‘name’ is the name of the function, ‘input’ is the name of the input, ‘inputtype’ is the type that the input will be (int, string, float32, ect), and returntype is the type that your function will return.<span class="Apple-converted-space"> </span></p>
+        <p class="p6"><i>For example, to write a simple add function, the code would look something like:</i></p>
+
+        <div class="cmd">
+            func add(param1 int, param2 int) int { <br>
+            <span class="Apple-converted-space">    </span>return param1 + param2 <br>
+            } <br>
+        </div>
+
+        <p class="p6">Again, we define a new function using func, name the function ‘add’, we take two inputs which we will call ‘param1’ and ‘param2’ which are both integers, and we will return an integer.</p>
+        <p class="p6">‘return’ will end the function, and return the value that comes after to whatever called ‘add’. Here, we return param1+param2, which is the sum of the two variables we put in. Then, we can go into our main() function, and change it to this:</p>
+        <div class="cmd">
+            func main() { <br>
+                <span class="Apple-converted-space">    </span>a:=add(4,7) <br>
+                <span class="Apple-converted-space">    </span>fmt.Println(a) <br>
+            }
+        </div>
+        <p class="p6">which will print out 11. add returns 4+7 into the new variable a, and then we print out the value of a</p>
+        
+        
+        <h3>For loops</h3>
+
+        <p class="p6">Go has for loops just like matlab. There are a few ways to write them. The most general for loop looks something like:<span class="Apple-converted-space"> </span></p>
+        <div class="cmd">
+            for i:=0; i&lt;5; i++ { <br>
+            <span class="Apple-converted-space">    </span>fmt.Println(i) <br>
+            } <br>
+        </div>
+        <p class="p6">If you run that for loop, Go will print out 0, 1, 2, 3, 4. the i:=0 part defines our counter variable i, i&lt;5 sets the condition for the for loop to end, and i++ sets what happens after we go through the for loop each time. In go, i++ is shorthand for i=i+1 or i+=1. All three are the same. So, we set i equal to zero, print its’ value, hit the end of the braces, increment i, and continue until i becomes 5 and the for loop ends. Additionally, you could do fewer arguments, if you like, with blank spaces for the parts you don’t want. For example,</p>
+        <div class="cmd">
+            i:=0 <br>
+            <span class="Apple-converted-space">    </span>for ; i&lt;5; { <br>
+                <span class="Apple-converted-space">    </span> <span class="Apple-converted-space">    </span>fmt.Println(i) <br>
+                <span class="Apple-converted-space">    </span> <span class="Apple-converted-space">    </span>i++ <br>
+            } <br>
+        </div>
+        <p class="p6">will do the exact same thing as the for loop above. We do a semicolon to note that the first (i:=0) part is blank, and then start the curly braces after i&lt;5. Note that the condition is mandatory so that the for loop knows when to end.</p>
+        <p class="p6">Also, if you are omitting both the first and third parts, you don’t need semicolons at all. You can simply use</p>
+        <div class="cmd"> for i&lt;5 { </div>
+        <p class="p6">Which will do the same thing.</p>
+        <h3>While loops</h3>
+        <p class="p6">It’s usually a better idea to use a for loop rather than a while loop (since a while loop will run forever if you make a mistake) but sometimes you need to use a while loop if you don’t know how many times you need the loop to run. In this case, Go doesn’t have a separate ‘while’ command. Instead, you pass a for loop with no argument at all:</p>
+        <div class="cmd">for {</div>
+        <p class="p6">will run forever until you close the program some other way, or you use the ‘break’ command, which will break out of the for loop.</p>
+        <h3>Variadic functions</h3>
+        <p class="p6">If you want, you can accept multiple input variables. For example, if we wanted the ‘add’ function to be able to add any number of variables, you use an ellipsis when defining it:</p>
+        <div class="cmd">
+            func add(params ...int) int { <br>
+                <span class="Apple-converted-space">    </span>sum:=0 <br>
+                <span class="Apple-converted-space">    </span>for i:=0;i&lt;len(params);i++ { <br>
+                    <span class="Apple-converted-space">    </span> <span class="Apple-converted-space">    </span>sum+= params[i] <br>
+                    <span class="Apple-converted-space">    </span>} <br>
+            return sum <br>
+            }
+        </div>
+        <p class="p6">Will return the sum of any numbers you pass in. If in main() we call add(3,4,5,6,7,8), it will return the sum of all those numbers.</p>
+        <p class="p6">Note here that we get each value of ‘params’ using a for loop. With an array (which params is, since there are more than one inputs going into it), you can get individual elements with the [] bracket operator.<span class="Apple-converted-space"> </span></p>
+        <p class="p6">Also, note that unlike matlab, Go is a 0-index language, meaning the first position in a list is the 0<sup>th</sup> position, not the 1<sup>st</sup> position. Thus, params[0] would be the first of the numbers passed- 3, in the example above. This zero indexing is convenient sometimes for math/algorithmic purposes or when dealing with tables (your 0<sup>th</sup> row would be your column titles, and then the 5<sup>th</sup> row would be indexed using [5], ect). Sometimes it’s easier to think of the index as the ‘distance away from the first element’, instead of the element number. Thus, the first element is 0 numbers away from itself, the second element is 1 number away from the first, ect.</p>
+        <p class="p6">Additionally, there’s another way we could have written the above function:</p>
+        <div class="cmd">
+            func add(params ...int) int { <br>
+                <span class="Apple-converted-space">    </span>sum:=0 <br>
+                <span class="Apple-converted-space">    </span>for i:= range params { <br>
+                    <span class="Apple-converted-space">    </span> <span class="Apple-converted-space">    </span>sum+= params[i] <br>
+                    <span class="Apple-converted-space">    </span>} <br>
+            return sum <br>
+            }
+        </div>
+        <p class="p6">Note that we replaced all the for loop conditions with i:= range params. That will do the same thing as before, iterating through all the parameters we give it. This isn’t so interesting, but you can do something else with range:</p>
+        <div class="cmd">
+            func add(params ...int) int { <br>
+                <span class="Apple-converted-space">    </span>sum:=0 <br>
+                <span class="Apple-converted-space">    </span>for _,v:= range params { <br>
+                    <span class="Apple-converted-space">    </span> <span class="Apple-converted-space">    </span>sum+= v <br>
+                    <span class="Apple-converted-space">    </span>} <br>
+            return sum <br>
+            } <br>
+        </div>
+        <p class="p6">Now we changed the for condition with _,v:= range params. Range actually outputs two things on every iteration of the for loop: the index and the value. Since we only really need the value here, we use an underscore to say that we want to ignore the index. Then we can simply add v to the sum every time instead of going back and indexing each parameter with [i] separately.</p>
+        <p class="p6">Note that if you leave the I without using the underscore, the compiler will give an error because we don’t ever use I. Go will refuse to compile if you use extraneous variables or imports, and will give you an error until you get rid of them. It’s more efficient to make sure that we aren’t declaring variables that we aren’t using in our program.</p>
+        <h3>Arrays</h3>
+        <p class="p6">Just like defining other variables, we define an array using var or the := command. However, when we define an array, the type goes next to the array. For example:</p>
+        
+        <div class="cmd">var countingarray = []int{1,2,3,4,5} </div>
+        <div class="cmd">countingarray:=[]int{1,2,3,4,5} </div>
+
+        <p class="p6">will both declare the same variable. Note that we use curly braces to surround the variables, and that we still have to define the type when we use :=. Go won’t assume the type of an array.</p>
+        <p class="p6">Then, if you index the array with countingarray[2] like we did above, Go will print out 3 (Remember, 0 is the index of the first element).</p>
+        <p class="p6">If you don’t know what you want to put in the array yet, you can preallocate an empty array using a:=make([]int, 5) which will make an array of integers of size 5. You can individually index each part to assign values. For example, a[1]=4 would set the second element to be 4.</p>
+        <p class="p10"><br></p>
+        <p class="p10"><br></p>
+
+</div>
+
+</body></html>

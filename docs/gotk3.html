@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<title>HBM Gotk+3 Install tutorial</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<body style="width:100%">
+
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large"
+  onclick="w3_close()">Close &times;</button>
+  <a href="go.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Go Tutorial</a>
+  <a href="git.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Git Tutorial</a>
+  <a href="gotk3.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Gotk3 Tutorial</a>
+  <a href="extlink.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">External Links</a>
+</div>
+
+<div id="main">
+
+<div class="w3-light-grey">
+  <button id="openNav" class="w3-button w3-light-grey w3-xlarge" onclick="w3_open()">&#9776;</button>
+  <div class="w3-container">
+    <h1 style="color:#375EAB">Installing Gotk3 (Gtk+3) dependencies</h1>
+  </div>
+</div>
+
+<div class="w3-container">
+<p>Instructions for installing dependencies for GTK+3 for go GUI development. Click the operating system you are using for specific instructions on installing the initial dependencies.</p>
+</div>
+
+
+<script>
+function w3_open() {
+  document.getElementById("main").style.marginLeft = "25%";
+  document.getElementById("mySidebar").style.width = "25%";
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("openNav").style.display = 'none';
+}
+function w3_close() {
+  document.getElementById("main").style.marginLeft = "0%";
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("openNav").style.display = "inline-block";
+}
+</script>
+
+
+<button onclick="myFunction('MacOS')" class="w3-button w3-block w3-left-align" style="padding:0px">
+    <h2 style="margin-top:0px;margin-bottom:0px">MAC OSX</h2></button>
+    
+    <script>
+        function myFunction(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else { 
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+        </script>
+
+<link rel="stylesheet" href="style.css">
+<div id="MacOS" class="w3-container w3-hide" style="width:100%;display:block;">
+<p>Command+C the following line into terminal:</p>
+    
+
+<div style="border:1px solid black;position:relative;left:30px; margin-top:10px;margin-bottom:10px;background-color:#E0EBF5; height:auto;width:70%;overflow-y:hidden;overflow-x:auto;">
+    <div style="overflow:hidden; width:900px">
+    <code>
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    </code>
+    </div>
+</div>
+
+<p>This installs homebrew, which is a way of downloading libraries that the GUI development needs.</p>
+<p>run the following commands one after the other:</p>
+
+<div style="border:1px solid black;position:relative;left:30px;margin-top:15px;margin-bottom:15px;background-color:#E0EBF5; height:auto;width:70%;overflow-y:hidden;overflow-x:auto;">
+    <div style="overflow:hidden; width:300px">
+    <code>
+        brew install gtk+3
+    </code>
+    </div>
+</div>
+<div style="border:1px solid black;position:relative;left:30px;margin-top:10px;margin-bottom:10px;background-color:#E0EBF5; height:auto;width:70%;overflow-y:hidden;overflow-x:auto;">
+    <div style="overflow:hidden; width:300px">
+    <code>
+        brew install glib
+    </code>
+    </div>
+</div>
+<div style="border:1px solid black;position:relative;left:30px;margin-top:10px;margin-bottom:10px;background-color:#E0EBF5; height:auto;width:70%;overflow-y:hidden;overflow-x:auto;">
+    <div style="overflow:hidden; width:300px">
+    <code>
+        brew install cairo
+    </code>
+    </div>
+</div>
+</div>
+
+<button onclick="myFunction('Win')" class="w3-button w3-block w3-left-align" style="padding:0px">
+        <h2 style="margin-top:0px;margin-bottom:0px">WINDOWS</h2></button>
+<div id="Win" class="w3-container w3-hide" style="width:100%;display:block;">
+    <p>
+        Try <a href="https://github.com/gotk3/gotk3/wiki/Installing-on-Windows">this</a>. I'll update with better instructions once I run it myself. Then continue with the rest
+    </p>
+</div>
+
+<p></p>
+<p>Once the dependencies are installed, proceed entering the following:</p>
+
+<div style="border:1px solid black;position:relative;left:30px;margin-top:10px;margin-bottom:10px;background-color:#E0EBF5; height:auto;width:70%;overflow-y:hidden;overflow-x:auto;">
+    <div style="overflow:hidden; width:600px">
+    <code>
+        go get -tags gtk_3_18 github.com/gotk3/gotk3/gtk
+    </code>
+    </div>
+</div>
+
+<p>
+After all these commands complete, you should have all the dependencies necessary for running the Go repo. When you run/build the app, do it using this:
+</p>
+
+<div style="border:1px solid black;position:relative;left:30px;margin-top:10px;margin-bottom:10px;background-color:#E0EBF5; height:auto;width:70%;overflow-y:hidden;overflow-x:auto;">
+    <div style="overflow:hidden; width:600px">
+<code>
+    go build -tags gtk_3_18 GUImain.go 
+</code>
+</div>
+</div>
+<div style="border:1px solid black;position:relative;left:30px;margin-top:10px;margin-bottom:10px;background-color:#E0EBF5; height:auto;width:70%;overflow-y:hidden;overflow-x:auto;">
+    <div style="overflow:hidden; width:600px">
+<code>
+    go run -tags gtk_3_18 GUImain.go
+</code>
+</div>
+</div>
+
+<p>
+because the compile time is now significant, it's usually a better idea to use go build instead of go run. Note that because you have to specify these tags, you can no longer use the play button on vscode. You must type in one of the top two commands at a terminal prompt. It will take a while, and there will be a lot of text that comes up, but it should work after the prompt comes back. 
+</p><p>
+If you use go run, the program will automatically start but if you close the program you'll have to recompile it.
+</p><p>
+If you use go build, the program will not automatically start, but you can run it as many times as you like without recompiling it. If you use go build, after the build process is finished, enter ./GUImain and the program should open.
+</p> </body></html>
