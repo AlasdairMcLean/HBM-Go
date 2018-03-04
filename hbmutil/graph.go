@@ -42,6 +42,7 @@ type Point2ff struct {
 	X, Y, V float64
 }
 
+//PointCloud2f is a method of storing point clouds of points
 type PointCloud2f struct {
 	Pts    []Point2f
 	center float32

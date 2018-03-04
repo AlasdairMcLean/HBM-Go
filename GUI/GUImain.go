@@ -42,7 +42,7 @@ func main() {
 	ycol := 1
 	a := hbmutil.MattoImgi(ptsi, xcol, ycol, 256, 256) // use the integer-based points-to-image function in the hbmutil package to return a 256 by 256 px image
 	img := a.ToMatff()                                 // return the image to float64 as Cairo needs
-	MEPs := img.Getcol(4)                              // get the 4th column
+	MEPs := img.Getcol(3)                              // get the 4th column
 	img.Scale(float64(1.0 / hbmutil.Maxffl(MEPs)))     // scale the MEPs down to the [0,1] range that gtk's drawing area requires
 	hbmplot.Drawim(da, img)                            // draws image on the drawing area using hbmutil package
 	canvsc := 1
@@ -63,7 +63,7 @@ func main() {
 			}
 			a = hbmutil.MattoImgi(ptsi, xcol, ycol, 256, 256)
 			img = a.ToMatff()
-			MEPs = img.Getcol(4)
+			MEPs = img.Getcol(3)
 			img.Scale(float64(1.0 / hbmutil.Maxffl(MEPs)))
 			hbmplot.Drawim(da, img)
 		},
@@ -75,7 +75,7 @@ func main() {
 			}
 			a = hbmutil.MattoImgi(ptsi, xcol, ycol, 256, 256)
 			img = a.ToMatff()
-			MEPs = img.Getcol(4)
+			MEPs = img.Getcol(3)
 			img.Scale(float64(1.0 / hbmutil.Maxffl(MEPs)))
 			hbmplot.Drawim(da, img)
 		},

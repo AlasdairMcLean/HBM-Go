@@ -1106,7 +1106,7 @@ func (m1 *Matrixff) Maxa() float64 {
 func (m1 *Matrixi) Getcol(n int) []int {
 	out := make([]int, m1.Rows)
 	for j := 0; j < m1.Rows; j++ {
-		out[j] = m1.Data[j][n-1]
+		out[j] = m1.Data[j][n]
 	}
 	return out
 }
@@ -1115,7 +1115,7 @@ func (m1 *Matrixi) Getcol(n int) []int {
 func (m1 *Matrixf) Getcol(n int) []float32 {
 	out := make([]float32, m1.Rows)
 	for j := 0; j < m1.Rows; j++ {
-		out[j] = m1.Data[j][n-1]
+		out[j] = m1.Data[j][n]
 	}
 	return out
 }
@@ -1124,7 +1124,7 @@ func (m1 *Matrixf) Getcol(n int) []float32 {
 func (m1 *Matrixff) Getcol(n int) []float64 {
 	out := make([]float64, m1.Rows)
 	for j := 0; j < m1.Rows; j++ {
-		out[j] = m1.Data[j][n-1]
+		out[j] = m1.Data[j][n]
 	}
 	return out
 }
@@ -1133,7 +1133,7 @@ func (m1 *Matrixff) Getcol(n int) []float64 {
 func (m1 *Matrixb) Getcol(n int) []bool {
 	out := make([]bool, len(m1.Data))
 	for j := 0; j < len(m1.Data); j++ {
-		out[j] = m1.Data[j][n-1]
+		out[j] = m1.Data[j][n]
 	}
 	return out
 }
@@ -1367,7 +1367,7 @@ func (m1 Matrixi) Cramer(vargin ...int) []int {
 	for j := 0; j < m1.Cols; j++ {
 		numMat.Unpackcl(j, vargin)
 		coeffs[j] = numMat.Det()
-		numMat.Unpackcl(j, m1.Getcol(j+1))
+		numMat.Unpackcl(j, m1.Getcol(j))
 	}
 	for i, v := range coeffs {
 		coeffs[i] = v / detm1
@@ -1387,7 +1387,7 @@ func (m1 Matrixf) Cramer(vargin ...float32) []float32 {
 	for j := 0; j < m1.Cols; j++ {
 		numMat.Unpackcl(j, vargin)
 		coeffs[j] = numMat.Det()
-		numMat.Unpackcl(j, m1.Getcol(j+1))
+		numMat.Unpackcl(j, m1.Getcol(j))
 	}
 	for i, v := range coeffs {
 		coeffs[i] = v / detm1
@@ -1404,7 +1404,7 @@ func (m1 Matrixff) Cramer(vargin ...float64) []float64 {
 	detm1 := m1.Det()
 	coeffs := make([]float64, len(vargin))
 	for j := 0; j < m1.Cols; j++ {
-		skipped := m1.Getcol(j + 1)
+		skipped := m1.Getcol(j)
 		m1.Unpackcl(j, vargin)
 		coeffs[j] = m1.Det()
 		m1.Unpackcl(j, skipped)

@@ -31,6 +31,33 @@ func Sumff(a ...float64) float64 {
 	return sum
 }
 
+//Sumil returns the sum of all uint8 variables passed in
+func Sumil(a []int) int {
+	var sum int
+	for _, v := range a {
+		sum += v
+	}
+	return sum
+}
+
+//Sumfl returns the sum of all float32 variables passed in
+func Sumfl(a []float32) float32 {
+	var sum float32
+	for _, v := range a {
+		sum += v
+	}
+	return sum
+}
+
+//Sumffl returns the sum of all float64 variables passed in
+func Sumffl(a []float64) float64 {
+	var sum float64
+	for _, v := range a {
+		sum += v
+	}
+	return sum
+}
+
 //Maxi finds the max of all values passed in
 func Maxi(a ...int) int {
 	cmax := a[0]
@@ -122,5 +149,23 @@ func Avgf(vals ...float32) float32 {
 //Avgff returns the average of the values given
 func Avgff(vals ...float64) float64 {
 	sum := Sumff(vals...)
+	return sum / float64(len(vals))
+}
+
+//Avgil returns the average of the values given
+func Avgil(vals []int) int {
+	sum := Sumil(vals)
+	return sum / len(vals)
+}
+
+//Avgfl returns the average of the values given
+func Avgfl(vals []float32) float32 {
+	sum := Sumfl(vals)
+	return sum / float32(len(vals))
+}
+
+//Avgffl returns the average of the values given
+func Avgffl(vals []float64) float64 {
+	sum := Sumffl(vals)
 	return sum / float64(len(vals))
 }
