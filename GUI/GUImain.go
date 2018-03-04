@@ -136,7 +136,8 @@ func makevGTKBox() *gtk.Box { //boilerplate code for a new box to hold all the o
 func getfile() string {
 	dlgwin, err := gtk.WindowNew(gtk.WINDOW_POPUP) //create a new toplevel window
 	if err != nil {
-		panic("Unable to create window:", err)
+		fmt.Printf("\nUnable to create window: ")
+		panic(err)
 	}
 	dlgwin.SetTitle("Pick a csv file") // sets title to that specified as input to setupWindow function
 	dlgwin.Connect("destroy", func() { //destroy the window if the user clicks the x
