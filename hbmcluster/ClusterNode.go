@@ -3,7 +3,7 @@ package hbmcluster
 import (
 	"math"
 
-	"../hbmutil"
+	"hbm/util"
 )
 
 //ClusterNode is a self-updating struct that keeps track of the points belonging to it as well as the centroid.

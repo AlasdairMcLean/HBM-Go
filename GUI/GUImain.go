@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/gotk3/gotk3/gdk"
 
 	"github.com/gotk3/gotk3/gtk"
 
-	"../hbmplot"
-	"../hbmutil"
+	"hbm/plot"
+	"hbm/util"
 )
 
 const (
@@ -37,35 +38,54 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	t0 := time.Now()
 	ptsi := pts.ToMati() // round the float64 pts down to int
 	xcol := 0
 	ycol := 1
+	Cmap := "hot"
 	a := hbmutil.MattoImgi(ptsi, xcol, ycol, 256, 256) // use the integer-based points-to-image function in the hbmutil package to return a 256 by 256 px image
 	img := a.ToMatff()                                 // return the image to float64 as Cairo needs
-	MEPs := img.Getcol(3)                              // get the 4th column
-	img.Scale(float64(1.0 / hbmutil.Maxffl(MEPs)))     // scale the MEPs down to the [0,1] range that gtk's drawing area requires
-	hbmplot.Drawim(da, img)                            // draws image on the drawing area using hbmutil package
+	MEPs := pts.Getcol(3)                              // get the 4th column
+	hbmplot.Drawim(da, img, Cmap)                      // draws image on the drawing area using hbmutil package
 	canvsc := 1
 	keyMap := map[uint]func(){
 		gdk.KEY_equal: func() {
 			canvsc++
-			hbmplot.ExpandCanvas(da, img, canvsc)
+			hbmplot.ZoomCanvas(da, img, canvsc, Cmap)
 		},
 		gdk.KEY_minus: func() {
-			canvsc--
-			hbmplot.ExpandCanvas(da, img, canvsc)
+			if canvsc > 1 {
+				canvsc--
+				hbmplot.ZoomCanvas(da, img, canvsc, Cmap)
+			}
 		},
 		gdk.KEY_Insert: func() {
+			t1 := time.Now()
 			if xcol < 2 {
 				xcol++
 			} else {
 				xcol = 0
 			}
+			fmt.Println("Col switch: ", time.Since(t1))
+
+			t1 = time.Now()
 			a = hbmutil.MattoImgi(ptsi, xcol, ycol, 256, 256)
+			fmt.Println("Matrix to imgi: ", time.Since(t1))
+
+			t1 = time.Now()
 			img = a.ToMatff()
-			MEPs = img.Getcol(3)
-			img.Scale(float64(1.0 / hbmutil.Maxffl(MEPs)))
-			hbmplot.Drawim(da, img)
+			fmt.Println("To matff: ", time.Since(t1))
+
+			t1 = time.Now()
+			MEPs = pts.Getcol(3)
+			fmt.Println("getcol: ", time.Since(t1))
+
+			t1 = time.Now()
+			fmt.Println("scale: ", time.Since(t1))
+
+			t1 = time.Now()
+			hbmplot.Drawim(da, img, Cmap)
+			fmt.Println("drawim: ", time.Since(t1))
 		},
 		gdk.KEY_Delete: func() {
 			if ycol < 2 {
@@ -75,18 +95,26 @@ func main() {
 			}
 			a = hbmutil.MattoImgi(ptsi, xcol, ycol, 256, 256)
 			img = a.ToMatff()
-			MEPs = img.Getcol(3)
-			img.Scale(float64(1.0 / hbmutil.Maxffl(MEPs)))
-			hbmplot.Drawim(da, img)
+			MEPs = pts.Getcol(3)
+			hbmplot.Drawim(da, img, Cmap)
 		},
 	}
+	fmt.Println("should only run once: ", time.Since(t0))
 
 	win.Connect("key-press-event", func(win *gtk.Window, ev *gdk.Event) {
+		t0 := time.Now()
 		keyEvent := &gdk.EventKey{ev}
-		if zoom, found := keyMap[keyEvent.KeyVal()]; found {
-			zoom()
+		if action, found := keyMap[keyEvent.KeyVal()]; found {
+			t1 := time.Now()
+			action()
+			fmt.Println("total func: ", time.Since(t1))
+			t1 = time.Now()
 			win.QueueDraw()
+			fmt.Println("queuedraw: ", time.Since(t1))
+
 		}
+		fmt.Println("connect: ", time.Since(t0))
+		fmt.Println("")
 	})
 
 	gtk.Main() // start the main loop, waiting for user to close the window
