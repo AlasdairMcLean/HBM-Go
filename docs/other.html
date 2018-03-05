@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<title>Reference and tutorials</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<body>
+
+<div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-large"
+  onclick="w3_close()">Close &times;</button>
+  <a href="index.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Home</a>
+  <a href="go.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Go Tutorial</a>
+  <a href="git.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Git Tutorial</a>
+  <a href="gotk3.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Gotk3 Tutorial</a>
+  <a href="extlink.html" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">External Links</a>
+  <a href="other.html" style="background-color: #E0EBF5;" class="w3-bar-item w3-button w3-border-bottom w3-hover-blue">Other</a>
+</div>
+
+<div id="main">
+
+<div class="w3-light-grey">
+  <button id="openNav" class="w3-button w3-light-grey w3-xlarge" onclick="w3_open()">&#9776;</button>
+  <div class="w3-container">
+    <h1 style="color:#375EAB">Other</h1>
+  </div>
+</div>
+
+<div class="w3-container">
+<p>Other important things:</p>
+</div>
+
+
+<script>
+function w3_open() {
+  document.getElementById("main").style.marginLeft = "25%";
+  document.getElementById("mySidebar").style.width = "25%";
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("openNav").style.display = 'none';
+}
+function w3_close() {
+  document.getElementById("main").style.marginLeft = "0%";
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("openNav").style.display = "inline-block";
+}
+</script>
+
+<p>
+Don't forget all of the MATLAB code is documented in the github wiki: https://github.com/AlasdairMcLean/MATLABprototyping/wiki <br>
+
+Also, all of the current Go code is documented in the go github wiki: https://github.com/AlasdairMcLean/HBM-Go/wiki <br>
+
+Some things that have already been coded in go: <br>
+</p>
+<ul>
+
+<li> Matrices, including dot product, transpose, matrix creation, scalar multiplication, display/output, random matrices for testing, ones(), and zeros()
+</li>
+<li> Summation functions
+</li>
+<li> Greyscale colormap that returns rgb values
+</li>
+</ul>
+<p>
+To import the above, add "./hbmutil" to your imports. You can find all the documentation on the HBM-Go wiki listed above. <br>
+
+You can see all the current issues/tasks on the issues page of github: https://github.com/AlasdairMcLean/HBM-Go/issues <br>
+
+For anyone who is using vscode <br>
+I recommend installing the following packages: <br>
+
+<ul>
+<li>Bookmarks - Allows you to bookmark lines so you don't lose your place </li>
+<li>Code Runner - lets you run Go code without needing to use terminal </li>
+<li>GitLens - Shows you who wrote what lines of code, some other cool things like seeing revision history, ect </li>
+<li>Go - Adds syntax highlighting, snippets, auto-imports (if you reference a package and save, it should automatically import it at the top of the file) </li>
+<li>markdownlint - Helps when you document your code in Markdown </li>
+<li>Matlab - Syntax highlighting and error messages for matlab  </li>
+<li>Project Manager - Helps you jump back and forth between go and matlab </li>
+<li>vscode-icons - makes the icons more different so you can see file types easier </li>
+
+</ul>
+<p>
+when you open vscode, there is a square icon on the left (it's the fifth one down) <br>
+if you click that, it will open extensions <br>
+you can manually search for those extensions above, and just click install and it will take care of all the installation for you <br>
+</p>
