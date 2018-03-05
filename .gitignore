@@ -51,8 +51,10 @@ debug
 
 # If you need a test script for your Go code,       #
 # name it tstmain.go and then vsc won't continually #
-# try to commit the file.                           #
-####################################################
+# try to commit the file. Alternatively, make a     #
+# folder called Test.                               #
+#####################################################
 tstmain.go
 */tstmain.go
-Test/tstmain.go
+Test/
+.vscode/
