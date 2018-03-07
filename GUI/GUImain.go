@@ -2,14 +2,13 @@ package main
 
 import (
 	"fmt"
+	"hbm/plot"
+	"hbm/util"
 	"time"
 
 	"github.com/gotk3/gotk3/gdk"
 
 	"github.com/gotk3/gotk3/gtk"
-
-	"hbm/plot"
-	"hbm/util"
 )
 
 const (
@@ -34,7 +33,7 @@ func main() {
 
 	file := getfile()
 	// as an example, read TSMEP1.csv
-	pts, err := hbmutil.ReadMEP(file, 0, 1, 2, 3) //use the csv parse library in hbmutil to return an array of points and corresponding mep amplitudes
+	pts, err := hbmutil.ReadMEPcsvf(file, 0, 1, 2, 3) //use the csv parse library in hbmutil to return an array of points and corresponding mep amplitudes
 	if err != nil {
 		panic(err)
 	}
@@ -47,69 +46,66 @@ func main() {
 	img := a.ToMatff()                                 // return the image to float64 as Cairo needs
 	MEPs := pts.Getcol(3)                              // get the 4th column
 	hbmplot.Drawim(da, img, Cmap)                      // draws image on the drawing area using hbmutil package
-	canvsc := 1
-	keyMap := map[uint]func(){
-		gdk.KEY_equal: func() {
-			canvsc++
-			hbmplot.ZoomCanvas(da, img, canvsc, Cmap)
+	canvsc := 1                                        // keep track of how scaled we are
+	keyMap := map[uint]func(){                         // map keyboard keys to a function
+		gdk.KEY_equal: func() { // If the enter key is pressed, do the following:
+			canvsc++                                  // increase the canvas scale so we keep track of what the user is looking at
+			hbmplot.ZoomCanvas(da, img, canvsc, Cmap) // and zoom the canvas in appropriately
 		},
-		gdk.KEY_minus: func() {
-			if canvsc > 1 {
-				canvsc--
-				hbmplot.ZoomCanvas(da, img, canvsc, Cmap)
+		gdk.KEY_minus: func() { // If the minus key is pressed, do the following:
+			if canvsc > 1 { // so long as we aren't trying to zoom out from full scale (which would result in dividing by zero)
+				canvsc--                                  // decrease the canvas scale so we keep track of what the user is looking at
+				hbmplot.ZoomCanvas(da, img, canvsc, Cmap) // and zoom out the canvas appropriately
 			}
 		},
-		gdk.KEY_Insert: func() {
+		gdk.KEY_Insert: func() { // If the insert key is pressed, do the following:
 			t1 := time.Now()
-			if xcol < 2 {
-				xcol++
-			} else {
-				xcol = 0
+			if xcol < 2 { // rotate through the x columns
+				xcol++ //increment the excel column to represent on the x-axis.
+			} else { // if we have the last column on the x-axis,
+				xcol = 0 // then reset back to the first column so we don't trail off into empty columns
 			}
 			fmt.Println("Col switch: ", time.Since(t1))
 
 			t1 = time.Now()
-			a = hbmutil.MattoImgi(ptsi, xcol, ycol, 256, 256)
+			a = hbmutil.MattoImgi(ptsi, xcol, ycol, 256, 256) // change the points from the excel column into an image matrix
 			fmt.Println("Matrix to imgi: ", time.Since(t1))
 
 			t1 = time.Now()
-			img = a.ToMatff()
+			img = a.ToMatff() // change the image matrix to a double precision matrix for cairo
 			fmt.Println("To matff: ", time.Since(t1))
 
 			t1 = time.Now()
-			MEPs = pts.Getcol(3)
+			MEPs = pts.Getcol(3) // get the MEPs from the parsed points
 			fmt.Println("getcol: ", time.Since(t1))
 
 			t1 = time.Now()
-			fmt.Println("scale: ", time.Since(t1))
-
-			t1 = time.Now()
-			hbmplot.Drawim(da, img, Cmap)
+			hbmplot.Drawim(da, img, Cmap) // draw the image on the screen
 			fmt.Println("drawim: ", time.Since(t1))
 		},
-		gdk.KEY_Delete: func() {
-			if ycol < 2 {
-				ycol++
-			} else {
-				ycol = 0
+		gdk.KEY_Delete: func() { // if the delete key is pressed, do the following:
+			if ycol < 2 { // iterate through the column to plot on the y-axis
+				ycol++ // keep track of the column we are graphing
+			} else { // but if we are already plotting the last column,
+				ycol = 0 // then reset back to the first column
 			}
-			a = hbmutil.MattoImgi(ptsi, xcol, ycol, 256, 256)
-			img = a.ToMatff()
-			MEPs = pts.Getcol(3)
-			hbmplot.Drawim(da, img, Cmap)
+			a = hbmutil.MattoImgi(ptsi, xcol, ycol, 256, 256) // convert the points from the excel sheet into an image matrix
+			img = a.ToMatff()                                 // convert that image matrix into double precision for cairo
+			MEPs = pts.Getcol(3)                              // get the MEP column
+			hbmplot.Drawim(da, img, Cmap)                     // draw the image on the screen
 		},
 	}
 	fmt.Println("should only run once: ", time.Since(t0))
 
-	win.Connect("key-press-event", func(win *gtk.Window, ev *gdk.Event) {
+	win.Connect("key-press-event", func(win *gtk.Window, ev *gdk.Event) { // capture key-press events for the key commands that are already enabled
 		t0 := time.Now()
-		keyEvent := &gdk.EventKey{ev}
-		if action, found := keyMap[keyEvent.KeyVal()]; found {
+		keyEvent := &gdk.EventKey{ev}                          // capture the key from the queue
+		if action, found := keyMap[keyEvent.KeyVal()]; found { // if the key pressed is in fact one of the valid key commands,
 			t1 := time.Now()
-			action()
+			action() // do the function associated with that key (zoom, switch column, ect)
 			fmt.Println("total func: ", time.Since(t1))
 			t1 = time.Now()
-			win.QueueDraw()
+			win.QueueDraw() // redraw the screen to update for changes
 			fmt.Println("queuedraw: ", time.Since(t1))
 
 		}
@@ -125,7 +121,7 @@ func setupWindow(title string, wid, hei int) (*gtk.Window, *gtk.Box) {
 	win, err := gtk.WindowNew(gtk.WINDOW_TOPLEVEL) //create a new toplevel window
 	if err != nil {
 		pmsg := fmt.Sprintf("Unable to create window: %v", err)
-		panic(pmsg)
+		panic(pmsg) // capture the error if for some reason the window cannot be created
 	}
 	gtk.WindowSetDefaultIconFromFile("./brainimg.png") // use the brainimg.png file as an icon
 	win.SetTitle(title)                                // sets title to that specified as input to setupWindow function
@@ -136,7 +132,7 @@ func setupWindow(title string, wid, hei int) (*gtk.Window, *gtk.Box) {
 	win.SetPosition(gtk.WIN_POS_CENTER)              // centers the window on the screen
 	mainbox := makevGTKBox()                         // make a new box for packing elements
 	setupBoxToolBar(mainbox, "File", "Edit", "Help") // make an example toolbar
-	return win, mainbox
+	return win, mainbox                              // return the window and the main box unit to hold the elements inside
 }
 
 func setupBoxToolBar(box *gtk.Box, label ...string) { //sets up the example toolbar. will have callback functions later.
@@ -155,10 +151,10 @@ func setupBoxToolBar(box *gtk.Box, label ...string) { //sets up the example tool
 func makevGTKBox() *gtk.Box { //boilerplate code for a new box to hold all the objects
 	newbox, err := gtk.BoxNew(gtk.ORIENTATION_VERTICAL, 1) //make a vertical box (means that startpack will pack from the top)
 	if err != nil {
-		panic(err)
+		panic(err) // capture the error if for some reason the box cannot be created
 	}
 
-	return newbox
+	return newbox // return the newly created box
 }
 
 func getfile() string {
@@ -171,15 +167,15 @@ func getfile() string {
 	dlgwin.Connect("destroy", func() { //destroy the window if the user clicks the x
 		gtk.MainQuit()
 	})
-	dlgwin.SetDefaultSize(WINWID/2, WINHEI/2) // set the default size to that specified in setupWindow input
-	dlgwin.SetPosition(gtk.WIN_POS_CENTER)
-	filechooser, _ := gtk.FileChooserDialogNewWith2Buttons(
-		"Open...",
+	dlgwin.SetDefaultSize(WINWID/2, WINHEI/2)               // set the default size to that specified in setupWindow input
+	dlgwin.SetPosition(gtk.WIN_POS_CENTER)                  // center the window
+	filechooser, _ := gtk.FileChooserDialogNewWith2Buttons( // set up the file chooser window
+		"Select MEPs...", // Set the title of the window
 		dlgwin,
 		gtk.FILE_CHOOSER_ACTION_OPEN,
-		"Cancel",
+		"Cancel", // use a button if the user wishes to cancel the file open operation
 		gtk.RESPONSE_DELETE_EVENT,
-		"Open",
+		"Open", // use a button for opening the file
 		gtk.RESPONSE_ACCEPT)
 	filter, _ := gtk.FileFilterNew()
 	filter.AddPattern("*.csv")

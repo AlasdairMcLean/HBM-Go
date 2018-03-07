@@ -11,10 +11,7 @@ import (
 //Recommended default values: numrep=200; NodeThresh=4; NumNodes=50
 func ClusterFromFile(fulldatafilepat string, MEPcol, NumNodes, numrep int, NodeThresh float32) []*ClusterNode {
 
-	datamat, err := hbmutil.ReadMEP(fulldatafilepat, 0, 1, 2, 3)
-	if err != nil {
-		panic(err)
-	}
+	datamat := hbmutil.ReadMEPcsvf(fulldatafilepat)
 	data := datamat.Data
 
 	nodecount := 0 // first node is located at the first point
