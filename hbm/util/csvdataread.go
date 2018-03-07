@@ -6,12 +6,10 @@ import (
 	"io"
 	"os"
 	"strconv"
-
-	"github.com/AlasdairMcLean/HBM-Go/hbmutil"
 )
 
 //ReadMEPcsvf reads MEPs out of a comma separated values file, ignoring non-numeric characters.
-func ReadMEPcsvf(file string) *hbmutil.Matrixf {
+func ReadMEPcsvf(file string) *Matrixf {
 	csvfile, err := os.Open(file) // open the csv fiel
 
 	if err != nil {
@@ -33,7 +31,7 @@ func ReadMEPcsvf(file string) *hbmutil.Matrixf {
 			fields++
 		}
 	}
-	out := hbmutil.NewMatrixf(fields/4+1, 4)
+	out := NewMatrixf(fields/4+1, 4)
 	col := 0
 	row := 0
 	curval := ""
@@ -84,6 +82,7 @@ func parseptstoptsf(data [][]string, xcol, ycol, zcol, MEPcol int) []Point3f {
 func parseptstomatf(data [][]string, xcol, ycol, zcol, MEPcol int) *Matrixf {
 	out := NewMatrixf(len(data), 4)  // make a new matrix to hold the points
 	for j := 0; j < len(data); j++ { // for each row (separate entry)
+		fmt.Println(data[j][:])
 		x, errx := (strconv.ParseFloat(data[j][xcol], 32))   // parse for a float in the x column
 		y, erry := (strconv.ParseFloat(data[j][ycol], 32))   // parse for a float in the y column
 		z, errz := (strconv.ParseFloat(data[j][zcol], 32))   // parse for a float in the z column

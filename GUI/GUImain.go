@@ -33,7 +33,7 @@ func main() {
 
 	file := getfile()
 	// as an example, read TSMEP1.csv
-	pts, err := hbmutil.ReadMEPcsvf(file, 0, 1, 2, 3) //use the csv parse library in hbmutil to return an array of points and corresponding mep amplitudes
+	pts := hbmutil.ReadMEPcsvf(file) //use the csv parse library in hbmutil to return an array of points and corresponding mep amplitudes
 	if err != nil {
 		panic(err)
 	}
