@@ -24,6 +24,9 @@ func MakeNode(cap int) *ClusterNode {
 func NewNodePts(x, y, z, v float32, cap int) *ClusterNode {
 	out := ClusterNode{Pts: *hbmutil.NewMatrixf(cap, 4), Maxpts: cap, Curpts: 1}
 	out.Pts.Unpackr(0, x, y, z, v)
+	out.X = hbmutil.Avgfl(out.Pts.Getcol(0)[:out.Curpts])
+	out.Y = hbmutil.Avgfl(out.Pts.Getcol(1)[:out.Curpts])
+	out.Z = hbmutil.Avgfl(out.Pts.Getcol(2)[:out.Curpts])
 	return &out
 }
 
