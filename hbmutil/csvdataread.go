@@ -1,34 +1,64 @@
 package hbmutil
 
 import (
-	"encoding/csv"
+	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"strconv"
+
+	"github.com/AlasdairMcLean/HBM-Go/hbmutil"
 )
 
-//ReadMEP takes MEP values from a csvfile and returns an array of hotspot points.
-func ReadMEP(file string, xcol, ycol, zcol, MEPcol int) (*Matrixf, error) {
-	//path, err := os.Getwd() // get the working directory
-	//if err != nil {
-	//	fmt.Println(err)
-	//}
-
-	//file := strings.Join([]string{path, filename}, "/") // construct the full path to the filename specified
+//ReadMEPcsvf reads MEPs out of a comma separated values file, ignoring non-numeric characters.
+func ReadMEPcsvf(file string) *hbmutil.Matrixf {
 	csvfile, err := os.Open(file) // open the csv fiel
 
 	if err != nil {
 		fmt.Println(err)
 	}
-	defer csvfile.Close()            // close the file to prevent memory leaks once we are done with it
-	reader := csv.NewReader(csvfile) // make a new reader out of the csv
-	reader.LazyQuotes = true         // lazy quotes prevents a parsing issue with csvs
-	MEPs, err := reader.ReadAll()    // read the entire file into a new variable, MEPs
-	if err != nil {
-		fmt.Println(err)
+	defer csvfile.Close() // close the file to prevent memory leaks once we are done with it
+	MEPrunes := make([]rune, 0, 10000)
+	reader := bufio.NewReader(csvfile)
+	for i := 0; ; i++ {
+		rn, _, err := reader.ReadRune()
+		if err == io.EOF {
+			break
+		}
+		MEPrunes = append(MEPrunes, rn)
 	}
-	MEPpoints := parseptstomatf(MEPs, xcol, ycol, zcol, MEPcol) //parse through the arrays produced by ReadAll to receive the MEPs
-	return MEPpoints, nil
+	fields := 0
+	for i := 0; i < len(MEPrunes); i++ {
+		if MEPrunes[i] == 13 || MEPrunes[i] == 44 {
+			fields++
+		}
+	}
+	out := hbmutil.NewMatrixf(fields/4+1, 4)
+	col := 0
+	row := 0
+	curval := ""
+	for i := 0; i < len(MEPrunes); i++ {
+		if MEPrunes[i] == 46 {
+			curval += "."
+		} else if MEPrunes[i] > 47 && MEPrunes[i] < 58 {
+			curval += string(MEPrunes[i])
+		} else if MEPrunes[i] == 13 || MEPrunes[i] == 44 {
+			val, _ := strconv.ParseFloat(curval, 32)
+			out.Data[row][col] = float32(val)
+			if col == 3 {
+				col = 0
+				row++
+			} else {
+				col++
+			}
+			curval = ""
+		}
+	}
+	if out.Data[out.Rows-1][0] == 0 && out.Data[out.Rows-1][1] == 0 && out.Data[out.Rows-1][2] == 0 && out.Data[out.Rows-1][3] == 0 {
+		out.Data = out.Data[:out.Rows-1]
+		out.Rows--
+	}
+	return out
 }
 
 //parseptstoptsf takes a 2-dimensional array and returns an array of hbmutil.Point3's.
